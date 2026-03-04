@@ -11,25 +11,31 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
+<<<<<<< master
 ### Chen Haozhe
 
 <img src="images/chenzmxy.png" width="200px">
 
 [[github](https://github.com/chenzmxy)]
 [[portfolio](team/johndoe.md)]
+=======
+### Kai Jie
+
+<img src="images/kj-infosec.png" width="200px">
+
+[[github](https://github.com/johndoe)]
+>>>>>>> master
 
 * Role: Developer
 * Responsibility: Documentation 
 
-### Jane Doe
+### Gracia Chew
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/gracias022.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/gracias022)]
 
-* Role: Team Lead
-* Responsibilities: UI
+* Role: Team Member
 
 ### Johnny Doe
 

@@ -68,6 +68,11 @@ public class OrderList {
         return internalUnmodifiableList;
     }
 
+    public boolean isEmpty() {
+        return internalList.isEmpty();
+    }
+
+    public Order get(int index) {}
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -82,6 +87,7 @@ public class OrderList {
         OrderList otherOrderList = (OrderList) other;
         return internalList.equals(otherOrderList.internalList);
     }
+
 
     @Override
     public int hashCode() {

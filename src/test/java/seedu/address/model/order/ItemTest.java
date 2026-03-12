@@ -25,17 +25,17 @@ public class ItemTest {
         assertThrows(NullPointerException.class, () -> Item.isValidItem(null));
 
         // invalid item
-        assertFalse(Item.isValidItem(""));        // empty string
-        assertFalse(Item.isValidItem(" "));       // spaces only
-        assertFalse(Item.isValidItem("^"));       // non-alphanumeric only
-        assertFalse(Item.isValidItem("pizza*"));  // contains invalid characters
+        assertFalse(Item.isValidItem("")); // empty string
+        assertFalse(Item.isValidItem(" ")); // spaces only
+        assertFalse(Item.isValidItem("^")); // non-alphanumeric only
+        assertFalse(Item.isValidItem("pizza*")); // contains invalid characters
 
         // valid item
-        assertTrue(Item.isValidItem("Pizza"));          // alphabets only
-        assertTrue(Item.isValidItem("12345"));          // numbers only
-        assertTrue(Item.isValidItem("Pizza 2"));        // alphanumeric with space
-        assertTrue(Item.isValidItem("Chicken Rice"));   // multiple words
-        assertTrue(Item.isValidItem("Big Mac 2"));      // long names
+        assertTrue(Item.isValidItem("Pizza")); // alphabets only
+        assertTrue(Item.isValidItem("12345")); // numbers only
+        assertTrue(Item.isValidItem("Pizza 2")); // alphanumeric with space
+        assertTrue(Item.isValidItem("Chicken Rice")); // multiple words
+        assertTrue(Item.isValidItem("Big Mac 2")); // long names
     }
 
     @Test

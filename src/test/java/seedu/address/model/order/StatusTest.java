@@ -27,12 +27,12 @@ public class StatusTest {
         assertThrows(NullPointerException.class, () -> Status.isValidStatus(null));
 
         // invalid statuses
-        assertFalse(Status.isValidStatus(""));           // empty
-        assertFalse(Status.isValidStatus(" "));          // spaces
-        assertFalse(Status.isValidStatus("done"));       // not allowed
-        assertFalse(Status.isValidStatus("ready!"));     // invalid char
-        assertFalse(Status.isValidStatus("PREPARE"));    // partial match
-        assertFalse(Status.isValidStatus("DELIVER"));    // partial match
+        assertFalse(Status.isValidStatus("")); // empty
+        assertFalse(Status.isValidStatus(" ")); // spaces
+        assertFalse(Status.isValidStatus("done")); // not allowed
+        assertFalse(Status.isValidStatus("ready!")); // invalid char
+        assertFalse(Status.isValidStatus("PREPARE")); // partial match
+        assertFalse(Status.isValidStatus("DELIVER")); // partial match
 
         // valid statuses (must match regex exactly)
         assertTrue(Status.isValidStatus("PREPARING"));

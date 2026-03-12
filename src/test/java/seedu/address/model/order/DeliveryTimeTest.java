@@ -41,10 +41,10 @@ public class DeliveryTimeTest {
 
         // invalid formats
         assertFalse(DeliveryTime.isValidFormat(""));
-        assertFalse(DeliveryTime.isValidFormat("2025-12-12"));        // missing time
-        assertFalse(DeliveryTime.isValidFormat("2025-12-12 12:00"));  // colon not allowed
-        assertFalse(DeliveryTime.isValidFormat("2025/12/12 1200"));   // wrong separator
-        assertFalse(DeliveryTime.isValidFormat("2025-1-1 1200"));     // wrong digit count
+        assertFalse(DeliveryTime.isValidFormat("2025-12-12")); // missing time
+        assertFalse(DeliveryTime.isValidFormat("2025-12-12 12:00")); // colon not allowed
+        assertFalse(DeliveryTime.isValidFormat("2025/12/12 1200")); // wrong separator
+        assertFalse(DeliveryTime.isValidFormat("2025-1-1 1200")); // wrong digit count
 
         // valid formats
         assertTrue(DeliveryTime.isValidFormat("2025-12-12 1200"));

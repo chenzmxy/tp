@@ -51,31 +51,67 @@ public class OrderBuilder {
         status = orderToCopy.getStatus();
     }
 
+    /**
+     * Sets the customer index of the {@code Order} being built.
+     *
+     * @param index One-based index of the customer.
+     * @return This {@code OrderBuilder} for method chaining.
+     */
     public OrderBuilder withCustomerIndex(int index) {
         this.customerIndex = Index.fromOneBased(index);
         return this;
     }
 
+    /**
+     * Sets the item of the {@code Order} being built.
+     *
+     * @param item The item name.
+     * @return This {@code OrderBuilder} for method chaining.
+     */
     public OrderBuilder withItem(String item) {
         this.item = new Item(item);
         return this;
     }
 
+    /**
+     * Sets the quantity of the {@code Order} being built.
+     *
+     * @param quantity The quantity value.
+     * @return This {@code OrderBuilder} for method chaining.
+     */
     public OrderBuilder withQuantity(String quantity) {
         this.quantity = new Quantity(quantity);
         return this;
     }
 
+    /**
+     * Sets the delivery time of the {@code Order} being built.
+     *
+     * @param time The delivery time in {@code yyyy-MM-dd HHmm} format.
+     * @return This {@code OrderBuilder} for method chaining.
+     */
     public OrderBuilder withDeliveryTime(String time) {
         this.deliveryTime = new DeliveryTime(time);
         return this;
     }
 
+    /**
+     * Sets the address of the {@code Order} being built.
+     *
+     * @param address The delivery address.
+     * @return This {@code OrderBuilder} for method chaining.
+     */
     public OrderBuilder withAddress(String address) {
         this.address = new Address(address);
         return this;
     }
 
+    /**
+     * Sets the status of the {@code Order} being built.
+     *
+     * @param status The order status.
+     * @return This {@code OrderBuilder} for method chaining.
+     */
     public OrderBuilder withStatus(String status) {
         this.status = new Status(status);
         return this;

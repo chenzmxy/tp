@@ -25,13 +25,13 @@ public class QuantityTest {
         assertThrows(NullPointerException.class, () -> Quantity.isValidQuantity(null));
 
         // invalid quantities
-        assertFalse(Quantity.isValidQuantity(""));      // empty
-        assertFalse(Quantity.isValidQuantity(" "));     // spaces
-        assertFalse(Quantity.isValidQuantity("0"));     // zero not allowed
-        assertFalse(Quantity.isValidQuantity("-1"));    // negative
-        assertFalse(Quantity.isValidQuantity("1.5"));   // decimal
-        assertFalse(Quantity.isValidQuantity("abc"));   // non-numeric
-        assertFalse(Quantity.isValidQuantity("2a"));    // alphanumeric
+        assertFalse(Quantity.isValidQuantity("")); // empty
+        assertFalse(Quantity.isValidQuantity(" ")); // spaces
+        assertFalse(Quantity.isValidQuantity("0")); // zero not allowed
+        assertFalse(Quantity.isValidQuantity("-1")); // negative
+        assertFalse(Quantity.isValidQuantity("1.5")); // decimal
+        assertFalse(Quantity.isValidQuantity("abc")); // non-numeric
+        assertFalse(Quantity.isValidQuantity("2a")); // alphanumeric
 
         // valid quantities
         assertTrue(Quantity.isValidQuantity("1"));

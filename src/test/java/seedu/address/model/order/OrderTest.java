@@ -45,7 +45,7 @@ public class OrderTest {
         assertFalse(ORDER_A.equals(editedOrder));
 
         // different delivery time -> returns false
-        editedOrder = new OrderBuilder(ORDER_A).withDeliveryTime("23:59").build();
+        editedOrder = new OrderBuilder(ORDER_A).withDeliveryTime("2030-01-01 2359").build();
         assertFalse(ORDER_A.equals(editedOrder));
 
         // different address -> returns false
@@ -53,7 +53,7 @@ public class OrderTest {
         assertFalse(ORDER_A.equals(editedOrder));
 
         // different status -> returns false
-        editedOrder = new OrderBuilder(ORDER_A).withStatus("Delivered").build();
+        editedOrder = new OrderBuilder(ORDER_A).withStatus("DELIVERED").build();
         assertFalse(ORDER_A.equals(editedOrder));
 
         // different customer index -> returns false

@@ -5,6 +5,8 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
+import seedu.address.model.order.Order;
 import seedu.address.model.person.Person;
 
 /**
@@ -84,4 +86,23 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Adds the given {@code order}.
+     */
+    void addOrder(Order order);
+
+    /**
+     * Deletes the given order from the address book.
+     * The order must exist in the address book.
+     */
+    void deleteOrder(Order order);
+
+    /**
+     * Removes all orders belonging to the customer identified by {@code customerIndex}.
+     */
+    void deleteOrdersForCustomer(Index customerIndex);
+
+    /** Returns an unmodifiable view of the order list */
+    ObservableList<Order> getOrderList();
 }

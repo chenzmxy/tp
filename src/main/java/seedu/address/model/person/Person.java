@@ -38,6 +38,7 @@ public class Person {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.orderList = new OrderList();
     }
 
     public void addOrder(Order order) {

@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.address.model.AddressBook;
 import seedu.address.model.order.Order;
-import seedu.address.model.order.OrderList;;
+import seedu.address.model.order.OrderList;
 import seedu.address.model.order.Status;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.OrderBuilder;
@@ -171,7 +171,6 @@ public class ViewOrderCommandTest {
     @Test
     public void getAllOrders_allPersonsHaveNullOrders_returnsEmptyList() {
         // All persons have null orders (default state)
-
         OrderList result = addressBook.getAllOrders();
 
         assertTrue(result.isEmpty());

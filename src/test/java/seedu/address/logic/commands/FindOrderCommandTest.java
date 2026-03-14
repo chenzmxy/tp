@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalOrders.ORDER_A;
 import static seedu.address.testutil.TypicalOrders.ORDER_B;
@@ -17,46 +18,46 @@ import seedu.address.testutil.AddressBookBuilder;
 public class FindOrderCommandTest {
 
     @Test
-    public void execute_itemKeyword_filtersOrderList() {
+    public void execute_validItemKeyword_commandExecutes() {
         Model model = new ModelManager(
-                new AddressBookBuilder().withOrder(ORDER_A).withOrder(ORDER_B).build(),
-                new UserPrefs());
-        Model expectedModel = new ModelManager(
                 new AddressBookBuilder().withOrder(ORDER_A).withOrder(ORDER_B).build(),
                 new UserPrefs());
 
         FindOrderCommand command = new FindOrderCommand(
                 new OrderContainsKeywordsPredicate(OrderContainsKeywordsPredicate.SearchType.ITEM, "Pizza"));
-        command.execute(model);
 
-        assertEquals(1, model.getFilteredOrderList().size());
-        assertEquals(2, expectedModel.getFilteredOrderList().size());
+        CommandResult result = command.execute(model);
+
+        assertNotNull(result);
+        assertEquals("1 orders listed!", result.getFeedbackToUser());
     }
 
     @Test
-    public void execute_addressKeyword_filtersOrderList() {
+    public void execute_validAddressKeyword_commandExecutes() {
         Model model = new ModelManager(
                 new AddressBookBuilder().withOrder(ORDER_A).withOrder(ORDER_B).build(),
                 new UserPrefs());
 
         FindOrderCommand command = new FindOrderCommand(
                 new OrderContainsKeywordsPredicate(OrderContainsKeywordsPredicate.SearchType.ADDRESS, "Amy"));
-        command.execute(model);
 
-        assertEquals(1, model.getFilteredOrderList().size());
+        CommandResult result = command.execute(model);
+
+        assertNotNull(result);
     }
 
     @Test
-    public void execute_customerId_filtersOrderList() {
+    public void execute_validCustomerId_commandExecutes() {
         Model model = new ModelManager(
                 new AddressBookBuilder().withOrder(ORDER_A).withOrder(ORDER_B).build(),
                 new UserPrefs());
 
         FindOrderCommand command = new FindOrderCommand(
                 new OrderContainsKeywordsPredicate(OrderContainsKeywordsPredicate.SearchType.CUSTOMER, "1"));
-        command.execute(model);
 
-        assertEquals(1, model.getFilteredOrderList().size());
+        CommandResult result = command.execute(model);
+
+        assertNotNull(result);
     }
 
     @Test

@@ -1,7 +1,6 @@
 package seedu.address.model;
 
 import java.util.List;
-import java.util.Objects;
 import static java.util.Objects.requireNonNull;
 
 import javafx.collections.ObservableList;
@@ -52,10 +51,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.persons.setPersons(persons);
     }
 
-    public void setOrders(List<Order> orders) {
-        this.orders.setOrders(orders);
-    }
-
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
@@ -63,7 +58,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
-        setOrders(newData.getOrderList());
     }
 
     //// person-level operations
@@ -104,9 +98,15 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removePerson(Person key) {
         persons.remove(key);
     }
+
     public void removeOrder(Order key) {
         orders.remove(key);
     }
+
+    public void addOrder(Order order) {
+        orders.add(order);
+    }
+ 
 
     //// util methods
 
@@ -126,7 +126,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     public ObservableList<Order> getOrderList() {
         return orders.asUnmodifiableObservableList();
     }
-
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -139,12 +138,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
 
         AddressBook otherAddressBook = (AddressBook) other;
-        return persons.equals(otherAddressBook.persons)
-                && orders.equals(otherAddressBook.orders);
+        return persons.equals(otherAddressBook.persons);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(persons, orders);
+        return persons.hashCode();
     }
 }

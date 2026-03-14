@@ -8,7 +8,7 @@ import seedu.address.model.order.Status;
  * Command to view orders by status (PREPARING/READY/DELIVERED/CANCELLED/ALL)
  */
 public class ViewOrderCommand extends Command {
-    public static final String COMMAND_WORD = "viewOrder";
+    public static final String COMMAND_WORD = "view-o";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": View orders by status.\n"
             + "Parameters: STATUS (PREPARING/READY/DELIVERED/CANCELLED/ALL)\n"

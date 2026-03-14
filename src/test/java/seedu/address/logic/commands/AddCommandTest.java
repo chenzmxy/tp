@@ -168,7 +168,7 @@ public class AddCommandTest {
         public ObservableList<Order> getFilteredOrderList() {
             throw new UnsupportedOperationException("Not supported yet.");
         }
-        
+
         public void addOrder(Order order) {
             throw new AssertionError("This method should not be called.");
         }
@@ -180,7 +180,7 @@ public class AddCommandTest {
         public void deleteOrdersForCustomer(Index customerIndex) {
             throw new AssertionError("This method should not be called.");
         }
-        
+
         public ObservableList<Order> getOrderList() {
             throw new AssertionError("This method should not be called.");
         }

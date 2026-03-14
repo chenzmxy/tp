@@ -9,7 +9,8 @@ import seedu.address.model.order.OrderList;
 import seedu.address.model.order.Status;
 import seedu.address.testutil.OrderBuilder;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.TypicalOrders.ORDER_A;
 import static seedu.address.testutil.TypicalOrders.ORDER_B;
 import static seedu.address.testutil.TypicalOrders.ORDER_C;

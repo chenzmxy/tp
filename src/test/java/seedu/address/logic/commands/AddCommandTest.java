@@ -238,7 +238,7 @@ public class AddCommandTest {
 
         @Override
         public ReadOnlyAddressBook getAddressBook() {
-                return new AddressBook();
-            }
+            return new AddressBook();
+        }
     }
 }

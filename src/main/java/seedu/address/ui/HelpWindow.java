@@ -64,18 +64,18 @@ public class HelpWindow extends UiPart<Stage> {
                 "help");
 
         addCommandBlock("add", "Adds a customer to the customer database.",
-                "add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [ig/IG] [tg/TELEGRAM] [a/ADDRESS] [t/TAG]…​",
-                "add n/John Doe p/98765432 a/John Street, Blk 123, #01-01");
+                "add n/NAME [p/PHONE] [ig/IG] [fb/FACEBOOK] [a/ADDRESS] [r/REMARK] [t/TAG]…​",
+                "add n/John Doe p/98765432 a/John Street, Blk 123, #01-01 r/favorite customer");
 
         addCommandBlock("list", "Shows a list of all customers in the address book.",
                 "list",
                 "list");
 
         addCommandBlock("edit", "Edits an existing customer in the address book.",
-                "edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [ig/IG] [tg/TELEGRAM] [a/ADDRESS] [t/TAG]…​",
-                "edit 1 p/91234567 a/John Street, Blk 123, #02-02");
+                "edit INDEX [n/NAME] [p/PHONE] [ig/IG] [fb/FACEBOOK] [a/ADDRESS] [r/REMARK] [t/TAG]…​",
+                "edit 1 p/91234567 a/John Street, Blk 123, #02-02 r/favorite customer");
 
-        addCommandBlock("find", "Finds customers whose any of the field contain any of the given keywords.",
+       addCommandBlock("find", "Finds customers whose any of the field contain any of the given keywords.",
                 "find KEYWORD [MORE_KEYWORDS]",
                 "find John");
 

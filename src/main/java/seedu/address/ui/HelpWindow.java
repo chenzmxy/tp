@@ -121,13 +121,13 @@ public class HelpWindow extends UiPart<Stage> {
         helpContentBox.getChildren().addAll(footerSeparator, footer);
     }
 
-/**
- * Adds a command block to the help content box.
- * @param command The command to add.
- * @param description The description of the command.
- * @param format The format of the command.
- * @param example The example of the command.
- */
+    /**
+     * Adds a command block to the help content box.
+     * @param command The command to add.
+     * @param description The description of the command.
+     * @param format The format of the command.
+     * @param example The example of the command.
+     */
     private void addCommandBlock(String command, String description, String format, String example) {
         VBox block = new VBox(4);
         block.getStyleClass().add("help-block");

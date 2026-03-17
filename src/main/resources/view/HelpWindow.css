@@ -16,7 +16,7 @@
 }
 
 #helpContentBox {
-    -fx-background-color: derive(#ffffff, 20%);
+    -fx-background-color: rgb(237, 233, 221);
 }
 
 .help-heading {
@@ -31,7 +31,7 @@
 }
 
 .help-block {
-    -fx-background-color: rgb(255, 252, 241);
+    -fx-background-color: rgb(255, 255, 255);
     -fx-background-radius: 6px;
     -fx-padding: 10px;
 }
@@ -67,5 +67,5 @@
 .help-footer {
     -fx-font-family: "Segoe UI", "Helvetica Neue", sans-serif;
     -fx-font-size: 11pt;
-    -fx-text-fill: rgb(255, 255, 255);
+    -fx-text-fill: rgb(5, 28, 102);
 }

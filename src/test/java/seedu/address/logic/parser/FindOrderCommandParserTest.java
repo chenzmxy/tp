@@ -14,6 +14,18 @@ public class FindOrderCommandParserTest {
     private final FindOrderCommandParser parser = new FindOrderCommandParser();
 
     @Test
+    public void parse_emptyArgs_throwsParseException() {
+        assertParseFailure(parser, "",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindOrderCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_invalidPrefix_throwsParseException() {
+        assertParseFailure(parser, " x/value",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindOrderCommand.MESSAGE_USAGE));
+    }
+
+    @Test
     public void parse_itemPrefix_returnsFindOrderCommand() {
         assertParseSuccess(parser, " i/pizza",
                 new FindOrderCommand(
@@ -35,12 +47,6 @@ public class FindOrderCommandParserTest {
                 new FindOrderCommand(
                         new OrderContainsKeywordsPredicate(
                                 OrderContainsKeywordsPredicate.SearchType.CUSTOMER, "1")));
-    }
-
-    @Test
-    public void parse_noPrefix_throwsParseException() {
-        assertParseFailure(parser, "pizza",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindOrderCommand.MESSAGE_USAGE));
     }
 
     @Test

@@ -116,10 +116,11 @@ Examples:
 *  `edit 1 p/91234567 a/John Street, Blk 123, #02-02` Edits the phone number and delivery address of the 1st customer to be `91234567` and `John Street, Blk 123, #02-02` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd customer to be `Betsy Crower` and clears all existing tags.
 
-### Locating customers by name: `find`
+### Finding customers: `find`
 
 Finds customers whose any of the field contain any of the given keywords.
 
+## General Search
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 * The search is case-insensitive. e.g `hans` will match `Hans`
@@ -131,6 +132,24 @@ Examples:
 * `find 99272758` returns `Bernice Yu` as she had the number 99272758<br>
   ![result for 'find 99272758'](images/findBernice.png)
 
+## Specific Field Search
+Format: `find PREFIX/KEYWORD`
+
+* The search is case-insensitive. e.g `hans` will match `Hans`
+* Limits the search to a single specific field.
+* Only one prefix group are allowed.
+
+Available Prefixes:
+* n/ (Name)
+* p/ (Phone)
+* e/ (Email)
+* a/ (Address)
+* t/ (Tag)
+
+Example:
+* find n/Alice returns all persons whose names contain "Alice"
+* find t/colleagues returns all persons whose tags contain "colleagues".
+
 ### Deleting a customer : `delete`
 
 Deletes the specified customer from the customer database.
@@ -140,6 +159,7 @@ Format: `delete INDEX`
 * Deletes the customer at the specified `INDEX`.
 * The index refers to the index number shown in the displayed customer list.
 * The index **must be a positive integer** 1, 2, 3, …​
+* All orders associated with the deleted customer will also be removed.
 
 Examples:
 * `list` followed by `delete 2` deletes the 2nd customer in the address book.
@@ -167,20 +187,17 @@ Format: `order INDEX i/ITEM_NAME q/QUANTITY at/DATE [a/DELIVERY_ADDRESS] [s/STAT
 
 ### Deleting an Order: `delete-o`
 
-Removes a specific order from a customer’s order history.
+Deletes the specific order from the order database.
 
-Format: `delete-o CUST_INDEX o/ORDER_INDEX`
+Format: `delete-o ORDER_INDEX`
 
-* Deletes the order at the specified `ORDER_INDEX` from the customer at `CUST_INDEX`.
-* The customer index refers to the index number shown in the displayed customer list.
-* The order index refers to the order number shown in that customer's order panel.
-* Both indices **must be positive integers** 1, 2, 3, …​
-* The order index must be valid for the specified customer.
+* Deletes the order at the specified `ORDER_INDEX`.
+* The order index refers to the index number shown in the displayed order list.
+* The index **must be positive integers** 1, 2, 3, …​
 
 **Examples:**
-* `delete-o 1 o/2` - Deletes the 2nd order from the 1st customer in the current list
-* `delete-o 3 o/1` - Deletes the 1st order from the 3rd customer in the current list
-
+* `view-o` followed by `delete-o 3` deletes the 3rd order in the results of the `view-o` command.
+* `find-o i/pizza` followed by `delete-o 1` deletes the 1st order in the results of the `find-o` command.
 
 ### Search for Orders based on certain keywords: `find-o`
 Search for different orders with 3 category options: item name, delivery address, customer id
@@ -190,12 +207,13 @@ Format `find-o Category-Type/Category-Keywords`
 * Find the orders given the `Category-Keywords` from the `Category-Type`.
 * The category keywords refer to the keyword used to look for orders.
 * The category type refers to one of the 3 category options shown above.
-* The category type **must be one of i/a/c**, which are respectively item, address, customer.
+* The category type **must be one of i/a/c/s**, which are respectively item, address, customer.
+* This command will only accept one keyword, do not input multiple keywords.
 
 **Examples:**
 * `find-o i/pizza` - Look for orders with item keyword "pizza"
 * `find-o a/Ang Mo Kio` - Look for orders with delivery address "Ang Mo Kio"
-
+* `find-o s/Delivered` - Look for orders that are already delivered
 
 ### View Orders by status: `view-o`
 
@@ -278,9 +296,11 @@ Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 **Add Contact**    | `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [ig/IG] [tg/TELEGRAM] [a/ADDRESS] [t/TAG]…​` <br> e.g., `add n/James Ho p/99996666 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/regular`
 **Add Order**| `order INDEX i/ITEM_NAME q/QUANTITY at/DELIVERY_TIME [a/DELIVERY_ADDRESS] [s/STATUS]` <br> e.g., `order 3  i/Pizza  q/3  at/2026-04-02 1200 a/123 Jurong West St 42, #05-01 s/PREPARING`
+**Find Order** | `find-o Category-Type/Category-Keywords` <br> e.g., `find-o i/pizza`
+**View Order** | 
 **Clear**  | `clear`
 **Delete Contact** | `delete INDEX` <br> e.g., `delete 3`
-**Delete Order** | `delete-o CUST_INDEX o/ORDER_INDEX` <br> e.g., `delete-o 1 o/2`
+**Delete Order** | `delete-o ORDER_INDEX` <br> e.g., `delete-o 1`
 **Edit Contact**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [ig/IG] [tg/TELEGRAM] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee ig/jamesLee`
 **Exit**   | `exit`
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`

@@ -190,11 +190,13 @@ Format `find-o Category-Type/Category-Keywords`
 * Find the orders given the `Category-Keywords` from the `Category-Type`.
 * The category keywords refer to the keyword used to look for orders.
 * The category type refers to one of the 3 category options shown above.
-* The category type **must be one of i/a/c**, which are respectively item, address, customer.
+* The category type **must be one of i/a/c/s**, which are respectively item, address, customer.
+* This command will only accept one keyword, do not input multiple keywords.
 
 **Examples:**
 * `find-o i/pizza` - Look for orders with item keyword "pizza"
 * `find-o a/Ang Mo Kio` - Look for orders with delivery address "Ang Mo Kio"
+* `find-o s/Delivered` - Look for orders that are already delivered
 
 
 ### View Orders by status: `view-o`
@@ -278,6 +280,8 @@ Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 **Add Contact**    | `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [ig/IG] [tg/TELEGRAM] [a/ADDRESS] [t/TAG]…​` <br> e.g., `add n/James Ho p/99996666 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/regular`
 **Add Order**| `order INDEX i/ITEM_NAME q/QUANTITY at/DELIVERY_TIME [a/DELIVERY_ADDRESS] [s/STATUS]` <br> e.g., `order 3  i/Pizza  q/3  at/2026-04-02 1200 a/123 Jurong West St 42, #05-01 s/PREPARING`
+**Find Order** | `find-o Category-Type/Category-Keywords` <br> e.g., `find-o i/pizza`
+**View Order** | 
 **Clear**  | `clear`
 **Delete Contact** | `delete INDEX` <br> e.g., `delete 3`
 **Delete Order** | `delete-o CUST_INDEX o/ORDER_INDEX` <br> e.g., `delete-o 1 o/2`

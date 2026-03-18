@@ -7,9 +7,15 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.FindOrderCommand;
+import seedu.address.model.order.Address;
+import seedu.address.model.order.DeliveryTime;
+import seedu.address.model.order.Item;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.OrderContainsKeywordsPredicate;
+import seedu.address.model.order.Quantity;
+import seedu.address.model.order.Status;
 
 public class FindOrderCommandParserTest {
 
@@ -18,15 +24,15 @@ public class FindOrderCommandParserTest {
     @Test
     public void parse_noArgs_returnsFindOrderCommandShowingAll() {
         FindOrderCommand command = parser.parse("");
-        // Verify the predicate shows all orders
-        assertTrue(command.predicate.test(new Order(
-                new seedu.address.commons.core.index.Index(0),
-                new seedu.address.model.order.Item("Test"),
-                new seedu.address.model.order.Quantity("1"),
-                new seedu.address.model.order.DeliveryTime("2030-12-01 1800"),
-                new seedu.address.model.person.Address("Test Address"),
-                new seedu.address.model.order.Status("PREPARING")
-        )));
+        Order testOrder = new Order(
+                Index.fromZeroBased(0),
+                new Item("Test"),
+                new Quantity("1"),
+                new DeliveryTime("2030-12-01 1800"),
+                new Address("Test Address"),
+                new Status("PREPARING")
+        );
+        assertTrue(command.getPredicate().test(testOrder));
     }
 
     @Test

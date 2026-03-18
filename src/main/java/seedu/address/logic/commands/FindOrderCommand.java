@@ -35,6 +35,10 @@ public class FindOrderCommand extends Command {
         this.predicate = predicate;
     }
 
+    public Predicate<Order> getPredicate() {
+        return predicate;
+    }
+
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);

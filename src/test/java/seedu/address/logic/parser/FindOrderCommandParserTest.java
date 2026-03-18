@@ -23,8 +23,8 @@ public class FindOrderCommandParserTest {
     private final FindOrderCommandParser parser = new FindOrderCommandParser();
 
     @Test
-    public void parse_noArgs_returnsFindOrderCommandShowingAll() throws ParseException {
-        FindOrderCommand command = parser.parse("");
+    public void parse_all_returnsFindOrderCommandShowingAll() throws ParseException {
+        FindOrderCommand command = parser.parse("ALL");
         Order testOrder = new Order(
                 Index.fromZeroBased(0),
                 new Item("Test"),
@@ -34,6 +34,32 @@ public class FindOrderCommandParserTest {
                 new Status("PREPARING")
         );
         assertTrue(command.getPredicate().test(testOrder));
+    }
+
+    @Test
+    public void parse_allLowercase_returnsFindOrderCommandShowingAll() throws ParseException {
+        FindOrderCommand command = parser.parse("all");
+        Order testOrder = new Order(
+                Index.fromZeroBased(0),
+                new Item("Test"),
+                new Quantity("1"),
+                new DeliveryTime("2030-12-01 1800"),
+                new Address("Test Address"),
+                new Status("PREPARING")
+        );
+        assertTrue(command.getPredicate().test(testOrder));
+    }
+
+    @Test
+    public void parse_emptyArgs_throwsParseException() {
+        assertParseFailure(parser, "",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindOrderCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_invalidPrefix_throwsParseException() {
+        assertParseFailure(parser, " x/value",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindOrderCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -58,21 +84,6 @@ public class FindOrderCommandParserTest {
                 new FindOrderCommand(
                         new OrderContainsKeywordsPredicate(
                                 OrderContainsKeywordsPredicate.SearchType.CUSTOMER, "1")));
-    }
-
-    @Test
-    public void parse_noPrefix_returnsFindOrderCommandShowingAll() throws ParseException {
-        // No prefix means show all orders
-        FindOrderCommand command = parser.parse("pizza");
-        Order testOrder = new Order(
-                Index.fromZeroBased(0),
-                new Item("Any Item"),
-                new Quantity("1"),
-                new DeliveryTime("2030-12-01 1800"),
-                new Address("Test Address"),
-                new Status("PREPARING")
-        );
-        assertTrue(command.getPredicate().test(testOrder));
     }
 
     @Test

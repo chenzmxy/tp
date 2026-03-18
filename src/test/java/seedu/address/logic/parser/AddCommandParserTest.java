@@ -4,12 +4,12 @@ import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_MISSING_CONTACT_METHOD;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.FACEBOOK_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.FACEBOOK_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INSTAGRAM_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.INSTAGRAM_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_FACEBOOK_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_INSTAGRAM_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
@@ -27,8 +27,8 @@ import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_FACEBOOK_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_FACEBOOK_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_INSTAGRAM_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_INSTAGRAM_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
@@ -38,7 +38,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_REMARK_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FACEBOOK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INSTAGRAM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -47,7 +47,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.AMY_ADDRESS_ONLY;
-import static seedu.address.testutil.TypicalPersons.AMY_EMAIL_ONLY;
+import static seedu.address.testutil.TypicalPersons.AMY_FACEBOOK_ONLY;
 import static seedu.address.testutil.TypicalPersons.AMY_INSTAGRAM_ONLY;
 import static seedu.address.testutil.TypicalPersons.AMY_PHONE_ONLY;
 import static seedu.address.testutil.TypicalPersons.BOB;
@@ -57,7 +57,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
+import seedu.address.model.person.Facebook;
 import seedu.address.model.person.Instagram;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -76,7 +76,7 @@ public class AddCommandParserTest {
                 .withTags(VALID_TAG_FRIEND).build();
 
         // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + FACEBOOK_DESC_BOB
                 + INSTAGRAM_DESC_BOB + ADDRESS_DESC_BOB + REMARK_DESC_BOB + TAG_DESC_FRIEND,
                 new AddCommand(expectedPerson));
 
@@ -86,7 +86,7 @@ public class AddCommandParserTest {
                 .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         assertParseSuccess(parser,
-                NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                NAME_DESC_BOB + PHONE_DESC_BOB + FACEBOOK_DESC_BOB
                         + INSTAGRAM_DESC_BOB + ADDRESS_DESC_BOB + REMARK_DESC_BOB
                         + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
                 new AddCommand(expectedPersonMultipleTags));
@@ -94,7 +94,7 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_repeatedNonTagValue_failure() {
-        String validExpectedPersonString = NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+        String validExpectedPersonString = NAME_DESC_BOB + PHONE_DESC_BOB + FACEBOOK_DESC_BOB
                 + INSTAGRAM_DESC_BOB + ADDRESS_DESC_BOB + REMARK_DESC_BOB + TAG_DESC_FRIEND;
 
         // multiple names
@@ -105,9 +105,9 @@ public class AddCommandParserTest {
         assertParseFailure(parser, PHONE_DESC_AMY + validExpectedPersonString,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PHONE));
 
-        // multiple emails
-        assertParseFailure(parser, EMAIL_DESC_AMY + validExpectedPersonString,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_EMAIL));
+        // multiple facebook handles
+        assertParseFailure(parser, FACEBOOK_DESC_AMY + validExpectedPersonString,
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_FACEBOOK));
 
         // multiple instagram handles
         assertParseFailure(parser, INSTAGRAM_DESC_AMY + validExpectedPersonString,
@@ -123,10 +123,10 @@ public class AddCommandParserTest {
 
         // multiple fields repeated
         assertParseFailure(parser,
-                validExpectedPersonString + PHONE_DESC_AMY + EMAIL_DESC_AMY + NAME_DESC_AMY
+                validExpectedPersonString + PHONE_DESC_AMY + FACEBOOK_DESC_AMY + NAME_DESC_AMY
                         + INSTAGRAM_DESC_AMY + ADDRESS_DESC_AMY + REMARK_DESC_AMY + validExpectedPersonString,
                 Messages.getErrorMessageForDuplicatePrefixes(
-                        PREFIX_NAME, PREFIX_ADDRESS, PREFIX_EMAIL, PREFIX_INSTAGRAM, PREFIX_PHONE, PREFIX_REMARK));
+                        PREFIX_NAME, PREFIX_ADDRESS, PREFIX_FACEBOOK, PREFIX_INSTAGRAM, PREFIX_PHONE, PREFIX_REMARK));
 
         // invalid value followed by valid value
 
@@ -134,9 +134,9 @@ public class AddCommandParserTest {
         assertParseFailure(parser, INVALID_NAME_DESC + validExpectedPersonString,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_NAME));
 
-        // invalid email
-        assertParseFailure(parser, INVALID_EMAIL_DESC + validExpectedPersonString,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_EMAIL));
+        // invalid facebook
+        assertParseFailure(parser, INVALID_FACEBOOK_DESC + validExpectedPersonString,
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_FACEBOOK));
 
         // invalid phone
         assertParseFailure(parser, INVALID_PHONE_DESC + validExpectedPersonString,
@@ -160,9 +160,9 @@ public class AddCommandParserTest {
         assertParseFailure(parser, validExpectedPersonString + INVALID_NAME_DESC,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_NAME));
 
-        // invalid email
-        assertParseFailure(parser, validExpectedPersonString + INVALID_EMAIL_DESC,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_EMAIL));
+        // invalid facebook
+        assertParseFailure(parser, validExpectedPersonString + INVALID_FACEBOOK_DESC,
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_FACEBOOK));
 
         // invalid phone
         assertParseFailure(parser, validExpectedPersonString + INVALID_PHONE_DESC,
@@ -186,27 +186,28 @@ public class AddCommandParserTest {
         // zero tags
         Person expectedPerson = new PersonBuilder(AMY).withRemark(VALID_REMARK_AMY).withTags().build();
         assertParseSuccess(parser,
-                NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + INSTAGRAM_DESC_AMY
+                NAME_DESC_AMY + PHONE_DESC_AMY + FACEBOOK_DESC_AMY + INSTAGRAM_DESC_AMY
                         + ADDRESS_DESC_AMY + REMARK_DESC_AMY,
                 new AddCommand(expectedPerson));
 
-        // only name and phone (no email, instagram, address and remark)
+        // only name and phone (no facebook, instagram, address and remark)
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY, new AddCommand(AMY_PHONE_ONLY));
 
-        // only name and email (no phone, instagram, address and remark)
-        assertParseSuccess(parser, NAME_DESC_AMY + EMAIL_DESC_AMY, new AddCommand(AMY_EMAIL_ONLY));
+        // only name and facebook (no phone, instagram, address and remark)
+        assertParseSuccess(parser, NAME_DESC_AMY + FACEBOOK_DESC_AMY, new AddCommand(AMY_FACEBOOK_ONLY));
 
-        // only name and instagram (no phone, email, address and remark)
+        // only name and instagram (no phone, facebook, address and remark)
         assertParseSuccess(parser, NAME_DESC_AMY + INSTAGRAM_DESC_AMY, new AddCommand(AMY_INSTAGRAM_ONLY));
 
-        // only name and address (no phone, email, instagram and remark)
+        // only name and address (no phone, facebook, instagram and remark)
         assertParseSuccess(parser, NAME_DESC_AMY + ADDRESS_DESC_AMY, new AddCommand(AMY_ADDRESS_ONLY));
 
-        // only name, phone and email
-        Person expectedPersonWithPhoneEmail = new PersonBuilder(AMY_PHONE_ONLY).withEmail(VALID_EMAIL_AMY).build();
+        // only name, phone and facebook
+        Person expectedPersonWithPhoneFb =
+                new PersonBuilder(AMY_PHONE_ONLY).withFacebook(VALID_FACEBOOK_AMY).build();
         assertParseSuccess(parser,
-                NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY,
-                new AddCommand(expectedPersonWithPhoneEmail));
+                NAME_DESC_AMY + PHONE_DESC_AMY + FACEBOOK_DESC_AMY,
+                new AddCommand(expectedPersonWithPhoneFb));
 
         // only name, phone and address
         Person expectedPersonWithPhoneAddress =
@@ -215,12 +216,11 @@ public class AddCommandParserTest {
                 NAME_DESC_AMY + PHONE_DESC_AMY + ADDRESS_DESC_AMY,
                 new AddCommand(expectedPersonWithPhoneAddress));
 
-        // only name, email and address
-        Person expectedPersonWithEmailAddress =
-                new PersonBuilder(AMY_EMAIL_ONLY).withAddress(VALID_ADDRESS_AMY).build();
+        // only name, facebook and address
+        Person expectedPersonWithFbAddress = new PersonBuilder(AMY_FACEBOOK_ONLY).withAddress(VALID_ADDRESS_AMY).build();
         assertParseSuccess(parser,
-                NAME_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY,
-                new AddCommand(expectedPersonWithEmailAddress));
+                NAME_DESC_AMY + FACEBOOK_DESC_AMY + ADDRESS_DESC_AMY,
+                new AddCommand(expectedPersonWithFbAddress));
 
         // only name, phone and instagram
         Person expectedPersonWithPhoneIg = new PersonBuilder(AMY_PHONE_ONLY).withInstagram(VALID_INSTAGRAM_AMY).build();
@@ -228,11 +228,12 @@ public class AddCommandParserTest {
                 NAME_DESC_AMY + PHONE_DESC_AMY + INSTAGRAM_DESC_AMY,
                 new AddCommand(expectedPersonWithPhoneIg));
 
-        // only name, email and instagram
-        Person expectedPersonWithEmailIg = new PersonBuilder(AMY_EMAIL_ONLY).withInstagram(VALID_INSTAGRAM_AMY).build();
+        // only name, facebook and instagram
+        Person expectedPersonWithFbIg =
+                new PersonBuilder(AMY_FACEBOOK_ONLY).withInstagram(VALID_INSTAGRAM_AMY).build();
         assertParseSuccess(parser,
-                NAME_DESC_AMY + EMAIL_DESC_AMY + INSTAGRAM_DESC_AMY,
-                new AddCommand(expectedPersonWithEmailIg));
+                NAME_DESC_AMY + FACEBOOK_DESC_AMY + INSTAGRAM_DESC_AMY,
+                new AddCommand(expectedPersonWithFbIg));
 
         // only name, address and instagram
         Person expectedPersonWithAddressIg =
@@ -263,12 +264,12 @@ public class AddCommandParserTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
 
         // missing name prefix
-        assertParseFailure(parser, VALID_NAME_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+        assertParseFailure(parser, VALID_NAME_BOB + PHONE_DESC_BOB + FACEBOOK_DESC_BOB
                         + INSTAGRAM_DESC_BOB + ADDRESS_DESC_BOB + REMARK_DESC_BOB,
                 expectedMessage);
 
         // all prefixes missing
-        assertParseFailure(parser, VALID_NAME_BOB + VALID_PHONE_BOB + VALID_EMAIL_BOB
+        assertParseFailure(parser, VALID_NAME_BOB + VALID_PHONE_BOB + VALID_FACEBOOK_BOB
                         + VALID_INSTAGRAM_BOB + VALID_ADDRESS_BOB + VALID_REMARK_BOB,
                 expectedMessage);
     }
@@ -290,47 +291,47 @@ public class AddCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         // invalid name
-        assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB + INSTAGRAM_DESC_BOB
+        assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + FACEBOOK_DESC_BOB + INSTAGRAM_DESC_BOB
                 + ADDRESS_DESC_BOB + REMARK_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
                 Name.MESSAGE_CONSTRAINTS);
 
         // invalid phone
-        assertParseFailure(parser, NAME_DESC_BOB + INVALID_PHONE_DESC + EMAIL_DESC_BOB + INSTAGRAM_DESC_BOB
+        assertParseFailure(parser, NAME_DESC_BOB + INVALID_PHONE_DESC + FACEBOOK_DESC_BOB + INSTAGRAM_DESC_BOB
                 + ADDRESS_DESC_BOB + REMARK_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
                 Phone.MESSAGE_CONSTRAINTS);
 
-        // invalid email
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + INVALID_EMAIL_DESC + INSTAGRAM_DESC_BOB
+        // invalid facebook
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + INVALID_FACEBOOK_DESC + INSTAGRAM_DESC_BOB
                 + ADDRESS_DESC_BOB + REMARK_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
-                Email.MESSAGE_CONSTRAINTS);
+                Facebook.MESSAGE_CONSTRAINTS);
 
         // invalid instagram
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_INSTAGRAM_DESC
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + FACEBOOK_DESC_BOB + INVALID_INSTAGRAM_DESC
                 + ADDRESS_DESC_BOB + REMARK_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
                 Instagram.MESSAGE_CONSTRAINTS);
 
         // invalid address
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + INSTAGRAM_DESC_BOB
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + FACEBOOK_DESC_BOB + INSTAGRAM_DESC_BOB
                 + INVALID_ADDRESS_DESC + REMARK_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
                 Address.MESSAGE_CONSTRAINTS);
 
         // invalid remark
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + INSTAGRAM_DESC_BOB
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + FACEBOOK_DESC_BOB + INSTAGRAM_DESC_BOB
                 + ADDRESS_DESC_BOB + INVALID_REMARK_DESC + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
                 Remark.MESSAGE_CONSTRAINTS);
 
         // invalid tag
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + INSTAGRAM_DESC_BOB
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + FACEBOOK_DESC_BOB + INSTAGRAM_DESC_BOB
                 + ADDRESS_DESC_BOB + REMARK_DESC_BOB + INVALID_TAG_DESC + VALID_TAG_FRIEND,
                 Tag.MESSAGE_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
-        assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB
+        assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + FACEBOOK_DESC_BOB
                         + INSTAGRAM_DESC_BOB + INVALID_ADDRESS_DESC + REMARK_DESC_BOB,
                 Name.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
-        assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+        assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + PHONE_DESC_BOB + FACEBOOK_DESC_BOB
                         + ADDRESS_DESC_BOB + REMARK_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }

@@ -3,7 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_MISSING_CONTACT_METHOD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FACEBOOK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INSTAGRAM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
+import seedu.address.model.person.Facebook;
 import seedu.address.model.person.Instagram;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -37,7 +37,7 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(
-                        args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_INSTAGRAM,
+                        args, PREFIX_NAME, PREFIX_PHONE, PREFIX_FACEBOOK, PREFIX_INSTAGRAM,
                         PREFIX_ADDRESS, PREFIX_REMARK, PREFIX_TAG);
 
         // Only name is mandatory
@@ -47,11 +47,12 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(
-                PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_INSTAGRAM, PREFIX_ADDRESS, PREFIX_REMARK);
+                PREFIX_NAME, PREFIX_PHONE, PREFIX_FACEBOOK, PREFIX_INSTAGRAM, PREFIX_ADDRESS, PREFIX_REMARK);
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
 
         // Check at least one contact method is provided
-        if (!hasAtLeastOneContactMethod(argMultimap, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_INSTAGRAM, PREFIX_ADDRESS)) {
+        if (!hasAtLeastOneContactMethod(argMultimap, PREFIX_PHONE, PREFIX_FACEBOOK,
+                PREFIX_INSTAGRAM, PREFIX_ADDRESS)) {
             throw new ParseException(MESSAGE_MISSING_CONTACT_METHOD);
         }
 
@@ -60,8 +61,8 @@ public class AddCommandParser implements Parser<AddCommand> {
                 ? ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get())
                 : null;
 
-        Email email = argMultimap.getValue(PREFIX_EMAIL).isPresent()
-                ? ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get())
+        Facebook facebook = argMultimap.getValue(PREFIX_FACEBOOK).isPresent()
+                ? ParserUtil.parseFacebook(argMultimap.getValue(PREFIX_FACEBOOK).get())
                 : null;
 
         Instagram instagram = argMultimap.getValue(PREFIX_INSTAGRAM).isPresent()
@@ -78,7 +79,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Person person = new Person(name, phone, email, instagram, address, remark, tagList);
+        Person person = new Person(name, phone, facebook, instagram, address, remark, tagList);
 
         return new AddCommand(person);
     }

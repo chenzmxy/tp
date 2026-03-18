@@ -14,7 +14,7 @@ import seedu.address.model.order.Item;
 import seedu.address.model.order.Quantity;
 import seedu.address.model.order.Status;
 import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
+import seedu.address.model.person.Facebook;
 import seedu.address.model.person.Instagram;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
@@ -87,18 +87,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String email} into an {@code Email}.
+     * Parses a {@code String facebook} into a {@code Facebook}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code email} is invalid.
+     * @throws ParseException if the given {@code facebook} is invalid.
      */
-    public static Email parseEmail(String email) throws ParseException {
-        requireNonNull(email);
-        String trimmedEmail = email.trim();
-        if (!Email.isValidEmail(trimmedEmail)) {
-            throw new ParseException(Email.MESSAGE_CONSTRAINTS);
+    public static Facebook parseFacebook(String facebook) throws ParseException {
+        requireNonNull(facebook);
+        String trimmedFacebook = facebook.trim();
+        if (!Facebook.isValidFacebook(trimmedFacebook)) {
+            throw new ParseException(Facebook.MESSAGE_CONSTRAINTS);
         }
-        return new Email(trimmedEmail);
+        return new Facebook(trimmedFacebook);
     }
 
     /**

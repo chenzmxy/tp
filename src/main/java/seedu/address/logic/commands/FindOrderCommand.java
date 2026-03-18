@@ -26,11 +26,7 @@ public class FindOrderCommand extends Command {
             + "Parameters: i/ITEM_NAME | a/ADDRESS | c/CUSTOMER_ID\n"
             + "Example: " + COMMAND_WORD + " i/pizza";
 
-    private final Predicate<Order> predicate;
-
-    public FindOrderCommand(Predicate<Order> predicate) {
-        this.predicate = predicate;
-    }
+    private final OrderContainsKeywordsPredicate predicate;
 
     public FindOrderCommand(OrderContainsKeywordsPredicate predicate) {
         this.predicate = predicate;

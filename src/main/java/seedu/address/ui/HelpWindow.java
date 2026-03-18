@@ -78,7 +78,7 @@ public class HelpWindow extends UiPart<Stage> {
         addCommandBlock("find", "Finds customers whose any of the field contain any of the given keywords.",
                 "find KEYWORD [MORE_KEYWORDS]",
                 "find John");
-        
+
         addCommandBlock("find", "Finds customers with specific fields containing the given keywords",
                 "find PREFIX/KEYWORD",
                 "find n/John");

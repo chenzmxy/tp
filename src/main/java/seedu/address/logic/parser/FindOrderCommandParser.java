@@ -42,6 +42,11 @@ public class FindOrderCommandParser implements Parser<FindOrderCommand> {
             count++;
         }
 
+        if (count == 0) {
+            // No search criteria provided - show all orders
+            return new FindOrderCommand(predicate -> true);
+        }
+
         if (count != 1) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindOrderCommand.MESSAGE_USAGE));

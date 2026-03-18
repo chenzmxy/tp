@@ -1,8 +1,11 @@
 package seedu.address.ui;
 
+import java.util.Comparator;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -23,10 +26,18 @@ public class OrderListPanel extends UiPart<Region> {
 
     /**
      * Creates an {@code OrderListPanel} with the given {@code ObservableList} of orders and persons.
+     * Orders are displayed sorted by delivery time, with the latest order first.
      */
     public OrderListPanel(ObservableList<Order> orderList, ObservableList<Person> personList) {
         super(FXML);
-        orderListView.setItems(orderList);
+
+        SortedList<Order> sortedList = new SortedList<>(orderList);
+        sortedList.setComparator(Comparator.comparing(
+                order -> order.getDeliveryTime().value,
+                Comparator.reverseOrder() // Descending order (latest first)
+        ));
+
+        orderListView.setItems(sortedList);
         orderListView.setCellFactory(listView -> new OrderListViewCell(personList));
     }
 

@@ -2,8 +2,11 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.function.Predicate;
+
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.Model;
+import seedu.address.model.order.Order;
 import seedu.address.model.order.OrderContainsKeywordsPredicate;
 
 /**
@@ -19,9 +22,14 @@ public class FindOrderCommand extends Command {
             + "or customerId contain the specified search phrase (case-insensitive) "
             + "and displays them as a list with index numbers.\n"
             + "Parameters: i/ITEM_NAME | a/ADDRESS | c/CUSTOMER_ID\n"
-            + "Example: " + COMMAND_WORD + " i/pizza";
+            + "Example: " + COMMAND_WORD + " i/pizza\n"
+            + "Or use without parameters to display all orders: " + COMMAND_WORD;
 
-    private final OrderContainsKeywordsPredicate predicate;
+    private final Predicate<Order> predicate;
+
+    public FindOrderCommand(Predicate<Order> predicate) {
+        this.predicate = predicate;
+    }
 
     public FindOrderCommand(OrderContainsKeywordsPredicate predicate) {
         this.predicate = predicate;

@@ -3,7 +3,6 @@ package seedu.address.model.order;
 import java.util.function.Predicate;
 
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.model.person.Person;
 
 /**
  * Tests that a {@code Order}'s fields contain the given search phrase.
@@ -44,10 +43,18 @@ public class OrderContainsKeywordsPredicate implements Predicate<Order> {
         case ADDRESS:
             return order.getAddress().toString().toLowerCase().contains(keyword.toLowerCase());
         case CUSTOMER:
-            return order.getCustomerIndex().getOneBased() == Integer.parseInt(keyword);
+            return order.getCustomerId().toString().equals(keyword);
         default:
             return false;
         }
+    }
+
+    public SearchType getSearchType() {
+        return searchType;
+    }
+
+    public String getKeyword() {
+        return keyword;
     }
 
     /**

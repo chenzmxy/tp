@@ -1,8 +1,10 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.order.OrderContainsKeywordsPredicate;
 
@@ -28,9 +30,25 @@ public class FindOrderCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        model.updateFilteredOrderList(predicate);
+
+        if (predicate.getSearchType() == OrderContainsKeywordsPredicate.SearchType.CUSTOMER) {
+            int oneBased = Integer.parseInt(predicate.getKeyword());
+            int zeroBased = oneBased - 1;
+
+            if (zeroBased < 0 || zeroBased >= model.getFilteredPersonList().size()) {
+                throw new CommandException(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            }
+
+            String customerUuid = model.getFilteredPersonList().get(zeroBased).getId().toString();
+
+            model.updateFilteredOrderList(
+                    new OrderContainsKeywordsPredicate(OrderContainsKeywordsPredicate.SearchType.CUSTOMER, customerUuid)
+            );
+        } else {
+            model.updateFilteredOrderList(predicate);
+        }
 
         String resultMessage = "=== FIND ORDERS ===\n";
         if (model.getFilteredOrderList().isEmpty()) {

@@ -103,4 +103,21 @@ public class OrderCardTest {
 
         assertEquals("Unknown Customer", result);
     }
+
+    @Test
+    public void getCustomerName_boundaryIndex_returnsCorrectName() {
+        // Test last valid index (index 1 in a list of 2)
+        Order order = new Order(
+                Index.fromZeroBased(1),
+                new Item("Sushi"),
+                new Quantity("1"),
+                new DeliveryTime("2030-12-03 2000"),
+                new Address("789 Other Street"),
+                new Status("DELIVERED")
+        );
+
+        String result = OrderCard.getCustomerName(order, personList);
+
+        assertEquals("Benson Meier", result);
+    }
 }

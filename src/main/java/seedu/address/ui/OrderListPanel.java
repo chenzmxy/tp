@@ -31,13 +31,20 @@ public class OrderListPanel extends UiPart<Region> {
         super(FXML);
 
         SortedList<Order> sortedList = new SortedList<>(orderList);
-        sortedList.setComparator(Comparator.comparing(
-                order -> order.getDeliveryTime().value,
-                Comparator.reverseOrder() // Descending order (latest first)
-        ));
+        sortedList.setComparator(getOrderComparator());
 
         orderListView.setItems(sortedList);
         orderListView.setCellFactory(listView -> new OrderListViewCell(personList));
+    }
+
+    /**
+     * Returns a comparator that sorts orders by delivery time in descending order (latest first).
+     */
+    static Comparator<Order> getOrderComparator() {
+        return Comparator.comparing(
+                order -> order.getDeliveryTime().value,
+                Comparator.reverseOrder() // Descending order (latest first)
+        );
     }
 
     /**

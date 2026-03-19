@@ -53,7 +53,7 @@ public class TypicalOrders {
     private TypicalOrders() {} // prevents instantiation
 
     /**
-     * Returns an {@code OrderList} with all the typical orders.
+     * Returns an {@code Addressbook} with all the typical orders.
      */
     public static AddressBook getTypicalAddressbook() {
         AddressBook ab = new AddressBook();

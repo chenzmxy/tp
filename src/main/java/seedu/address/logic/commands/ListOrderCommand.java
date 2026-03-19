@@ -6,7 +6,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ORDERS;
 import seedu.address.model.Model;
 
 /**
- * Command to view orders by status (PREPARING/READY/DELIVERED/CANCELLED/ALL)
+ * Lists all orders in the address book to the user.
  */
 public class ListOrderCommand extends Command {
 

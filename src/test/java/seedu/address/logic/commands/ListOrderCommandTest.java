@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showOrderAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ORDER;
@@ -29,6 +30,8 @@ public class ListOrderCommandTest {
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
         assertCommandSuccess(new ListOrderCommand(), model, ListOrderCommand.MESSAGE_SUCCESS, expectedModel);
+        assertEquals(expectedModel.getFilteredOrderList().size(), model.getFilteredOrderList().size());
+        assertEquals(expectedModel.getFilteredOrderList(), model.getFilteredOrderList());
     }
 
     @Test
@@ -38,6 +41,8 @@ public class ListOrderCommandTest {
 
         assertCommandSuccess(new ListOrderCommand(), model,
                 ListOrderCommand.MESSAGE_SUCCESS, expectedModelAfterCommand);
+        assertEquals(expectedModelAfterCommand.getAddressBook().getOrderList(),
+                model.getFilteredOrderList());
     }
 }
 

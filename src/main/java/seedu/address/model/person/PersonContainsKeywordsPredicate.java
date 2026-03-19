@@ -12,7 +12,7 @@ public class PersonContainsKeywordsPredicate implements Predicate<Person> {
      * Specifies the type of search to perform.
      */
     public enum SearchType {
-        NAME, ADDRESS, PHONE, EMAIL, TAG, INSTAGRAM, REMARK
+        NAME, ADDRESS, PHONE, FACEBOOK, TAG, INSTAGRAM, REMARK
     }
     private final String searchPhrase;
     private final boolean isGeneralSearch;
@@ -72,9 +72,9 @@ public class PersonContainsKeywordsPredicate implements Predicate<Person> {
             return person.getPhone()
                 .map(phone -> phone.toString().toLowerCase().contains(lowerPhrase))
                 .orElse(false);
-        case EMAIL:
-            return person.getEmail()
-                    .map(email -> email.toString().toLowerCase().contains(lowerPhrase))
+        case FACEBOOK:
+            return person.getFacebook()
+                    .map(facebook -> facebook.toString().toLowerCase().contains(lowerPhrase))
                     .orElse(false);
         case TAG:
             return person.getTags().stream()

@@ -2,7 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FACEBOOK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INSTAGRAM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -33,18 +33,18 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(
-                args, PREFIX_NAME, PREFIX_PHONE, PREFIX_ADDRESS, PREFIX_EMAIL,
+                args, PREFIX_NAME, PREFIX_PHONE, PREFIX_ADDRESS, PREFIX_FACEBOOK,
                 PREFIX_TAG, PREFIX_INSTAGRAM, PREFIX_REMARK);
         boolean hasPrefix = argMultimap.containsPrefix(PREFIX_NAME, PREFIX_PHONE,
-                PREFIX_ADDRESS, PREFIX_EMAIL, PREFIX_TAG, PREFIX_INSTAGRAM, PREFIX_REMARK);
+                PREFIX_ADDRESS, PREFIX_FACEBOOK, PREFIX_TAG, PREFIX_INSTAGRAM, PREFIX_REMARK);
         if (!hasPrefix) {
             return new FindCommand(new PersonContainsKeywordsPredicate(trimmedArgs));
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE,
-                PREFIX_ADDRESS, PREFIX_EMAIL, PREFIX_TAG, PREFIX_INSTAGRAM, PREFIX_REMARK);
+                PREFIX_ADDRESS, PREFIX_FACEBOOK, PREFIX_TAG, PREFIX_INSTAGRAM, PREFIX_REMARK);
 
-        long prefixCount = Stream.of(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
+        long prefixCount = Stream.of(PREFIX_NAME, PREFIX_PHONE, PREFIX_FACEBOOK,
                         PREFIX_ADDRESS, PREFIX_TAG, PREFIX_INSTAGRAM, PREFIX_REMARK)
                 .filter(prefix -> argMultimap.getValue(prefix).isPresent())
                 .count();
@@ -65,10 +65,10 @@ public class FindCommandParser implements Parser<FindCommand> {
                     PersonContainsKeywordsPredicate.SearchType.PHONE));
         }
 
-        if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
+        if (argMultimap.getValue(PREFIX_FACEBOOK).isPresent()) {
             return new FindCommand(new PersonContainsKeywordsPredicate(
-                    getNonEmptyValue(argMultimap, PREFIX_EMAIL),
-                    PersonContainsKeywordsPredicate.SearchType.EMAIL));
+                    getNonEmptyValue(argMultimap, PREFIX_FACEBOOK),
+                    PersonContainsKeywordsPredicate.SearchType.FACEBOOK));
         }
 
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {

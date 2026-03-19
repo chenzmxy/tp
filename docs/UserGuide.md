@@ -77,6 +77,9 @@ Shows a message explaining how to access the help page.
 
 Format: `help`
 
+---
+
+## Customer Commands
 
 ### Adding a customer: `add`
 
@@ -120,7 +123,7 @@ Examples:
 
 Finds customers whose any of the field contain any of the given keywords.
 
-## General Search
+#### General Search
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 * The search is case-insensitive. e.g `hans` will match `Hans`
@@ -129,10 +132,10 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 
 Examples:
 * `find John` returns `john` and `John Doe`
-* `find 99272758` returns `Bernice Yu` as she had the number 99272758<br>
+* `find 99272758` returns `Bernice Yu` as she had the number 99272758<br>\
   ![result for 'find 99272758'](images/findBernice.png)
 
-## Specific Field Search
+#### Specific Field Search
 Format: `find PREFIX/KEYWORD`
 
 * The search is case-insensitive. e.g `hans` will match `Hans`
@@ -167,6 +170,10 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd customer in the address book.
 * `find Betsy` followed by `delete 1` deletes the 1st customer in the results of the `find` command.
 
+---
+
+## Order Commands
+
 ### Adding an order: `order`
 
 Adds a new order for a specific customer.
@@ -187,24 +194,11 @@ Format: `order INDEX i/ITEM_NAME q/QUANTITY at/DATE [a/DELIVERY_ADDRESS] [s/STAT
 * `order 2 i/Burger q/5 at/2026-03-15 1800 a/123 Jurong West St 42, #05-01`
 * `order 3 i/Salad q/2 at/2026-04-10 1200 s/DELIVERED`
 
-### Deleting an Order: `delete-o`
+### Searching for orders: `find-o`
 
-Deletes the specific order from the order database.
-
-Format: `delete-o ORDER_INDEX`
-
-* Deletes the order at the specified `ORDER_INDEX`.
-* The order index refers to the index number shown in the displayed order list.
-* The index **must be positive integers** 1, 2, 3, …​
-
-**Examples:**
-* `view-o` followed by `delete-o 3` deletes the 3rd order in the results of the `view-o` command.
-* `find-o i/pizza` followed by `delete-o 1` deletes the 1st order in the results of the `find-o` command.
-
-### Search for Orders based on certain keywords: `find-o`
 Search for different orders with 3 category options: item name, delivery address, customer id
 
-Format `find-o Category-Type/Category-Keywords`
+Format: `find-o Category-Type/Category-Keywords`
 
 * Find the orders given the `Category-Keywords` from the `Category-Type`.
 * The category keywords refer to the keyword used to look for orders.
@@ -217,7 +211,7 @@ Format `find-o Category-Type/Category-Keywords`
 * `find-o a/Ang Mo Kio` - Look for orders with delivery address "Ang Mo Kio"
 * `find-o s/Delivered` - Look for orders that are already delivered
 
-### View Orders by status: `view-o`
+### Viewing orders by status: `view-o`
 
 View a list of orders by their status: (PREPARING/READY/DELIVERED/CANCELLED/ALL) 
 
@@ -238,12 +232,29 @@ Format: `view-o STATUS`
 | `all` | All orders in the system |
 
 **Examples:**
-
 * `view-o preparing` - Look for all orders with status "preparing"
 * `view-o ready` - Look for all orders with status "ready"
 * `view-o delivered` - Look for all orders with status "delivered"
 * `view-o cancelled` - Look for all orders with status "cancelled"
 * `view-o all` - Look for all orders regardless of status
+
+### Deleting an order: `delete-o`
+
+Deletes the specific order from the order database.
+
+Format: `delete-o ORDER_INDEX`
+
+* Deletes the order at the specified `ORDER_INDEX`.
+* The order index refers to the index number shown in the displayed order list.
+* The index **must be positive integers** 1, 2, 3, …​
+
+**Examples:**
+* `view-o` followed by `delete-o 3` deletes the 3rd order in the results of the `view-o` command.
+* `find-o i/pizza` followed by `delete-o 1` deletes the 1st order in the results of the `find-o` command.
+
+---
+
+## Other Commands
 
 ### Clearing all entries : `clear`
 
@@ -298,17 +309,29 @@ _Details coming soon ..._
 
 ## Command summary
 
+### Customer Commands
+
 Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Add Contact**    | `add n/NAME [p/PHONE_NUMBER] [fb/FACEBOOK] [ig/INSTAGRAM] [a/ADDRESS] [r/REMARK] [t/TAG]…​` <br> e.g., `add n/James Ho p/99996666 fb/james.Ho ig/james_Ho a/123, Clementi Rd, 1234665 r/extra spicy, no onion t/friend t/regular`
-**Add Order**| `order INDEX i/ITEM_NAME q/QUANTITY at/DELIVERY_TIME [a/DELIVERY_ADDRESS] [s/STATUS]` <br> e.g., `order 3  i/Pizza  q/3  at/2026-04-02 1200 a/123 Jurong West St 42, #05-01 s/PREPARING`
-**Find Order** | `find-o Category-Type/Category-Keywords` <br> e.g., `find-o i/pizza`
-**View Order** | 
-**Clear**  | `clear`
-**Delete Contact** | `delete INDEX` <br> e.g., `delete 3`
-**Delete Order** | `delete-o ORDER_INDEX` <br> e.g., `delete-o 1`
-**Edit Contact**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [fb/FACEBOOK] [ig/INSTAGRAM] [a/ADDRESS] [r/REMARK] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee ig/jamesLee`
-**Exit**   | `exit`
-**Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
+**Add**    | `add n/NAME [p/PHONE_NUMBER] [fb/FACEBOOK] [ig/INSTAGRAM] [a/ADDRESS] [r/REMARK] [t/TAG]…​` <br> e.g., `add n/James Ho p/99996666 fb/james.Ho ig/james_Ho a/123, Clementi Rd, 1234665 r/extra spicy, no onion t/friend t/regular`
+**Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [fb/FACEBOOK] [ig/INSTAGRAM] [a/ADDRESS] [r/REMARK] [t/TAG]…​` <br> e.g., `edit 2 n/James Lee ig/jamesLee`
+**Find**   | `find KEYWORD [MORE_KEYWORDS]` <br> e.g., `find James Jake` <br> Or `find PREFIX/KEYWORD` <br> e.g., `find fb/james` or `find ig/james_ho`
 **List**   | `list`
+**Delete** | `delete INDEX` <br> e.g., `delete 3`
+
+### Order Commands
+
+Action     | Format, Examples
+-----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+**Add Order**| `order INDEX i/ITEM_NAME q/QUANTITY at/DELIVERY_TIME [a/DELIVERY_ADDRESS] [s/STATUS]` <br> e.g., `order 3 i/Pizza q/3 at/2026-04-02 1200 a/123 Jurong West St 42, #05-01 s/PREPARING`
+**Find Order** | `find-o Category-Type/Category-Keywords` <br> e.g., `find-o i/pizza`
+**View Orders** | `view-o STATUS` <br> e.g., `view-o preparing` or `view-o all`
+**Delete Order** | `delete-o ORDER_INDEX` <br> e.g., `delete-o 1`
+
+### Other Commands
+
+Action     | Format, Examples
+-----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 **Help**   | `help`
+**Clear**  | `clear`
+**Exit**   | `exit`

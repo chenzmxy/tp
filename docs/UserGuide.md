@@ -200,7 +200,7 @@ Format: `delete-o ORDER_INDEX`
 * `find-o i/pizza` followed by `delete-o 1` deletes the 1st order in the results of the `find-o` command.
 
 ### Search for Orders based on certain keywords: `find-o`
-Search for different orders with 3 category options: item name, delivery address, customer id, status
+Search for different orders with 4 category options: item name, delivery address, customer id, status
 
 Format `find-o Category-Type/Category-Keywords`
 

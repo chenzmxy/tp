@@ -23,7 +23,7 @@ BZNUS is a **desktop app for tracking customer contacts, food orders and custome
 1. Copy the `.jar` file to the folder you want to use as the _home folder_ for BZNUS.
 
 1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar bznus.jar` command to run the application.<br>
-   A GUI similar to the following should appear in a few seconds. Note how the app contains some sample data.<br>
+   A GUI similar to the following should appear in a few seconds. Note how the app contains some sample data.<br>\
    ![Ui](images/Ui.png)
 
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
@@ -158,39 +158,39 @@ Examples:
 
 ### Finding customers : `find`
 
-Finds customers whose any of the field contain any of the given keywords.
+Finds customers whose details match the given keywords. You can search across all fields or target a specific field using prefixes.
 
 #### General Search
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
+* The search is case-insensitive. e.g `hans` will match `Hans`.
 * All fields are searched.
-* Only partial words will be matched e.g. `Han` will match `Hans`
+* Partial matches are supported e.g. `Han` will match `Hans`.
 
 Examples:
 * `find John` returns `john` and `John Doe`
-* `find 99272758` returns `Bernice Yu` as she had the number 99272758<br>\
+* `find 99272758` returns `Bernice Yu` if her contact details contains these digits<br>\
   ![result for 'find 99272758'](images/findBernice.png)
 
 #### Specific Field Search
 Format: `find PREFIX/KEYWORD`
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* Limits the search to a single specific field.
+* The search is case-insensitive. e.g `hans` will match `Hans`.
+* Limits the search to a single specified field.
 * Only one prefix can be used per command.
 
 Available Prefixes:
-* n/NAME
-* p/PHONE
-* fb/FACEBOOK
-* ig/INSTAGRAM
-* a/ADDRESS
-* r/REMARK
-* t/TAG
+* `n/NAME`
+* `p/PHONE`
+* `fb/FACEBOOK`
+* `ig/INSTAGRAM`
+* `a/ADDRESS`
+* `r/REMARK`
+* `t/TAG`
 
-Example:
-* find n/Alice returns all persons whose name contains "Alice"
-* find t/regular returns all persons whose tags contain "regular".
+Examples:
+* `find n/Alice` returns all customers whose name contains `Alice`.
+* `find t/regular` returns all customers whose tags contain `regular`.
 
 </div>
 

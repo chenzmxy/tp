@@ -273,7 +273,7 @@ Format: `order INDEX i/ITEM_NAME q/QUANTITY at/DELIVERY_TIME [a/DELIVERY_ADDRESS
 
 ### <a id="find-o"></a>Finding orders : `find-o`
 
-Search for different orders with 3 category options: item name, delivery address, customer id
+Search for different orders with 4 category options: item name, delivery address, customer id, status
 
 Format: `find-o Category-Type/Category-Keywords`
 

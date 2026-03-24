@@ -15,33 +15,33 @@ BZNUS is a **desktop app for tracking customer contacts, food orders and custome
 
 
 ## Content summery
-1. Quick start
-2. Features
+1. [Quick start](#quick-start)
+2. [Features](#features)
 * command format
 * viewing hlep
-3. Customer command
+3. [Customer command](#customer-commands)
 * add
 * list
 * edit
 * find
 * delete
-4. Order command
+4. [Order command](#order-commands)
 * order
 * find-o
 * list-o
 * delete-o
 * edit-o
-5. Other command
+5. [Other command](#order-commands)
 * clear
 * exit
-6. Data storage
-7. FAQ
-8. Known issues
-9. Command summery
+6. [Data storage](#data-storage)
+7. [FAQ](#faq)
+8. [Known issues](#known-issues)
+9. [Command summary](#command-summary)
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Quick start
+## <a id="quick-start"></a>Quick start
 
 1. Ensure you have Java `17` or above installed in your Computer.<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
@@ -73,7 +73,7 @@ BZNUS is a **desktop app for tracking customer contacts, food orders and custome
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Features
+## <a id="features"></a>Features
 
 <box type="info" seamless>
 
@@ -109,7 +109,7 @@ Format: `help`
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Customer Commands
+## <a id="customer-commands"></a>Customer Commands
 
 <div class="section-spacing">
 
@@ -239,7 +239,7 @@ Examples:
 
 ---
 
-## Order Commands
+## <a id="order-commands"></a>Order Commands
 
 <div class="section-spacing">
 
@@ -312,7 +312,7 @@ Format: `delete-o ORDER_INDEX`
 
 ---
 
-## Other Commands
+## <a id="other-commands"></a>Other Commands
 
 <div class="section-spacing">
 
@@ -335,7 +335,7 @@ Format: `exit`
 </div>
 
 ---
-## Data Storage
+## <a id="data-storage"></a>Data Storage
 
 <div class="section-spacing">
 
@@ -367,7 +367,7 @@ _Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
 
-## FAQ
+## <a id="faq"></a>FAQ
 
 **Q**: How do I transfer my data to another computer?<br>
 **A**:
@@ -378,14 +378,14 @@ _Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Known issues
+## <a id="known-issues"></a>Known issues
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Command summary
+## <a id="command-summary"></a>Command summary
 
 <div class="section-spacing">
 

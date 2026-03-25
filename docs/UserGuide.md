@@ -98,21 +98,21 @@ Format: `add n/NAME [p/PHONE_NUMBER] [ig/INSTAGRAM] [fb/FACEBOOK] [a/ADDRESS] [r
 * `ADDRESS` can be any non-blank string.
 * `REMARK` can be any string.
 
-<box type="warning" seamless>
+<box type="important" seamless>
 
-**Note:** A customer must have at least one contact method (`PHONE`, `INSTAGRAM`, `FACEBOOK` or `ADDRESS`).
+**Note:** A customer must have **at least one** contact method (`PHONE`, `INSTAGRAM`, `FACEBOOK` or `ADDRESS`). The command will fail and show an error message if all contact methods are missing.
 
 </box>
 
-<box type="warning" seamless>
+<box type="important" seamless>
 
-**Duplicate Handling:** Customer names are unique (case-insensitive). For example, "John Doe" and "john doe" are considered the same person, and the app will reject the duplicate entry. (Tip: Consider adding descriptors to differentiate customers with the same name (e.g., "John Doe (neighbour)" and "John Doe (Clementi)".)
+**Duplicate Handling:** Customer names are unique (case-insensitive). For example, "John Doe" and "john doe" are considered the same person, and the app will reject the duplicate entry.
 
 </box>
 
 <box type="tip" seamless>
 
-**Tip:** A customer can have any number of tags (including 0).
+**Tip:** If you have two customers with the same name, use descriptors to differentiate them (e.g., "John Doe (Clementi)" and "John Doe (Jurong)"). A customer can also have any number of tags (including 0).
 
 </box>
 

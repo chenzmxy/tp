@@ -33,6 +33,23 @@ public class OrderCard extends UiPart<Region> {
         super(FXML);
         this.order = order;
 
+        switch (order.getStatus().value) {
+            case "PREPARING":
+                status.setStyle("-fx-background-color: #dce5f6; -fx-text-fill: #083fa7;"); // Lemon chiffon
+                break;
+            case "READY":
+                status.setStyle("-fx-background-color: #f0f4c5; -fx-text-fill: #949e06;"); // Light green
+                break;
+            case "DELIVERED":
+                status.setStyle("-fx-background-color: #c9f8c9; -fx-text-fill: #0bcb0b;"); // Pale green
+                break;
+            case "CANCELLED":
+                status.setStyle("-fx-background-color: #f9cfd5; -fx-text-fill: #c20925;"); // Light pink
+                break;
+            default:
+                status.setStyle("-fx-background-color: #cfcece; -fx-text-fill: black;");
+        }
+
         item.setText("Order: " + order.getItem().value + " (x" + order.getQuantity().value + ")");
 
         address.setText("Address: " + order.getAddress().value);

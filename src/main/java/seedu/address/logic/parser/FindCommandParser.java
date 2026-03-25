@@ -34,7 +34,6 @@ public class FindCommandParser implements Parser<FindCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
-        // --- Part A: General Search ---
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(
                 args, PREFIX_NAME, PREFIX_PHONE, PREFIX_ADDRESS, PREFIX_FACEBOOK,
                 PREFIX_TAG, PREFIX_INSTAGRAM, PREFIX_REMARK);

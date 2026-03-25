@@ -67,9 +67,9 @@ public class FindCommandTest {
 
     @Test
     public void execute_noMatch_noPersonFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
         PersonContainsKeywordsPredicate predicate = new PersonContainsKeywordsPredicate(
                 "xyznonexistent", true, new HashMap<>());
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0, predicate.getSummary());
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -78,9 +78,9 @@ public class FindCommandTest {
 
     @Test
     public void execute_phraseMatch_multiplePersonsFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         PersonContainsKeywordsPredicate predicate = new PersonContainsKeywordsPredicate(
                 "street", true, new HashMap<>());
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3, predicate.getSummary());
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -98,11 +98,10 @@ public class FindCommandTest {
 
     @Test
     public void execute_specificNameMatch_personFound() {
-        // Alice is in the name. Should find Alice.
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         PersonContainsKeywordsPredicate predicate = new PersonContainsKeywordsPredicate(
                 "n/Alice", false,
                 createMap(PersonContainsKeywordsPredicate.SearchType.NAME, "Alice"));
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1, predicate.getSummary());
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
 
@@ -112,10 +111,10 @@ public class FindCommandTest {
 
     @Test
     public void execute_specificPhoneMatch_personFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         PersonContainsKeywordsPredicate predicate = new PersonContainsKeywordsPredicate(
                 "p/9876", false,
                 createMap(PersonContainsKeywordsPredicate.SearchType.PHONE, "9876"));
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1, predicate.getSummary());
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
 
@@ -125,10 +124,10 @@ public class FindCommandTest {
 
     @Test
     public void execute_specificTagMatch_multiplePersonsFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         PersonContainsKeywordsPredicate predicate = new PersonContainsKeywordsPredicate(
                 "t/friends", false,
                 createMap(PersonContainsKeywordsPredicate.SearchType.TAG, "friends"));
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3, predicate.getSummary());
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
 
@@ -138,10 +137,10 @@ public class FindCommandTest {
 
     @Test
     public void execute_wrongSpecificField_noPersonFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
         PersonContainsKeywordsPredicate predicate = new PersonContainsKeywordsPredicate(
                 "p/Alice", false,
                 createMap(PersonContainsKeywordsPredicate.SearchType.PHONE, "Alice"));
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0, predicate.getSummary());
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
 

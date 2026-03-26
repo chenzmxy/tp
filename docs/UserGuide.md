@@ -294,17 +294,17 @@ Format: `find-o Category-Type/Category-Keywords`
 
 Updates fields of an existing order. Any field you specify replaces the previous value; other fields stay unchanged.
 
-Format: `edit-o ORDER_INDEX [i/ITEM_NAME] [q/QUANTITY] [at/DATE] [a/DELIVERY_ADDRESS] [s/STATUS]`
+Format: `edit-o ORDER_INDEX [i/ITEM_NAME] [q/QUANTITY] [at/DELIVERY_TIME] [a/DELIVERY_ADDRESS] [s/STATUS]`
 
 * Edits the order at the specified `ORDER_INDEX`. The index refers to the order number shown in the **currently displayed order list**. The index **must be a positive integer**
 * **At least one** of `i/`, `q/`, `at/`, `a/`, or `s/` must be provided. Omitting all of them is not allowed.
 * The order **stays with the same customer**; you cannot reassign an order to another customer with this command.
 * Field rules are the same as when using **`order`** (see **Adding an order** above):
-  * `ITEM_NAME`: alphanumeric characters and spaces only, non-blank.
-  * `QUANTITY`: positive whole number (e.g. `1`, `10`).
-  * `DATE`: `yyyy-mm-dd hhmm` and must be in the future.
-  * `DELIVERY_ADDRESS`: non-empty if you use `a/`.
-  * `STATUS`: one of `PREPARING`, `READY`, `DELIVERED`, `CANCELLED` (case-insensitive).
+  * `ITEM_NAME` should contain only alphanumeric characters and spaces, and cannot be blank.
+  * `QUANTITY` **must be a positive integer** 1, 2, 3, …​.
+  * `DELIVERY_TIME` must be in `yyyy-mm-dd hhmm` format and must be a future date/time.
+  * If `DELIVERY_ADDRESS` is not provided, the customer's stored address will be used.
+  * If `STATUS` is not provided, it defaults to `PREPARING`. Valid statuses: `PREPARING`, `READY`, `DELIVERED`, `CANCELLED`.
 * After a successful edit, the full order list is shown again.
 
 **Examples:**

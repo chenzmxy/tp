@@ -55,7 +55,8 @@ public class PersonContainsKeywordsPredicateTest {
 
     @Test
     public void nullSearchPhrase_constructorThrows() {
-        assertThrows(NullPointerException.class, () -> new PersonContainsKeywordsPredicate(null, true, new HashMap<>()));
+        assertThrows(NullPointerException.class, () -> new PersonContainsKeywordsPredicate(
+                null, true, new HashMap<>()));
     }
 
     @Test

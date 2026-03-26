@@ -3,6 +3,9 @@ package seedu.address.model.person;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import static java.util.Objects.requireNonNull;
+
+import java.util.Objects;
 import java.util.function.Predicate;
 
 import seedu.address.commons.util.ToStringBuilder;
@@ -24,6 +27,10 @@ public class PersonContainsKeywordsPredicate implements Predicate<Person> {
     /** Constructor for General Search */
     public PersonContainsKeywordsPredicate(String searchPhrase, boolean isGeneralSearch,
                                            Map<SearchType, String> specificKeywords) {
+
+        requireNonNull(searchPhrase);
+        requireNonNull(specificKeywords);
+
         this.searchPhrase = searchPhrase;
         this.isGeneralSearch = isGeneralSearch;
         this.specificKeywords = specificKeywords;
@@ -31,6 +38,7 @@ public class PersonContainsKeywordsPredicate implements Predicate<Person> {
 
     @Override
     public boolean test(Person person) {
+        requireNonNull(person, "Person cannot be null");
         if (isGeneralSearch) {
             return testGeneral(person);
         }
@@ -39,6 +47,7 @@ public class PersonContainsKeywordsPredicate implements Predicate<Person> {
 
 
     private boolean testGeneral(Person person) {
+        assert person != null : "Person must be non-null for search";
         if (searchPhrase.isEmpty()) {
             return false;
         }
@@ -54,9 +63,7 @@ public class PersonContainsKeywordsPredicate implements Predicate<Person> {
     }
 
     private boolean testSpecific(Person customer) {
-        if (specificKeywords.isEmpty()) {
-            return false;
-        }
+        assert customer != null : "Person must be non-null for search";
         List<Predicate<Person>> predicateList = new ArrayList<>();
 
         if (specificKeywords.containsKey(SearchType.NAME)) {
@@ -126,11 +133,15 @@ public class PersonContainsKeywordsPredicate implements Predicate<Person> {
         }
 
         PersonContainsKeywordsPredicate otherPredicate = (PersonContainsKeywordsPredicate) other;
-        return searchPhrase.equals(otherPredicate.searchPhrase);
+        return isGeneralSearch == otherPredicate.isGeneralSearch
+                && searchPhrase.equals(otherPredicate.searchPhrase)
+                && specificKeywords.equals(otherPredicate.specificKeywords);
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this).add("searchPhrase", searchPhrase).toString();
+        return new ToStringBuilder(this).add("searchPhrase", searchPhrase)
+                .add("isGeneralSearch", isGeneralSearch)
+                .add("specificKeywords", specificKeywords).toString();
     }
 }

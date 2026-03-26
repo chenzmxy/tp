@@ -2,6 +2,7 @@ package seedu.address.model.person;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.HashMap;
@@ -43,6 +44,29 @@ public class PersonContainsKeywordsPredicateTest {
 
         // different search phrase -> returns false
         assertFalse(firstPredicate.equals(secondPredicate));
+
+        // same phrase but general vs field-specific search -> not equal
+        PersonContainsKeywordsPredicate generalAlice = new PersonContainsKeywordsPredicate("Alice",
+                true, new HashMap<>());
+        PersonContainsKeywordsPredicate nameAlice = new PersonContainsKeywordsPredicate("Alice", false,
+                createMap(PersonContainsKeywordsPredicate.SearchType.NAME, "Alice"));
+        assertFalse(generalAlice.equals(nameAlice));
+    }
+
+    @Test
+    public void nullSearchPhrase_constructorThrows() {
+        assertThrows(NullPointerException.class, () -> new PersonContainsKeywordsPredicate(null, true, new HashMap<>()));
+    }
+
+    @Test
+    public void nullSearchMap_specificConstructorThrows() {
+        assertThrows(NullPointerException.class, () -> new PersonContainsKeywordsPredicate("x", true, null));
+    }
+
+    @Test
+    public void nullPerson_testThrows() {
+        PersonContainsKeywordsPredicate predicate = new PersonContainsKeywordsPredicate("any", true, new HashMap<>());
+        assertThrows(NullPointerException.class, () -> predicate.test(null));
     }
 
     @Test
@@ -153,7 +177,21 @@ public class PersonContainsKeywordsPredicateTest {
                 "testing phrase", true, new HashMap<>());
 
         String expected = PersonContainsKeywordsPredicate.class.getCanonicalName()
-                + "{searchPhrase=testing phrase}";
+                + "{searchPhrase=testing phrase, isGeneralSearch=true, specificKeywords={}}";
+        assertEquals(expected, predicate.toString());
+    }
+
+    @Test
+    public void toStringMethod_withSpecificKeywords() {
+        Map<PersonContainsKeywordsPredicate.SearchType, String> keywords = new HashMap<>();
+        keywords.put(PersonContainsKeywordsPredicate.SearchType.NAME, "Alice");
+
+        PersonContainsKeywordsPredicate predicate = new PersonContainsKeywordsPredicate(
+                "n/Alice", false, keywords);
+
+        String expected = PersonContainsKeywordsPredicate.class.getCanonicalName()
+                + "{searchPhrase=n/Alice, isGeneralSearch=false, specificKeywords={NAME=Alice}}";
+
         assertEquals(expected, predicate.toString());
     }
 }

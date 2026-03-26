@@ -51,6 +51,23 @@ public class Person {
         this.id = UUID.randomUUID();
     }
 
+    /**
+     * Overloaded constructor that accepts a specific UUID.
+     * Used when loading from storage to preserve the original UUID.
+     */
+    public Person(Name name, Phone phone, Facebook facebook, Instagram instagram, Address address, Remark remark,
+                  Set<Tag> tags, UUID id) {
+        requireAllNonNull(name, tags);
+        this.name = name;
+        this.phone = phone;
+        this.facebook = facebook;
+        this.instagram = instagram;
+        this.address = address;
+        this.remark = remark;
+        this.tags.addAll(tags);
+        this.id = id != null ? id : UUID.randomUUID();
+    }
+
 
     public Name getName() {
         return name;

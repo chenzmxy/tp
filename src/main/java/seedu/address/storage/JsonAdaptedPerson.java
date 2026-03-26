@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -34,6 +35,7 @@ class JsonAdaptedPerson {
     private final String instagram;
     private final String address;
     private final String remark;
+    private final String id;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
     /**
@@ -43,13 +45,14 @@ class JsonAdaptedPerson {
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("facebook") String facebook, @JsonProperty("instagram") String instagram,
             @JsonProperty("address") String address, @JsonProperty("remark") String remark,
-            @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+            @JsonProperty("tags") List<JsonAdaptedTag> tags, @JsonProperty("id") String id) {
         this.name = name;
         this.phone = phone;
         this.facebook = facebook;
         this.instagram = instagram;
         this.address = address;
         this.remark = remark;
+        this.id = id;
         if (tags != null) {
             this.tags.addAll(tags);
         }
@@ -65,6 +68,7 @@ class JsonAdaptedPerson {
         instagram = source.getInstagram().map(ig -> ig.value).orElse(null);
         address = source.getAddress().map(a -> a.value).orElse(null);
         remark = source.getRemark().map(r -> r.value).orElse(null);
+        id = source.getId().toString();
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -115,7 +119,16 @@ class JsonAdaptedPerson {
         final Remark modelRemark = remark != null ? new Remark(remark) : null;
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelFacebook, modelInstagram, modelAddress, modelRemark, modelTags);
+
+        final UUID modelId;
+        if (id != null) {
+            modelId = UUID.fromString(id);
+        } else {
+            modelId = UUID.randomUUID();
+        }
+
+        return new Person(modelName, modelPhone, modelFacebook, modelInstagram, modelAddress, modelRemark, modelTags,
+                modelId);
     }
 
 }

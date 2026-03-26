@@ -46,13 +46,80 @@ public class FindCommandParserTest {
     }
 
     @Test
-    public void parse_validSpecificArgs_returnsFindCommand() {
+    public void parse_validSpecificName_returnsFindCommand() {
         PersonContainsKeywordsPredicate expectedPredicate =
                 new PersonContainsKeywordsPredicate("n/Alice",
-                        false, createMap(PersonContainsKeywordsPredicate.SearchType.NAME, "Alice"));
+                        false, createMap(
+                                PersonContainsKeywordsPredicate.SearchType.NAME, "Alice"));
         FindCommand expectedCommand = new FindCommand(expectedPredicate);
 
         assertParseSuccess(parser, " n/Alice", expectedCommand);
+    }
+
+    @Test
+    public void parse_validSpecificPhone_returnsFindCommand() {
+        PersonContainsKeywordsPredicate expectedPredicate =
+                new PersonContainsKeywordsPredicate("p/98765432",
+                        false, createMap(
+                                PersonContainsKeywordsPredicate.SearchType.PHONE, "98765432"));
+        FindCommand expectedCommand = new FindCommand(expectedPredicate);
+
+        assertParseSuccess(parser, " p/98765432", expectedCommand);
+    }
+
+    @Test
+    public void parse_validSpecificAddress_returnsFindCommand() {
+        PersonContainsKeywordsPredicate expectedPredicate =
+                new PersonContainsKeywordsPredicate("a/Kent Ridge",
+                        false, createMap(
+                                PersonContainsKeywordsPredicate.SearchType.ADDRESS, "Kent Ridge"));
+        FindCommand expectedCommand = new FindCommand(expectedPredicate);
+
+        assertParseSuccess(parser, " a/Kent Ridge", expectedCommand);
+    }
+
+    @Test
+    public void parse_validSpecificTag_returnsFindCommand() {
+        PersonContainsKeywordsPredicate expectedPredicate =
+                new PersonContainsKeywordsPredicate("t/VIP",
+                        false, createMap(
+                                PersonContainsKeywordsPredicate.SearchType.TAG, "VIP"));
+        FindCommand expectedCommand = new FindCommand(expectedPredicate);
+
+        assertParseSuccess(parser, " t/VIP", expectedCommand);
+    }
+
+    @Test
+    public void parse_validSpecificFacebook_returnsFindCommand() {
+        PersonContainsKeywordsPredicate expectedPredicate =
+                new PersonContainsKeywordsPredicate("fb/Alice_hhh",
+                        false, createMap(
+                                PersonContainsKeywordsPredicate.SearchType.FACEBOOK, "Alice_hhh"));
+        FindCommand expectedCommand = new FindCommand(expectedPredicate);
+
+        assertParseSuccess(parser, " fb/Alice_hhh", expectedCommand);
+    }
+
+    @Test
+    public void parse_validSpecificIg_returnsFindCommand() {
+        PersonContainsKeywordsPredicate expectedPredicate =
+                new PersonContainsKeywordsPredicate("ig/Alice_hhh",
+                        false, createMap(
+                                PersonContainsKeywordsPredicate.SearchType.INSTAGRAM, "Alice_hhh"));
+        FindCommand expectedCommand = new FindCommand(expectedPredicate);
+
+        assertParseSuccess(parser, " ig/Alice_hhh", expectedCommand);
+    }
+
+    @Test
+    public void parse_validSpecificRemark_returnsFindCommand() {
+        PersonContainsKeywordsPredicate expectedPredicate =
+                new PersonContainsKeywordsPredicate("r/non-spicy",
+                        false, createMap(
+                                PersonContainsKeywordsPredicate.SearchType.REMARK, "non-spicy"));
+        FindCommand expectedCommand = new FindCommand(expectedPredicate);
+
+        assertParseSuccess(parser, " r/non-spicy", expectedCommand);
     }
 
     @Test

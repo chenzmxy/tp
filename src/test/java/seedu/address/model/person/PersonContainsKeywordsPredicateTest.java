@@ -137,13 +137,42 @@ public class PersonContainsKeywordsPredicateTest {
         predicate = new PersonContainsKeywordsPredicate("t/friends",
                 false, createMap(PersonContainsKeywordsPredicate.SearchType.TAG, "friends"));
         assertTrue(predicate.test(new PersonBuilder().withTags("friends").build()));
+
+        predicate = new PersonContainsKeywordsPredicate("a/Ang Mo Kio",
+                false, createMap(
+                        PersonContainsKeywordsPredicate.SearchType.ADDRESS, "Ang Mo Kio"));
+        assertTrue(predicate.test(new PersonBuilder().withAddress("Ang Mo Kio").build()));
+
+        predicate = new PersonContainsKeywordsPredicate("fb/randomFbAccount",
+                false, createMap(
+                        PersonContainsKeywordsPredicate.SearchType.FACEBOOK, "randomFbAccount"));
+        assertTrue(predicate.test(new PersonBuilder().withFacebook("randomFbAccount").build()));
+
+        predicate = new PersonContainsKeywordsPredicate("ig/randomIgAccount",
+                false, createMap(
+                PersonContainsKeywordsPredicate.SearchType.INSTAGRAM, "randomIgAccount"));
+        assertTrue(predicate.test(new PersonBuilder().withInstagram("randomIgAccount").build()));
+
+        predicate = new PersonContainsKeywordsPredicate("r/VIP",
+                false, createMap(
+                PersonContainsKeywordsPredicate.SearchType.REMARK, "VIP"));
+        assertTrue(predicate.test(new PersonBuilder().withRemark("VIP").build()));
     }
+
 
     @Test
     public void test_specificSearch_returnsFalse() {
         PersonContainsKeywordsPredicate predicate = new PersonContainsKeywordsPredicate("n/Alice",
                 false, createMap(PersonContainsKeywordsPredicate.SearchType.NAME, "Alice"));
         assertFalse(predicate.test(new PersonBuilder().withName("Bob").withPhone("91234567").build()));
+    }
+
+    @Test
+    public void test_emptyMap_returnsFalse() {
+        PersonContainsKeywordsPredicate predicate = new PersonContainsKeywordsPredicate(
+                "", false, new HashMap<>());
+
+        assertFalse(predicate.test(new PersonBuilder().withName("Alice").build()));
     }
 
     @Test

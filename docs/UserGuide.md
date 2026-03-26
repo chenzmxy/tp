@@ -247,7 +247,12 @@ Format: `delete INDEX`
 * Deletes the customer at the specified `INDEX`.
 * The index refers to the index number shown in the displayed customer list.
 * The index **must be a positive integer** 1, 2, 3, …​
-* All orders associated with the deleted customer will also be removed.
+
+<box type="important" seamless>
+
+**Note:** All orders associated with the deleted customer will also be deleted.
+
+</box>
 
 Examples:
 * `list` followed by `delete 2` deletes the 2nd customer in the address book.
@@ -268,11 +273,18 @@ Format: `order INDEX i/ITEM_NAME q/QUANTITY at/DELIVERY_TIME [a/DELIVERY_ADDRESS
 * Adds an order to the customer at the specified `INDEX`.
 * The index refers to the index number shown in the displayed customer list.
 * The index **must be a positive integer** 1, 2, 3, …​
-* `ITEM_NAME` should contain only alphanumeric characters and spaces, and cannot be blank.
+* `ITEM_NAME` must contain only alphanumeric characters and spaces, and cannot be blank.
 * `QUANTITY` **must be a positive integer** 1, 2, 3, …​.
 * `DELIVERY_TIME` must be in `yyyy-mm-dd hhmm` format and must be a future date/time.
-* If `DELIVERY_ADDRESS` is not provided, the customer's stored address will be used.
+* If `DELIVERY_ADDRESS` is not provided, the customer's stored address will be used.\
+If the customer has no stored address, you will be prompted to enter a delivery address for the order.
 * If `STATUS` is not provided, it defaults to `PREPARING`. Valid statuses: `PREPARING`, `READY`, `DELIVERED`, `CANCELLED`.
+
+<box type="tip" seamless>
+
+**Tip:** Use a/PICKUP for pickup orders.
+
+</box>
 
 **Examples:**
 * `order 1 i/Pizza q/3 at/2026-04-02 1200`

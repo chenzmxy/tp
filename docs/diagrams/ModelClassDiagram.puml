@@ -21,6 +21,7 @@ Class Facebook
 Class Instagram
 Class Tag
 Class Remark
+Class UUId
 
 Class OrderList
 Class Order
@@ -51,12 +52,13 @@ UniquePersonList --> "~* all" Person
 OrderList --> "~* all" Order
 
 Person *--> "1" Name
-Person *--> Phone
-Person *--> Facebook
-Person *--> Instagram
-Person *--> Address
-Person *--> Remark
+Person *--> "0..1" Phone
+Person *--> "0..1" Facebook
+Person *--> "0..1" Instagram
+Person *--> "0..1" Address
+Person *--> "0..1" Remark
 Person *--> "*" Tag
+Person *--> "1" UUId
 
 Person -[hidden]up--> I
 Order -[hidden]up--> I
@@ -69,12 +71,12 @@ Phone -[hidden]right-> Facebook
 Facebook -[hidden]right-> Instagram
 Tag -[hidden]right-> Remark
 
-Order *--> "1" Person
-Order *--> Address
+Order *--> "1" UUId : customerId
+Order *--> "0..1" Address
 Order *--> "1" Item
 Order *--> "1" DeliveryTime
 Order *--> "1" Quantity
-Order *--> Status
+Order *--> "0..1" Status
 
 ModelManager --> "~* filtered" Person
 ModelManager --> "~* filtered" Order

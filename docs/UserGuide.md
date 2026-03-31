@@ -216,6 +216,12 @@ Examples:
 * `find 99272758` returns `Bernice Yu` if her contact details contains these digits<br>\
   ![result for 'find 99272758'](images/findBernice.png)
 
+<box type="important" seamless>
+
+**Note:** All text after `find` is treated as a single keyword. For example, `find John Doe` searches for the phrase “John Doe” as one keyword, not two separate keywords.
+
+</box>
+
 #### Specific Field Search
 Format: `find PREFIX/KEYWORD`
 

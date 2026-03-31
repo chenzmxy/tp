@@ -372,7 +372,7 @@ Format: `delete-o ORDER_INDEX`
 
 * Deletes the order at the specified `ORDER_INDEX`.
 * The order index refers to the index number shown in the displayed order list.
-* The index **must be positive integer** 1, 2, 3, …​
+* The index **must be a positive integer** 1, 2, 3, …​
 
 **Examples:**
 * `list-o` followed by `delete-o 3` deletes the 3rd order in the results of the `list-o` command.

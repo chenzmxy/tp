@@ -58,7 +58,8 @@ BZNUS is a **desktop app for tracking customer contacts, food orders and custome
 
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar bznus.jar` command to run the application.<br>
    A GUI similar to the following should appear in a few seconds. Note how the app contains some sample data.<br>\
-   ![Ui](images/Ui.png)
+   ![Ui](images/Ui.png)<br>
+On startup, the order list is automatically filtered to display only orders with the statuses `PREPARING` or `READY`.
 
 5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
@@ -349,6 +350,12 @@ Format: `edit-o ORDER_INDEX [i/ITEM_NAME] [q/QUANTITY] [at/DELIVERY_TIME] [a/DEL
 Shows a list of all orders in the address book.
 
 Format: `list-o`
+
+<box type="tip" seamless>
+
+**Tip:** This is a useful command to reset filters on the order list at any time.
+
+</box>
 
 </div>
 

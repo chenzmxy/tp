@@ -25,11 +25,13 @@ public class OrderCard extends UiPart<Region> {
     private Label date;
     @FXML
     private Label status;
+    @FXML
+    private Label customer;
 
     /**
      * Creates an {@code OrderCard} with the given {@code Order} and index to display.
      */
-    public OrderCard(Order order, int displayedIndex) {
+    public OrderCard(Order order, int displayedIndex, String customerName) {
         super(FXML);
         this.order = order;
 
@@ -50,7 +52,10 @@ public class OrderCard extends UiPart<Region> {
             status.setStyle("-fx-background-color: #cfcece; -fx-text-fill: black;");
         }
 
-        item.setText("Order: " + order.getItem().value + " (x" + order.getQuantity().value + ")");
+        item.setText("Order " + displayedIndex + ": " + order.getItem().value
+                                            + " (x " + order.getQuantity().value + ")");
+
+        customer.setText("Customer: " + customerName);
 
         address.setText("Address: " + order.getAddress().value);
 

@@ -8,6 +8,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.Logic;
 import seedu.address.model.order.Order;
 
 /**
@@ -19,14 +20,15 @@ public class OrderListPanel extends UiPart<Region> {
 
     @FXML
     private ListView<Order> orderListView;
+    private final Logic logic;
 
     /**
      * Creates an {@code OrderListPanel} with the given {@code ObservableList} of orders.
      * Orders are displayed in ascending numerical order.
      */
-    public OrderListPanel(ObservableList<Order> orderList) {
+    public OrderListPanel(ObservableList<Order> orderList, Logic logic) {
         super(FXML);
-
+        this.logic = logic;
         orderListView.setItems(orderList);
         orderListView.setCellFactory(listView -> new OrderListViewCell());
     }
@@ -47,7 +49,12 @@ public class OrderListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new OrderCard(order, getIndex() + 1).getRoot());
+                String customerName = logic.getFilteredPersonList().stream()
+                        .filter(p -> p.getId().equals(order.getCustomerId()))
+                        .findFirst()
+                        .map(p -> p.getName().fullName)
+                        .orElse("Unknown");
+                setGraphic(new OrderCard(order, getIndex() + 1, customerName).getRoot());
             }
         }
     }

@@ -18,12 +18,17 @@ public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names, phone numbers, "
+    public static final String MESSAGE_USAGE_GENERAL = COMMAND_WORD + ": Finds all persons whose names, phone numbers, "
             + "email addresses, addresses, or tags contain the specified search phrase (case-insensitive) "
-            + "and displays them as a list with index numbers.\n"
+            + "and displays them as a list\n"
             + "Parameters: SEARCH_PHRASE\n"
-            + "Example: " + COMMAND_WORD + " Blk 30 \n"
-            + "Example: " + COMMAND_WORD + " t/VIP \n";
+            + "Example: " + COMMAND_WORD + " Blk 30 \n";
+
+    public static final String MESSAGE_USAGE_SPECIFIC = COMMAND_WORD
+            + ": Finds persons matching specific criteria using prefixes."
+            + "and displays them as a list\n"
+            + "Parameters: [n/NAME] [p/PHONE] [a/ADDRESS] [t/TAGS] [fb/FACEBOOK] [ig/INSTAGRAM] [r/REMARK]\n"
+            + "Example: " + COMMAND_WORD + " n/John t/VIP";
 
     private static final Logger logger = LogsCenter.getLogger(FindCommand.class);
 

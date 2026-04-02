@@ -44,7 +44,8 @@ public class AddCommand extends Command {
             + PREFIX_ADDRESS + "Blk 123, Clementi Ave 2, #02-02";
 
     public static final String MESSAGE_SUCCESS = "New customer added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This customer already exists in the database.";
+    public static final String MESSAGE_DUPLICATE_PERSON =
+            "A customer with the same name already exists in the database.";
 
     private static final Logger logger = Logger.getLogger(AddCommand.class.getName());
     private final Person toAdd;

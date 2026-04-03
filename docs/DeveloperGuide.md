@@ -359,7 +359,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 5. BZNUS shows a success message to show the customer is added.
 
-Use case ends.
+   Use case ends.
 
 **Extensions:**
 
@@ -494,7 +494,7 @@ Use case ends.
 
 4. BZNUS updates the displayed list to include the order.
 
-Use case ends.
+   Use case ends.
 
 **Extensions:**
 
@@ -525,7 +525,7 @@ Use case ends.
 
 4. BZNUS updates the displayed list to exclude the deleted order.
 
-Use case ends.
+   Use case ends.
 
 **Extensions:**
 
@@ -535,9 +535,9 @@ Use case ends.
 
     * 1a2. User updates entered details.
 
-  Steps 1a1-1a2 are repeated until the information entered is valid.
+    Steps 1a1-1a2 are repeated until the information entered is valid.
 
-  Use case resumes from step 2.
+    Use case resumes from step 2.
 
 </div>
 

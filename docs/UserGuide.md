@@ -323,6 +323,7 @@ Format: `find-o Category-Type/Category-Keywords`
 <box type="tip" seamless>
 
 **Tip:** Besides using `c/`, you can also click on a customer entry in the list to view all orders of that customer.
+![Click a customer entry to view all orders](images/customer-click-view-orders.png)
 
 </box>
 

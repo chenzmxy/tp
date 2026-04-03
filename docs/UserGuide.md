@@ -205,7 +205,7 @@ Examples:
 Finds customers whose details match the given keywords. You can search across all fields or target a specific field using prefixes.
 
 #### General Search
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find KEYWORD`
 
 * The search is case-insensitive. e.g `hans` will match `Hans`.
 * All fields are searched.
@@ -215,6 +215,12 @@ Examples:
 * `find John` returns `john` and `John Doe`
 * `find 99272758` returns `Bernice Yu` if her contact details contains these digits<br>\
   ![result for 'find 99272758'](images/findBernice.png)
+
+<box type="important" seamless>
+
+**Note:** All text after `find` is treated as a single keyword. For example, `find John Doe` searches for the phrase “John Doe” as one keyword, not two separate keywords.
+
+</box>
 
 #### Specific Field Search
 Format: `find PREFIX/KEYWORD`
@@ -314,6 +320,13 @@ Format: `find-o Category-Type/Category-Keywords`
 * `find-o s/Delivered` - Look for orders that are already delivered
 * * `find-o i/burger a/Kent Ridge` - Look for orders with item keyword "burger" and delivery address "Kent Ridge"
 
+<box type="tip" seamless>
+
+**Tip:** Besides using `c/`, you can also click on a customer entry in the list to view all orders of that customer.
+![Click a customer entry to view all orders](images/customer-click-view-orders.png)
+
+</box>
+
 </div>
 
 <div class="section-spacing">
@@ -360,7 +373,7 @@ Format: `delete-o ORDER_INDEX`
 
 * Deletes the order at the specified `ORDER_INDEX`.
 * The order index refers to the index number shown in the displayed order list.
-* The index **must be positive integer** 1, 2, 3, …​
+* The index **must be a positive integer** 1, 2, 3, …​
 
 **Examples:**
 * `list-o` followed by `delete-o 3` deletes the 3rd order in the results of the `list-o` command.

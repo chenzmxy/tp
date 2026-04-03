@@ -406,7 +406,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     * 1a1. BZNUS displays an error message.
 
-    * 1a2. User updates entered details.
+    * 1a2. User updates the entered details.
 
   Steps 1a1-1a2 are repeated until the information entered is valid.
 
@@ -502,7 +502,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     * 1a1. BZNUS displays an error message.
 
-    * 1a2. User updates entered details.
+    * 1a2. User updates the entered details.
 
     Steps 1a1-1a2 are repeated until the information entered is correct.
 
@@ -533,7 +533,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     * 1a1. BZNUS displays an error message.
 
-    * 1a2. User updates entered details.
+    * 1a2. User updates the entered details.
 
     Steps 1a1-1a2 are repeated until the information entered is valid.
 

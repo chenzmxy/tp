@@ -44,6 +44,23 @@ public class Messages {
     }
 
     /**
+     * Formats the {@code order} for display to the user.
+     */
+    public static String format(Order order, String customerName) {
+        return String.format(
+                "%s (x%s) to %s.\n"
+                        + "Delivery to: %s\n"
+                        + "At: %s | Status: %s",
+                order.getItem(),
+                order.getQuantity(),
+                customerName,
+                order.getAddress(),
+                order.getDeliveryTime(),
+                order.getStatus()
+        );
+    }
+
+    /**
      * Formats the {@code person} for display to the user.
      */
     public static String format(Person person) {
@@ -89,22 +106,5 @@ public class Messages {
                 .collect(Collectors.joining(", "));
 
         builder.append("\nTags: ").append(tags.isEmpty() ? "-" : tags);
-    }
-
-    /**
-     * Formats the {@code order} for display to the user.
-     */
-    public static String format(Order order, String customerName) {
-        return String.format(
-                "%s (x%s) to %s.\n"
-                        + "Delivery to: %s\n"
-                        + "At: %s | Status: %s",
-                order.getItem(),
-                order.getQuantity(),
-                customerName,
-                order.getAddress(),
-                order.getDeliveryTime(),
-                order.getStatus()
-        );
     }
 }

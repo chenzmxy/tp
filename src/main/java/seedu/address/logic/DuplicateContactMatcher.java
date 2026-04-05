@@ -2,6 +2,7 @@ package seedu.address.logic;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
@@ -29,8 +30,7 @@ public final class DuplicateContactMatcher {
         List<DuplicateMatch> matches = new ArrayList<>();
 
         for (Person existingPerson : existingPersons) {
-            Set<String> overlappingFields = subject.getMatchingContactFields(existingPerson);
-            overlappingFields.remove("address");
+            Set<String> overlappingFields = new LinkedHashSet<>(subject.getMatchingContactFields(existingPerson));
             if (!overlappingFields.isEmpty()) {
                 matchedFields.addAll(overlappingFields);
                 matches.add(new DuplicateMatch(existingPerson.getName().toString(), overlappingFields));
@@ -66,12 +66,12 @@ public final class DuplicateContactMatcher {
         }
 
         public Set<String> getMatchedFields() {
-            return Set.copyOf(matchedFields);
+            return Collections.unmodifiableSet(new LinkedHashSet<>(matchedFields));
         }
 
         public List<DuplicateMatch> getTopMatches() {
             int shownCount = Math.min(rankedMatches.size(), maxMatchesShown);
-            return rankedMatches.subList(0, shownCount);
+            return List.copyOf(rankedMatches.subList(0, shownCount));
         }
 
         public int getTotalMatchCount() {
@@ -84,7 +84,7 @@ public final class DuplicateContactMatcher {
     }
 
     /**
-     * A single customer match used in duplicate warnings.
+     * Container for a single customer match.
      */
     public static final class DuplicateMatch {
         private final String customerName;

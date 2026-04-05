@@ -17,10 +17,12 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.logic.DuplicateContactMatcher;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -101,10 +103,25 @@ public class EditCommand extends Command {
         }
 
         logger.info("Editing customer: " + personToEdit + " to " + editedPerson);
+
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
         logger.info("Successfully edited customer: " + editedPerson);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)));
+
+        logger.info("Checking for duplicate contact details for edited customer: " + editedPerson.getName());
+
+        List<Person> existingPersons = model.getAddressBook().getPersonList().stream()
+                .filter(person -> !person.getId().equals(personToEdit.getId()))
+                .collect(Collectors.toList());
+        Optional<DuplicateContactMatcher.DuplicateContactWarning> duplicateWarning =
+                DuplicateContactMatcher.findWarning(editedPerson, existingPersons);
+
+        logger.info(duplicateWarning.map(warning -> "Duplicate contact details found for edited customer: "
+                + warning.getMatchedFields()).orElse("No duplicate contact details found for edited customer."));
+
+        return new CommandResult(duplicateWarning.map(Messages::formatDuplicateContactWarning).orElse("")
+                + String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)));
     }
 
     /**

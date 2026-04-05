@@ -140,13 +140,13 @@ Format: `add n/NAME [p/PHONE] [ig/INSTAGRAM] [fb/FACEBOOK] [a/ADDRESS] [r/REMARK
 
 <box type="important" seamless>
 
-**Duplicate Handling:** Customer names are unique (case-insensitive). For example, "John Doe" and "john doe" are considered the same person, and the app will reject the duplicate entry.
+**Duplicate Handling:** Customer names are unique (case-insensitive). For example, "John Doe" and "john doe" are considered the same person, and the app will reject the duplicate entry. Different customers may share contact details (e.g. phone, Facebook, Instagram, or address).
 
 </box>
 
 <box type="tip" seamless>
 
-**Tip:** If you have two customers with the same name, use descriptors to differentiate them (e.g., "John Doe (Clementi)" and "John Doe (Jurong)"). A customer can also have any number of tags (including 0).
+**Tip:** If you have two customers with the same name, use descriptors to differentiate them (e.g. "**John Doe (Clementi)**" and "**John Doe (Jurong)**"). A customer can also have any number of tags (including 0).
 
 </box>
 
@@ -194,7 +194,7 @@ Examples:
 *  `edit 1 p/91234567 a/John Street, Blk 123, #02-02` Edits the phone number and delivery address of the 1st customer to be `91234567` and `John Street, Blk 123, #02-02` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd customer to be `Betsy Crower` and clears all existing tags.
 *  `edit 3 ig/ r/` Clears Instagram and remark for the 3rd customer.
-*  `edit 4 p/ fb/ ig/ a/` Fails if this would remove all contact methods from the 4th customer.
+*  `edit 4 p/ fb/ ig/ a/` Fails as this would remove all contact methods from the 4th customer.
 
 </div>
 

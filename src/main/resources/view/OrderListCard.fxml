@@ -15,7 +15,7 @@
     </columnConstraints>
     <VBox alignment="CENTER_LEFT" minHeight="105" minWidth="0" GridPane.columnIndex="0">
       <padding>
-        <Insets top="5" right="5" bottom="5" left="15" />
+        <Insets top="15" right="15" bottom="15" left="15" />
       </padding>
       <Label fx:id="item" styleClass="order-item" text="$item" />
       <Label fx:id="quantity" styleClass="cell_small_label" text="$quantity" />

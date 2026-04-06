@@ -55,6 +55,7 @@ public class PersonCard extends UiPart<Region> {
     public PersonCard(Person person, int displayedIndex) {
         super(FXML);
         this.person = person;
+        configureWrappingLabel(name);
         configureWrappingLabel(address);
         configureWrappingLabel(remark);
         id.setText(displayedIndex + ". ");
@@ -70,13 +71,16 @@ public class PersonCard extends UiPart<Region> {
     }
 
     /**
-     * Sets the label text if its value is present, otherwise hides the label.
+     * Configures the wrapping of the label to allow text to wrap to the next line.
      */
     private void configureWrappingLabel(Label label) {
         label.setWrapText(true);
         label.setMaxWidth(Double.MAX_VALUE);
     }
 
+    /**
+     * Sets the label text if its value is present, otherwise hides the label.
+     */
     private void setOptionalLabel(Label label, Optional<String> value, Function<String, String> formatter) {
         value.ifPresentOrElse(val -> {
             label.setText(formatter.apply(val));

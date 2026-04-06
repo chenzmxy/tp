@@ -2,7 +2,6 @@ package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.order.Order;
 
@@ -16,8 +15,6 @@ public class OrderCard extends UiPart<Region> {
     public final Order order;
 
     @FXML
-    private HBox cardPane;
-    @FXML
     private Label item;
     @FXML
     private Label address;
@@ -27,28 +24,13 @@ public class OrderCard extends UiPart<Region> {
     private Label status;
 
     /**
-     * Creates an {@code OrderCard} with the given {@code Order} and index to display.
+     * Creates an {@code OrderCard} with the given {@code Order}.
      */
-    public OrderCard(Order order, int displayedIndex) {
+    public OrderCard(Order order) {
         super(FXML);
         this.order = order;
 
-        switch (order.getStatus().value) {
-        case "PREPARING":
-            status.setStyle("-fx-background-color: #dce5f6; -fx-text-fill: #083fa7;"); // Lemon chiffon
-            break;
-        case "READY":
-            status.setStyle("-fx-background-color: #f0f4c5; -fx-text-fill: #7b8405;"); // Light green
-            break;
-        case "DELIVERED":
-            status.setStyle("-fx-background-color: #c9f8c9; -fx-text-fill: #067606;"); // Pale green
-            break;
-        case "CANCELLED":
-            status.setStyle("-fx-background-color: #f9cfd5; -fx-text-fill: #9d081f;"); // Light pink
-            break;
-        default:
-            status.setStyle("-fx-background-color: #cfcece; -fx-text-fill: black;");
-        }
+        applyStatusStyle(order.getStatus().value);
 
         item.setText("Order: " + order.getItem().value + " (x" + order.getQuantity().value + ")");
 
@@ -57,5 +39,25 @@ public class OrderCard extends UiPart<Region> {
         date.setText("Date: " + order.getDeliveryTime().value);
 
         status.setText("Status: " + order.getStatus().value);
+    }
+
+    private void applyStatusStyle(String statusValue) {
+        status.getStyleClass().removeIf(s -> s.startsWith("status-"));
+        switch (statusValue) {
+        case "PREPARING":
+            status.getStyleClass().add("status-preparing");
+            break;
+        case "READY":
+            status.getStyleClass().add("status-ready");
+            break;
+        case "DELIVERED":
+            status.getStyleClass().add("status-delivered");
+            break;
+        case "CANCELLED":
+            status.getStyleClass().add("status-cancelled");
+            break;
+        default:
+            status.getStyleClass().add("status-unknown");
+        }
     }
 }

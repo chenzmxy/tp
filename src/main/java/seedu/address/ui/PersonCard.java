@@ -55,6 +55,9 @@ public class PersonCard extends UiPart<Region> {
     public PersonCard(Person person, int displayedIndex) {
         super(FXML);
         this.person = person;
+        configureWrappingLabel(name);
+        configureWrappingLabel(address);
+        configureWrappingLabel(remark);
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
         setOptionalLabel(phone, person.getPhone().map(p -> p.value), p -> p);
@@ -65,6 +68,14 @@ public class PersonCard extends UiPart<Region> {
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+    }
+
+    /**
+     * Configures the wrapping of the label to allow text to wrap to the next line.
+     */
+    private void configureWrappingLabel(Label label) {
+        label.setWrapText(true);
+        label.setMaxWidth(Double.MAX_VALUE);
     }
 
     /**

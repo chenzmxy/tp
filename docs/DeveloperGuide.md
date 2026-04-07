@@ -792,3 +792,48 @@ Team size: 5
 
 1. **Add non-blocking warnings for duplicate contact details**: Currently, BZNUS only checks for duplicate customer names. As a result, users may accidentally create duplicate entries for the same customer with the same phone number or social media handle. We plan to display a non-blocking warning when a new or edited customer shares the same phone number, Facebook username, or Instagram handle as existing customer(s). The warning will highlight the matching contact fields and may list customers with overlapping details to help users decide whether the new or edited entry is intentional. This helps users spot potential duplicates early without blocking legitimate entries (e.g. shared contact details among family members or corporate customers).
 
+## **Appendix: Effort**
+
+Compared with AB3, BZNUS required substantially more effort because it extends a single-entity contact manager into a multi-entity system with linked `Customer` and `Order` workflows. The added complexity came from coordinating model design, validation, persistence, and UI updates across two related domains instead of one.
+
+### Scope expansion and technical complexity
+
+We implemented customer and order flows end-to-end (parse → validate → execute → persist → display). This involved refactoring AB3 classes and introducing new components such as command classes (e.g. `AddOrderCommand`, `DeleteOrderCommand`), parsers (e.g. `FindOrderCommandParser`), order-domain model classes (e.g. `DeliveryTime`, `OrderList`), storage adapters (e.g. `JsonAdaptedOrder`), and order-related UI components (e.g. `OrderCard`, `OrderListPanel`).
+
+A key design challenge was maintaining customer-order referential integrity. We eventually adopted UUID-based linkage (`Person#getId()` and `Order#getCustomerId`) so that orders could be associated with customers without depending on displayed list indices. This supported important behaviours such as:
+
+* cascading deletion of a customer's orders when the customer is deleted,
+* adding an order that uses the customer's stored address when no delivery address is specified, while still failing safely if no address is found.
+
+We also spent significant effort redesigning the UI to present customer and order information clearly in separate panels. Notably, we implemented a click-to-filter functionality, where selecting a customer card updates the order panel to show only that customer's orders.
+
+### Main implementation challenges
+
+The most effort-intensive parts of the project were:
+
+* designing and maintaining customer-order relationships without breaking data consistency,
+* enforcing stronger domain validation (e.g. optional-field constraints and contact-method rules),
+* keeping command parsing and validation consistent across add/edit/delete/find operations for both entities,
+* updating JSON storage so customers and orders could be saved and restored reliably,
+* adjusting the UI to keep customer and order information readable and well-organised,
+* writing and updating automated tests to cover boundary cases, invalid input, cross-entity interactions, and persistence behaviour,
+* updating the User Guide (UG) and Developer Guide (DG) to provide clear instructions and documentation for our expanded feature set.
+
+In addition to implementation work, we spent time coordinating developmental changes through the forking workflow, issue tracking, and thorough pull-request reviews. These helped us identify bugs early and avoid unintended side effects when multiple features touched shared components.
+
+### Code Reuse
+
+BZNUS reused AB3's architectural foundation, including its component structure, command workflow, parser style, JavaFX scaffold, and JSON-based storage approach. This reduced setup effort and allowed us to focus on BZNUS-specific features such as customer-order management, custom validation rules, and richer user-facing workflows.
+
+We also reused AB3-supported libraries and tools, such as JavaFX, Jackson and JUnit. This avoided additional integration work and kept the project focused on domain logic.
+
+### Achievements
+
+Our key achievements include:
+
+* **A complete multi-entity application**, with customer and order management integrated into a coherent CLI workflow,
+* **A responsive and intuitive UI** that dynamically updates to show relevant customer and order information while maintaining readability and structure,
+* **Helpful, user‑friendly error messages** that guide users toward correcting invalid inputs and reduce friction during command entry.
+* **A maintainable and extensible codebase**, supported by modular design, clear separation of concerns, and well‑documented components.
+* **Comprehensive automated testing**, covering validation rules, cross‑entity interactions, and persistence behaviour to ensure long-term code reliability.
+* **Clear and user‑focused documentation**, with updated UG/DG sections, diagrams, and testing instructions that reflect the expanded feature set.

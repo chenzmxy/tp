@@ -72,7 +72,7 @@ On startup, the order list is automatically filtered to display only orders with
 
    * `delete 3` : Deletes the 3rd customer shown in the current list.
 
-   * `clear` : Deletes all customers and their orders.
+   * `clear` : Shows a confirmation message before deleting all customers and their orders.
 
    * `exit` : Exits the app.
 
@@ -98,7 +98,7 @@ On startup, the order list is automatically filtered to display only orders with
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
+* Extraneous parameters for commands that do not take in parameters (such as `help`, `list` and `exit`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines. Space characters surrounding line-breaks may be omitted when copied over to the application.
@@ -408,9 +408,11 @@ Format: `delete-o ORDER_INDEX`
 
 ### <a id="clear"></a>Clearing all entries : `clear`
 
-Clears all customers and their orders from BZNUS.
+Shows a confirmation message before clearing all customers and their orders from BZNUS.
 
-Format: `clear`
+Format:
+* `clear` (shows confirmation message)
+* `clear CONFIRM` (confirms and performs clearing)
 
 </div>
 

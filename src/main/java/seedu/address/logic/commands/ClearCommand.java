@@ -2,6 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Objects;
+
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 
@@ -11,6 +13,9 @@ import seedu.address.model.Model;
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Clears all customers and their orders.\n"
+            + "Format: clear OR clear CONFIRM";
     public static final String MESSAGE_CONFIRMATION_REQUIRED = "Are you sure you want to clear the address book?\n"
             + "This action cannot be undone. Type 'clear CONFIRM' to confirm.";
     public static final String MESSAGE_SUCCESS = "Address book has been cleared!";
@@ -31,5 +36,24 @@ public class ClearCommand extends Command {
         }
         model.setAddressBook(new AddressBook());
         return new CommandResult(MESSAGE_SUCCESS);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof ClearCommand)) {
+            return false;
+        }
+
+        ClearCommand otherClearCommand = (ClearCommand) other;
+        return isConfirmed == otherClearCommand.isConfirmed;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(isConfirmed);
     }
 }

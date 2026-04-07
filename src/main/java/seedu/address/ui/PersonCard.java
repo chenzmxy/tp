@@ -5,12 +5,10 @@ import java.util.Optional;
 import java.util.function.Function;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.control.OverrunStyle;
-import javafx.scene.control.Tooltip;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -96,7 +94,7 @@ public class PersonCard extends UiPart<Region> {
         }
     }
 
-     /**
+    /**
      * Configures the wrapping of the label to allow text to wrap to the next line.
      */
     private void configureWrappingLabel(Label label) {

@@ -704,7 +704,6 @@ testers are expected to do more *exploratory* testing.
     1. Test case: `order x i/Pizza q/3 at/2026-05-01 1400 a/123 Clementi Rd s/PREPARING` (where x is larger than the filtered list size)<br>
        Expected: No order is added. An error message is shown.
 
-
 </div>
 
 <div class="section-spacing">

@@ -27,10 +27,10 @@ import seedu.address.testutil.PersonBuilder;
 
 public class OrderListPanelTest {
 
-    private static final String TEST_ITEM = "Burger";
-    private static final String TEST_QUANTITY = "5";
-    private static final String TEST_DELIVERY_TIME = "2030-12-01 1800";
-    private static final String TEST_ADDRESS = "456 Oak Avenue";
+    private static final String TEST_ITEM = "Pizza";
+    private static final String TEST_QUANTITY = "2";
+    private static final String TEST_DELIVERY_TIME = "2027-06-15 1200";
+    private static final String TEST_ADDRESS = "123 Main Street";
 
     private static class LogicStub implements Logic {
         private final ObservableList<Person> personList;
@@ -97,62 +97,41 @@ public class OrderListPanelTest {
     }
 
     @Test
-    public void logicStub_findsCustomerById() {
+    public void logicStub_getFilteredPersonList_returnsObservableList() {
+        ObservableList<Person> personList = FXCollections.observableArrayList();
+        LogicStub logic = new LogicStub(personList);
+        assertNotNull(logic.getFilteredPersonList());
+        assertEquals(personList, logic.getFilteredPersonList());
+    }
+
+    @Test
+    public void logicStub_getFilteredPersonList_withMultiplePersons() {
         Person customer = new PersonBuilder().withName("Alex Yeoh").build();
         ObservableList<Person> personList = FXCollections.observableArrayList(customer);
         LogicStub logic = new LogicStub(personList);
 
-        Person found = logic.getFilteredPersonList().stream()
-                .filter(p -> p.getId().equals(customer.getId()))
-                .findFirst()
-                .orElse(null);
-
-        assertNotNull(found);
-        assertEquals("Alex Yeoh", found.getName().fullName);
+        assertEquals(1, logic.getFilteredPersonList().size());
+        assertEquals(customer, logic.getFilteredPersonList().get(0));
     }
 
     @Test
-    public void logicStub_findCustomer_returnsCorrectName() {
-        Person customer = new PersonBuilder().withName("Bernice Yu").build();
-        ObservableList<Person> personList = FXCollections.observableArrayList(customer);
-        LogicStub logic = new LogicStub(personList);
-
-        Person found = logic.getFilteredPersonList().stream()
-                .filter(p -> p.getId().equals(customer.getId()))
-                .findFirst()
-                .orElse(null);
-
-        assertNotNull(found);
-        assertEquals("Bernice Yu", found.getName().fullName);
-    }
-
-    @Test
-    public void logicStub_customerNotFound_returnsNull() {
+    public void logicStub_getFilteredOrderList_returnsEmptyObservableList() {
         ObservableList<Person> personList = FXCollections.observableArrayList();
         LogicStub logic = new LogicStub(personList);
 
-        Person found = logic.getFilteredPersonList().stream()
-                .filter(p -> p.getId().equals(UUID.randomUUID()))
-                .findFirst()
-                .orElse(null);
-
-        assertEquals(null, found);
+        ObservableList<Order> orderList = logic.getFilteredOrderList();
+        assertNotNull(orderList);
+        assertEquals(0, orderList.size());
     }
 
     @Test
-    public void logicStub_multipleCustomers_findsCorrectOne() {
+    public void logicStub_multiplePersons_providesCorrectCount() {
         Person customer1 = new PersonBuilder().withName("Alex Yeoh").build();
         Person customer2 = new PersonBuilder().withName("Bernice Yu").build();
         ObservableList<Person> personList = FXCollections.observableArrayList(customer1, customer2);
         LogicStub logic = new LogicStub(personList);
 
-        Person found = logic.getFilteredPersonList().stream()
-                .filter(p -> p.getId().equals(customer2.getId()))
-                .findFirst()
-                .orElse(null);
-
-        assertNotNull(found);
-        assertEquals("Bernice Yu", found.getName().fullName);
+        assertEquals(2, logic.getFilteredPersonList().size());
     }
 
     @Test

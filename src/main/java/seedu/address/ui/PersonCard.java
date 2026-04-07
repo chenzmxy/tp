@@ -6,6 +6,9 @@ import java.util.function.Function;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ContentDisplay;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -19,6 +22,8 @@ import seedu.address.model.person.Person;
 public class PersonCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
+    private static final Image REMARK_ICON = new Image(
+            PersonCard.class.getResourceAsStream("/images/card_icon_remark.png"));
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -61,7 +66,14 @@ public class PersonCard extends UiPart<Region> {
         setOptionalLabel(facebook, person.getFacebook().map(Facebook::getDisplayValue), fb -> "FB: " + fb);
         setOptionalLabel(instagram, person.getInstagram().map(Instagram::getDisplayValue), ig -> "IG: " + ig);
         setOptionalLabel(address, person.getAddress().map(a -> a.value), a -> a);
-        setOptionalLabel(remark, person.getRemark().map(r -> r.value), r -> "📝 " + r);
+        ImageView remarkIconView = new ImageView(REMARK_ICON);
+        remarkIconView.setFitWidth(18);
+        remarkIconView.setFitHeight(18);
+        remarkIconView.setPreserveRatio(true);
+        remark.setGraphic(remarkIconView);
+        remark.setGraphicTextGap(6);
+        remark.setContentDisplay(ContentDisplay.LEFT);
+        setOptionalLabel(remark, person.getRemark().map(r -> r.value), r -> r);
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

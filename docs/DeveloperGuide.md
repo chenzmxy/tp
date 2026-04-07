@@ -361,23 +361,27 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 4. BZNUS adds the customer to the system.
 
-5. BZNUS shows a success message with the details of the added customer.
+5. BZNUS shows a success message with the added customer's details and displays the full list of customers.
 
    Use case ends.
 
 **Extensions:**
 
-- 2a. BZNUS detects invalid or missing fields (e.g. empty name, no contact method, or invalid phone number format).
+* 2a. BZNUS detects invalid or missing fields (e.g. empty name, no contact method, or invalid field format).
 
-  - 2a1. BZNUS shows an error message indicating the issue found.
-
-    Use case ends.
+  * 2a1. BZNUS displays an error message indicating the issue found.
   
-- 3a. BZNUS detects that the customer name provided (case-insensitive) matches that of an existing customer.
+  * 2a2. User updates the entered details.
 
-  - 3a1. BZNUS shows an error message indicating that a customer with the same name already exists in the system.
+    Use case resumes from step 2.
+  
+* 3a. BZNUS detects that the customer name provided matches that of an existing customer (case-insensitive).
+
+  * 3a1. BZNUS displays an error message indicating the issue found.
+
+  * 3a2. User updates the entered details.
     
-    Use case ends.
+    Use case resumes from step 2.
 
 ---
 
@@ -434,7 +438,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 4. BZNUS saves the updated details of the specified customer.
 
-5. BZNUS shows a success message with the customer's updated details.
+5. BZNUS shows a success message with the customer's updated details and displays the full list of customers.
 
    Use case ends.
 
@@ -443,14 +447,18 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 2a. BZNUS detects invalid user input (e.g. invalid index, no fields supplied, empty name, or invalid field value).
 
     * 2a1. BZNUS shows an error message indicating the issue found.
+  
+    * 2a2. User updates the entered details.
 
-        Use case ends.
+        Use case resumes from step 2.
 
 * 3a. BZNUS detects a post-edit constraint violation (duplicate customer name, or all contact methods cleared for the customer).
 
-    * 3a1. BZNUS shows an error message indicating the issue found.
+    * 3a1. BZNUS shows an error message indicating the issue found. 
 
-        Use case ends.
+    * 3a2. User updates the entered details.
+
+        Use case ends resumes from step 2.
 
 ---
 

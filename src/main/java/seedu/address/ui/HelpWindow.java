@@ -113,9 +113,11 @@ public class HelpWindow extends UiPart<Stage> {
                 "list-o",
                 "list-o");
 
-        addCommandBlock("clear", "Clears all customers and their orders from BZNUS.",
-                "clear",
-                "clear");
+        addCommandBlock("clear",
+                "Shows the confirmation warning for clearing all entries. "
+                        + "Requires 'clear CONFIRM' to permanently delete all customers and orders.",
+                "clear [CONFIRM]",
+                "clear CONFIRM");
 
         addCommandBlock("exit", "Exits the program.",
                 "exit",

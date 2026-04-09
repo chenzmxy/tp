@@ -344,8 +344,6 @@ The edit command updates fields of the customer at `INDEX` in the currently disp
 
 <div class="section-spacing">
 
-### \[Proposed\] Undo/redo feature
-
 #### Proposed Implementation
 
 The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
@@ -354,19 +352,15 @@ The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It ex
 * `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
 * `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
 
-These operations are exposed in the `Model` interface:
+These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
 
-* `Model#updateFilteredOrderList(Predicate<Order> predicate)` — Updates the displayed order list based on the predicate.
-* `Model#getFilteredOrderList()` — Returns the currently displayed (filtered) orders.
+Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
+Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
 
-Given below is an example usage scenario and how the find order feature behaves at each step.
+<puml src="diagrams/UndoRedoState0.puml" alt="UndoRedoState0" />
 
-Step 1. The user launches the application and types find-o i/pizza. The `FindOrderCommandParser`  receives `i/pizza`, parses it, and builds a map of search criteria with the key `i` and value `pizza`.
-
-<puml src="diagrams/Find-oState0.puml" alt="Find-oState0" />
-
-Step 2. The `FindOrderCommand` receives the map of search criteria and iterates through the search map to resolve customer identifiers (e.g., `c/1` to `Person` object) and build a list of predicates. In this case, it creates an `OrderContainsKeywordsPredicate` with the item keyword `pizza`. The `FindOrderCommand` then calls `Model#updateFilteredOrderList(predicate)` to update the displayed order list to only show orders that match the predicate.
+Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 <puml src="diagrams/UndoRedoState1.puml" alt="UndoRedoState1" />
 

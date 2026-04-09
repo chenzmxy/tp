@@ -13,7 +13,7 @@ BZNUS is a **one-stop desktop app for managing customer contacts, food orders an
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Target Users & Assumptions
+## Target Users and Assumptions
 
 **BZNUS is built for small home-based F&B business owners who:**
 - handle customer orders, order fulfillment, and personalised preferences across multiple platforms such as WhatsApp, Instagram, and Facebook
@@ -33,29 +33,29 @@ BZNUS is a **one-stop desktop app for managing customer contacts, food orders an
 
 1. [Quick start](#quick-start)
 2. [Features](#features)
-   - [Viewing help: `help`](#viewing-help)
+   - [Viewing Help: `help`](#viewing-help)
 3. [Customer Commands](#customer-commands)
-   - [Adding a customer: `add`](#add)
-   - [Listing all customers: `list`](#list)
-   - [Editing a customer: `edit`](#edit)
-   - [Finding customers: `find`](#find)
-   - [Deleting a customer: `delete`](#delete)
+   - [Adding a Customer: `add`](#add)
+   - [Listing All Customers: `list`](#list)
+   - [Editing a Customer: `edit`](#edit)
+   - [Finding a Customer: `find`](#find)
+   - [Deleting a Customer: `delete`](#delete)
 4. [Order Commands](#order-commands)
-   - [Adding an order: `order`](#order)
-   - [Finding orders: `find-o`](#find-o)
-   - [Editing an order: `edit-o`](#edit-o)
-   - [Listing all orders: `list-o`](#list-o)
-   - [Deleting an order: `delete-o`](#delete-o)
+   - [Adding an Order: `order`](#order)
+   - [Finding an Order: `find-o`](#find-o)
+   - [Editing an Order: `edit-o`](#edit-o)
+   - [Listing all Orders: `list-o`](#list-o)
+   - [Deleting an Order: `delete-o`](#delete-o)
 5. [Other Commands](#other-commands)
-   - [Clearing all entries: `clear`](#clear)
-   - [Exiting the program: `exit`](#exit)
+   - [Clearing All Entries: `clear`](#clear)
+   - [Exiting the Program: `exit`](#exit)
 6. [Data Storage](#data-storage)
-   - [Saving the data](#saving-data)
-   - [Editing the data file](#edit-data)
-   - [Archiving data files `[coming in v2.0]`](#archive-data)
+   - [Saving the Data](#saving-data)
+   - [Editing the Data File](#edit-data)
+   - [Archiving Data Files `[coming in v2.0]`](#archive-data)
 7. [FAQ](#faq)
-8. [Known issues](#known-issues)
-9. [Command summary](#command-summary)
+8. [Known Issues](#known-issues)
+9. [Command Summary](#command-summary)
    - [Customer Commands](#c-command)
    - [Order Commands](#o-command)
    - [Other Commands](#others)
@@ -63,7 +63,7 @@ BZNUS is a **one-stop desktop app for managing customer contacts, food orders an
 
 --------------------------------------------------------------------------------------------------------------------
 
-## <a id="quick-start"></a>Quick start
+## <a id="quick-start"></a>Quick Start
 
 1. Ensure you have Java `17` or above installed in your Computer.<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
@@ -122,7 +122,7 @@ On startup, the order list is automatically filtered to display only orders with
 
 </box>
 
-### <a id="viewing-help"></a>Viewing help : `help`
+### <a id="viewing-help"></a>Viewing Help : `help`
 
 Shows a message explaining how to access the help page.
 
@@ -137,7 +137,7 @@ Format: `help`
 
 <div class="section-spacing">
 
-### <a id="add"></a>Adding a customer : `add`
+### <a id="add"></a>Adding a Customer : `add`
 
 Adds a customer to the customer database.
 
@@ -198,7 +198,7 @@ If the customer name is a duplicate or invalid input is provided, an error messa
 
 <div class="section-spacing">
 
-### <a id="list"></a>Listing all customers : `list`
+### <a id="list"></a>Listing All Customers : `list`
 
 Shows a list of all customers in the customer database.
 
@@ -230,7 +230,7 @@ Hover over a truncated tag to view its full text in a tooltip.
 
 <div class="section-spacing">
 
-### <a id="edit"></a>Editing a customer : `edit`
+### <a id="edit"></a>Editing a Customer : `edit`
 
 Edits an existing customer in the displayed customer list.
 
@@ -280,7 +280,7 @@ If the index is invalid, the customer name becomes a duplicate, or all contact m
 
 <div class="section-spacing">
 
-### <a id="find"></a>Finding customers : `find`
+### <a id="find"></a>Finding a Customer : `find`
 
 Finds customers whose details match the given keywords. You can search across all fields or target a specific field using prefixes.
 
@@ -325,7 +325,7 @@ Examples:
 
 </div>
 
-### <a id="delete"></a>Deleting a customer : `delete`
+### <a id="delete"></a>Deleting a Customer : `delete`
 
 Deletes the specified customer from the customer database.
 
@@ -351,7 +351,7 @@ Examples:
 
 <div class="section-spacing">
 
-### <a id="order"></a>Adding an order : `order`
+### <a id="order"></a>Adding an Order : `order`
 
 Adds a new order for a specific customer.
 
@@ -383,7 +383,7 @@ If the customer has no stored address, you will be prompted to enter a delivery 
 
 <div class="section-spacing">
 
-### <a id="find-o"></a>Finding orders : `find-o`
+### <a id="find-o"></a>Finding an Order : `find-o`
 
 Search for different orders with 4 category options: item name, delivery address, customer id, status
 
@@ -412,7 +412,7 @@ Format: `find-o Category-Type/Category-Keywords`
 
 <div class="section-spacing">
 
-### <a id="edit-o"></a>Editing an order : `edit-o`
+### <a id="edit-o"></a>Editing an Order : `edit-o`
 
 Updates fields of an existing order. Any field you specify replaces the previous value; other fields stay unchanged.
 
@@ -439,7 +439,7 @@ Format: `edit-o ORDER_INDEX [i/ITEM_NAME] [q/QUANTITY] [at/DELIVERY_TIME] [a/DEL
 
 <div class="section-spacing">
 
-### <a id="list-o"></a>Listing all orders : `list-o`
+### <a id="list-o"></a>Listing All Orders : `list-o`
 
 Shows a list of all orders in the order database.
 
@@ -453,7 +453,7 @@ Format: `list-o`
 
 </div>
 
-### <a id="delete-o"></a>Deleting an order : `delete-o`
+### <a id="delete-o"></a>Deleting an Order : `delete-o`
 
 Deletes the specific order from the order database.
 
@@ -473,7 +473,7 @@ Format: `delete-o ORDER_INDEX`
 
 <div class="section-spacing">
 
-### <a id="clear"></a>Clearing all entries : `clear`
+### <a id="clear"></a>Clearing All Entries : `clear`
 
 Clears all customers and their orders from BZNUS.
 To prevent accidental data loss, this command requires a specific confirmation keyword to execute.
@@ -492,7 +492,7 @@ Format:
 
 <div class="section-spacing">
 
-### <a id="exit"></a>Exiting the program : `exit`
+### <a id="exit"></a>Exiting the Program : `exit`
 
 Exits the program.
 
@@ -505,7 +505,7 @@ Format: `exit`
 
 <div class="section-spacing">
 
-### <a id="saving-data"></a>Saving the data
+### <a id="saving-data"></a>Saving the Data
 
 BZNUS data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
@@ -513,7 +513,7 @@ BZNUS data is saved in the hard disk automatically after any command that change
 
 <div class="section-spacing">
 
-### <a id="edit-data"></a>Editing the data file
+### <a id="edit-data"></a>Editing the Data File
 
 BZNUS data is saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to edit this file directly, but please read the following notes carefully before doing so.
 
@@ -564,7 +564,7 @@ To help you understand how BZNUS handles corrupted data files:
 
 </div>
 
-### <a id="archive-data"></a>Archiving data files `[coming in v2.0]`
+### <a id="archive-data"></a>Archiving Data Files `[coming in v2.0]`
 
 _Details coming soon ..._
 
@@ -581,14 +581,14 @@ _Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
 
-## <a id="known-issues"></a>Known issues
+## <a id="known-issues"></a>Known Issues
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## <a id="command-summary"></a>Command summary
+## <a id="command-summary"></a>Command Summary
 
 <div class="section-spacing">
 
@@ -631,7 +631,7 @@ _Details coming soon ..._
 ## Troubleshooting
 This section provides quick fixes for common user-facing issues.
 
-### Add customer (`add`)
+### Add Customer (`add`)
 
 <panel header="Duplicate customer name" type="seamless">
 
@@ -708,7 +708,7 @@ Keep to only one value for each single-valued prefix specified (`n/`, `p/`, `fb/
 
 <div style="height: 30px;"></div>
 
-### Edit customer (`edit`)
+### Edit Customer (`edit`)
 
 <panel header="Invalid index" type="seamless">
 
@@ -784,7 +784,7 @@ Keep only one value for each single-valued prefix specified (`n/`, `p/`, `fb/`, 
 
 <div style="height: 30px;"></div>
 
-### List customers (`list`)
+### List Customers (`list`)
 
 <panel header="Customer list is empty after running `list`" type="seamless">
 

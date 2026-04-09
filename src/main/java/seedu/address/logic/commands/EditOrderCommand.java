@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ITEM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ORDERS;
 
 import java.util.List;
 import java.util.Objects;
@@ -41,7 +40,7 @@ public class EditOrderCommand extends Command {
             + "[" + PREFIX_QUANTITY + "QUANTITY] "
             + "[" + PREFIX_DATETIME + "DATETIME] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + PREFIX_STATUS + "STATUS]...\n"
+            + "[" + PREFIX_STATUS + "STATUS]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_ITEM + "Pizza "
             + PREFIX_QUANTITY + "3 "
@@ -51,7 +50,7 @@ public class EditOrderCommand extends Command {
 
     public static final String MESSAGE_EDIT_ORDER_SUCCESS = "Edited Order: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_ORDER = "This order already exists in the address book.";
+    public static final String MESSAGE_UNKNOWN_CUSTOMER = "The customer for this order is unknown.";
 
     private final Index index;
     private final EditOrderDescriptor editOrderDescriptor;
@@ -71,6 +70,10 @@ public class EditOrderCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        if (!editOrderDescriptor.isAnyFieldEdited()) {
+            throw new CommandException(MESSAGE_NOT_EDITED);
+        }
+
         List<Order> lastShownList = model.getFilteredOrderList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
@@ -80,12 +83,17 @@ public class EditOrderCommand extends Command {
         Order orderToEdit = lastShownList.get(index.getZeroBased());
         Order editedOrder = createEditedOrder(orderToEdit, editOrderDescriptor);
 
-        model.setOrder(orderToEdit, editedOrder);
-        model.updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS);
         Person customer = model.findPersonById(orderToEdit.getCustomerId());
+        if (customer == null) {
+            throw new CommandException(MESSAGE_UNKNOWN_CUSTOMER);
+        }
+
+        model.setOrder(orderToEdit, editedOrder);
+
+        String customerName = customer.getName().toString();
         return new CommandResult(String.format(
             MESSAGE_EDIT_ORDER_SUCCESS,
-            Messages.format(editedOrder, customer.getName().toString())
+            Messages.format(editedOrder, customerName)
         ));
     }
 
@@ -94,7 +102,6 @@ public class EditOrderCommand extends Command {
      * edited with {@code editOrderDescriptor}.
      */
     private static Order createEditedOrder(Order orderToEdit, EditOrderDescriptor editOrderDescriptor) {
-        assert orderToEdit != null;
 
         Item updatedItem = editOrderDescriptor.getItem().orElse(orderToEdit.getItem());
         Quantity updatedQuantity = editOrderDescriptor.getQuantity().orElse(orderToEdit.getQuantity());

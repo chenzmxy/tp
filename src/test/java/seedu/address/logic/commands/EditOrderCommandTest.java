@@ -91,16 +91,9 @@ public class EditOrderCommandTest {
     }
 
     @Test
-    public void execute_noFieldSpecifiedUnfilteredList_success() throws CommandException {
+    public void execute_noFieldSpecifiedUnfilteredList_failure() throws CommandException {
         EditOrderCommand editOrderCommand = new EditOrderCommand(INDEX_FIRST_ORDER, new EditOrderDescriptor());
-        Order editedOrder = model.getFilteredOrderList().get(INDEX_FIRST_ORDER.getZeroBased());
-
-        Person customer = model.findPersonById(editedOrder.getCustomerId());
-        String expectedMessage = String.format(EditOrderCommand.MESSAGE_EDIT_ORDER_SUCCESS,
-                Messages.format(editedOrder, customer.getName().toString()));
-
-        CommandResult result = editOrderCommand.execute(model);
-        assertEquals(new CommandResult(expectedMessage), result);
+        assertCommandFailure(editOrderCommand, model, EditOrderCommand.MESSAGE_NOT_EDITED);
     }
 
     @Test

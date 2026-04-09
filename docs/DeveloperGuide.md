@@ -199,6 +199,96 @@ These fields (except the customer’s `UUID`) are implemented as domain classes,
 
 <div class="section-spacing">
 
+### Find Order feature
+#### Implementation
+
+The find order(find-o) feature is facilitated by `OrderContainsKeywordsPredicate` and related classes.It allows users to search for orders based on different criteria (item, address, customer index, order status) with AND logic, meaning that only orders that match all specified criteria will be returned in the search results.
+
+The feature involves three main componenets:
+
+* `FindOrderCommandParser` — Parses input arguments and builds a map of search criteria.
+* `FindOrderCommand` — Executes the search, resolves customer identifiers, and applies filtering.
+* `OrderContainsKeywordsPredicate` — Tests whether each order matches all search criteria.
+
+These operations are exposed in the `Model` interface:
+
+* `Model#updateFilteredOrderList(Predicate<Order> predicate)` — Updates the displayed order list based on the predicate.
+* `Model#getFilteredOrderList()` — Returns the currently displayed (filtered) orders.
+
+
+Given below is an example usage scenario and how the find order feature behaves at each step.
+
+Step 1. The user launches the application and types find-o i/pizza. The `FindOrderCommandParser`  receives `i/pizza`, parses it, and builds a map of search criteria with the key `i` and value `pizza`.
+
+<puml src="diagrams/Find-oState0.puml" alt="Find-oState0" />
+
+Step 2. The `FindOrderCommand` receives the map of search criteria and iterates through the search map to resolve customer identifiers (e.g., `c/1` to `Person` object) and build a list of predicates. In this case, it creates an `OrderContainsKeywordsPredicate` with the item keyword `pizza`. The `FindOrderCommand` then calls `Model#updateFilteredOrderList(predicate)` to update the displayed order list to only show orders that match the predicate.
+
+<puml src="diagrams/Find-oState1.puml" alt="Find-oState1" />
+
+Step 3. The `OrderContainsKeywordsPredicate` tests each order against the search criteria. Only orders that contain the item keyword `pizza` will be included in the filtered list of orders returned by `Model#getFilteredOrderList()`, which is what the UI displays to the user.
+
+<puml src="diagrams/Find-oState2.puml" alt="Find-oState2" />
+
+<box type="info" seamless>
+
+**Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+
+</box>
+
+Step 4. The UI displays the filtered results to the user. The `addressBookStateList` remains unchanged as the find order command does not modify the address book data.
+
+<puml src="diagrams/Find-oState3.puml" alt="Find-oState3" />
+
+
+<box type="info" seamless>
+
+**Note:** The `addressBookStateList` is only modified when a command that changes the address book data is executed successfully. Since the find order command does not change the address book data, it does not affect the address list.
+
+</box>
+
+The following sequence diagram shows how an undo operation goes through the `Logic` component:
+
+<puml src="diagrams/Find-oSequenceDiagram.puml" alt="FindOrderCommand Sequence Diagram" />
+
+The following sequence diagram shows how the `Model` component handles the find order command when filtering the order list:
+
+<puml src="diagrams/Find-oSequenceDiagram-Model.puml" alt="FindOrderCommand Logic-Model Sequence Diagram" />
+
+<box type="info" seamless>
+**Note:** The `Model` component's `updateFilteredOrderList` method is responsible for applying the `OrderContainsKeywordsPredicate` to filter the list of orders. This method updates the internal state of the `Model` to reflect the new filtered list, which is then observed by the UI to update the displayed orders accordingly.
+
+</box>
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+<puml src="diagrams/Find-oActivityDiagram.puml" width="250" />
+
+#### Design considerations:
+
+**Aspect: Search Logic (And vs OR)**
+
+* **Alternative 1 (current choice):** Combine all criteria with AND logic.
+  * Pros: Precise filtering; users can compose complex queries.
+  * Cons: More restrictive; requires users to remember all criteria are combined.
+
+* **Alternative 2:** Combine all criteria with OR logic.
+  * Pros: More flexible; users can find results that match any of the criteria.
+  * Cons: Less precise; may return too many results if criteria are broad.
+
+**Aspect: Customer Identifier Format**
+* **Alternative 1 (current choice):** Use `c/` prefix for customer index.
+  * Pros: Clear and concise; consistent with other command formats.
+  * Cons: Requires users to remember the specific prefix for customer identifiers.
+* **Alternative 2:** Allow direct customer names without a prefix.
+  * Pros: More intuitive for users who prefer natural language input.
+  * Cons: Potential ambiguity if multiple customers have similar names; more complex parsing logic.
+
+</div>
+
+
+<div class="section-spacing">
+
 ### Editing data feature (`edit` and `edit-o`)
 
 BZNUS supports editing both customer details and order details through separate commands:
@@ -254,7 +344,7 @@ The edit command updates fields of the customer at `INDEX` in the currently disp
 
 <div class="section-spacing">
 
-### \[Proposed\] Undo/redo feature
+### Undo/Redo feature
 
 #### Proposed Implementation
 
@@ -347,11 +437,6 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 _{more aspects and alternatives to be added}_
 
-</div>
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -458,7 +543,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ---
 
-**Use case: UC02 - Delete Customer**\
+**Use case: UC02 - Delete Customer**
+
 **Guarantees:**
 * If the deletion cannot be completed (e.g. invalid customer index), the system does not remove any customer.
 * Only customers that are currently displayed can be deleted.
@@ -555,7 +641,34 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ---
 
-**Use case: UC05 - Add order**\
+**Use case: UC05 - List customers**
+
+**Guarantees:**
+* The system displays the full customer list.
+
+**MSS:**
+
+1. User enters the `list` command.
+
+2. BZNUS retrieves all customers.
+
+3. BZNUS shows a success message to indicate all customers are listed.
+
+4. BZNUS updates the displayed list to show all customers.
+
+    Use case ends.
+
+**Extensions:**
+
+* 1a. No customers exist in the system.
+    * 1a1. BZNUS displays a message indicating the customer list is empty.
+
+    Use case ends.
+
+---
+
+**Use case: UC06 - Add order**
+
 **Guarantees:**
 * The system records the order only if the provided order information is valid.
 
@@ -585,7 +698,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ---
 
-**Use case: UC06 - Delete order**\
+**Use case: UC07 - Delete order**
+
 **Guarantees:**
 * If the deletion cannot be completed (e.g. invalid order index, order not found), the system does not remove any order.
 * Only orders that are currently displayed can be deleted.
@@ -613,6 +727,32 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     Steps 1a1-1a2 are repeated until the information entered is valid.
 
     Use case resumes from step 2.
+
+---
+
+**Use case: UC08 - List orders**
+
+**Guarantees:**
+* The system displays the full order list.
+
+**MSS:**
+
+1. User enters the `list-o` command.
+
+2. BZNUS retrieves all orders.
+
+3. BZNUS shows a success message to indicate all orders are listed.
+
+4. BZNUS updates the displayed list to show all orders.
+
+   Use case ends.
+
+**Extensions:**
+
+* 1a. No orders exist in the system.
+    * 1a1. BZNUS displays a message indicating the order list is empty.
+
+  Use case ends.
 
 </div>
 
@@ -880,6 +1020,31 @@ testers are expected to do more *exploratory* testing.
 
 <div class="section-spacing">
 
+### Listing all customers
+
+1. Listing all customers from any current customer view
+
+   1. Prerequisites: At least one customer exists. If the customer list is filtered (e.g., after `find`), keep that filtered view visible.
+
+   2. Test case: `list`<br>
+   Expected: The customer panel shows all customers in the address book (filter is cleared). A success message is shown.
+
+2. Listing all customers with arguments
+
+    1. Test case: `list 1`<br>
+    Expected: Command is accepted and behaves the same as `list` (all customers shown).
+
+3. Listing all customers with an empty customer list
+
+    1. Prerequisites: No customer exist in the customer list
+
+    2. Test case: `list`
+    Expected: A message indicating that the customer list is empty is shown.
+
+</div>
+
+<div class="section-spacing">
+
 ### Adding an order
 
 1. Adding an order while all customers are being shown
@@ -952,6 +1117,31 @@ testers are expected to do more *exploratory* testing.
 
 <div class="section-spacing">
 
+### Listing all orders
+
+1. Listing all orders from any order view
+
+    1. Prerequisites: At least one order exists. Optionally run a filter command first (e.g., `find-o s/PREPARING`).
+
+    2. Test case: `list-o`<br>
+    Expected: The order list resets to show all orders. A success message is shown.
+
+2. Listing all orders with trailing arguments
+
+    1. Test case: `list-o 1`<br>
+    Expected: Command is accepted and behaves the same as `list-o` (all orders shown).
+   
+3. Listing all orders with an empty order list
+
+    1. Prerequisites: No order exist in the order list
+
+    2. Test case: `list-o`
+    Expected: A message indicating that the order list is empty is shown.
+
+</div>
+
+<div class="section-spacing">
+
 ### Saving data
 
 1. Dealing with missing/corrupted data files
@@ -971,6 +1161,8 @@ Team size: 5
 2. **Allow editing of the customer linked to an existing order**: Currently, once an order is created, the customer associated with it cannot be changed. This is inconvenient when a user accidentally selects the wrong customer. We plan to extend the edit order command to support updating the customer the order is linked to. The system will validate that the new customer exists and update the order accordingly. This enhancement addresses the flaw where users must delete and recreate an order to correct a customer assignment.
 
 3. **Add a confirmation step before deleting a customer or an order**: Deleting a customer or an order currently executes immediately, which increases the risk of accidental data loss. We plan to introduce a confirmation prompt (e.g., “Are you sure you want to delete this customer? (yes/no)”). The command will only proceed if the user explicitly confirms. This enhancement prevents accidental deletions and improves data safety.
+
+<div class="section-spacing">
 
 ## **Appendix: Effort**
 
@@ -1017,3 +1209,5 @@ Our key achievements include:
 * **A maintainable and extensible codebase**, supported by modular design, clear separation of concerns, and well‑documented components.
 * **Comprehensive automated testing**, covering validation rules, cross‑entity interactions, and persistence behaviour to ensure long-term code reliability.
 * **Clear and user‑focused documentation**, with updated UG/DG sections, diagrams, and testing instructions that reflect the expanded feature set.
+
+</div>

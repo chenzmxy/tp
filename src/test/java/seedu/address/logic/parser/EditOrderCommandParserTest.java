@@ -23,6 +23,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_5;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_PREPARING;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_READY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ITEM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
@@ -187,6 +188,16 @@ public class EditOrderCommandParserTest {
 
         assertParseFailure(parser, userInput,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_ITEM, PREFIX_QUANTITY));
+
+        // datetime duplicate: valid + valid
+        userInput = targetIndex.getOneBased() + DATETIME_DESC_2031 + DATETIME_DESC_2031;
+        assertParseFailure(parser, userInput,
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_DATETIME));
+
+        // datetime duplicate: invalid + valid still reports duplicate first
+        userInput = targetIndex.getOneBased() + INVALID_DATETIME_DESC + DATETIME_DESC_2031;
+        assertParseFailure(parser, userInput,
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_DATETIME));
     }
 
     @Test

@@ -503,22 +503,50 @@ BZNUS data is saved in the hard disk automatically after any command that change
 
 ### <a id="edit-data"></a>Editing the data file
 
-BZNUS data is saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+BZNUS data is saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to edit this file directly, but please read the following notes carefully before doing so.
 
 <box type="important" seamless>
 
-**Important:** Only edit `addressbook.json` when BZNUS is **not** running. If you modify the file while the app is open, your changes will not be loaded into the current session. When you next run a command that saves data (e.g. `exit`), the app will overwrite the file and discard your manual changes.
+**Important:** Only edit `addressbook.json` when BZNUS is **not running**.<br>
+If you modify the file while the app is open, your changes will not be loaded into the current session. When you next run a command that saves data (e.g. `exit`), the app will overwrite the file and discard your manual changes.
 
 </box>
 
 <box type="warning" seamless>
 
 **Caution:**
-If your changes to the data file makes its format invalid, BZNUS will discard all data and start with an empty data file at the next run. Hence, it is recommended to make a backup of the file before editing it.<br>
+Certain edits (e.g. entering out-of-range values) can cause BZNUS to behave in unexpected ways. Only edit the data file if you are confident that you can update it correctly.<br>
 
-Furthermore, certain edits can cause BZNUS to behave in unexpected ways (e.g. if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+</box>
 
-**Disclaimer:** If you manually edit the data file to remove **all contact methods** from a customer (e.g. delete phone, Facebook, and Instagram), the app **will not validate this error** when reopened. The customer will be loaded with no contact methods. It is your responsibility to ensure at least one contact method is present for each customer in the data file.
+<box type="warning" seamless>
+
+**Disclaimer:** If you remove **all contact methods** from a customer in the file (e.g. delete phone, Facebook, and Instagram), the app **will not detect this error** when reopened. The customer will be loaded with no contact methods. It is your responsibility to ensure each customer in the data file has at least one contact method.
+
+</box>
+
+<box type="warning" seamless>
+
+**Caution:**
+If your changes to the data file makes its format invalid, BZNUS will start with empty customer and order lists at the next run. Hence, it is recommended to make a backup of the file before editing it.
+
+**Save behavior:**
+To help you understand how BZNUS handles corrupted data files:
+
+- If `addressbook.json` is corrupted, BZNUS loads empty customer and orders lists on app startup but **does not overwrite the corrupted file** unless you explicitly save the current session.
+- **Commands that save data:**
+  - Any data‑modifying command (e.g. `add`, `clear`, `exit`) will save the current in-memory data and **overwrite** the corrupted file.
+- **Actions that do _not_ save data:**  
+  - Closing the window using the **X** button or pressing **`Ctrl+C`  in the terminal where BZNUS is running** does **not** save in-memory changes. The corrupted file remains unchanged, and BZNUS will load empty lists again on the next startup.
+  
+</box>
+
+<box type="tip" seamless>
+
+**Tip:** To fix corrupted data without losing everything you've stored:
+1. Close BZNUS first by clicking the **X** button.
+2. Edit `addressbook.json` manually.
+3. Reopen BZNUS.
 
 </box>
 

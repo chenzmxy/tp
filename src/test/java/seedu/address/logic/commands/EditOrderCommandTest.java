@@ -92,7 +92,6 @@ public class EditOrderCommandTest {
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() throws CommandException {
         EditOrderCommand editOrderCommand = new EditOrderCommand(INDEX_FIRST_ORDER, new EditOrderDescriptor());
-        
         assertCommandFailure(editOrderCommand, model, EditOrderCommand.MESSAGE_NOT_EDITED);
     }
 

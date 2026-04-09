@@ -179,6 +179,26 @@ This section describes some noteworthy details on how certain features are imple
 
 <div class="section-spacing">
 
+### Order management
+
+The `Model` component manages `Order` entities using an `OrderList`, which stores all orders in the address book. Each `Order` records the customer’s `UUID` rather than holding a direct reference to a `Person` object. `Person` objects are replaced wholesale when edited, so storing a reference would become outdated. Using `UUID` keeps orders stable and avoids cascading updates when customer details change.
+
+An `Order` stores the following fields:
+* Customer’s `UUID`
+* `Item`
+* `Quantity`
+* `DeliveryTime`
+* `Address`
+* `Status`
+
+These fields (except the customer’s `UUID`) are implemented as domain classes, allowing each to encapsulate its own validation and formatting logic. Optional fields, `Address` and `Status`, allow the system to fall back to the customer’s saved address or a default status when these values are not provided by the user.
+
+`OrderList` wraps an internal `ObservableList<Order>`, ensuring that UI components automatically update whenever orders are added or modified. This design integrates the new `Order` entity into the existing model while minimizing coupling.
+
+</div>
+
+<div class="section-spacing">
+
 ### Find Order feature
 #### Implementation
 
@@ -265,8 +285,6 @@ The following activity diagram summarizes what happens when a user executes a ne
   * Cons: Potential ambiguity if multiple customers have similar names; more complex parsing logic.
 
 </div>
-
-
 
 <div class="section-spacing">
 

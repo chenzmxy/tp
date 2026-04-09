@@ -6,10 +6,25 @@
 
 # BZNUS User Guide
 
-BZNUS is a **desktop app for tracking customer contacts, food orders and customer-specific preferences.** It is **optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, BZNUS can get your contact management and order tracking tasks done faster than traditional GUI apps.
+BZNUS is a **one-stop desktop app for managing customer contacts, food orders and personalized customer preferences.** It provides a fast, reliable way for **home‑based food and beverage (F&B) business owners** to organise customer information and track orders in one place. Designed with a Command Line Interface (CLI) for speed and supported by a clean Graphical User Interface (GUI), BZNUS helps you complete customer‑management and order-tracking tasks more efficiently than traditional GUI‑only apps.
 
 <!-- * Table of Contents -->
 <page-nav-print />
+
+--------------------------------------------------------------------------------------------------------------------
+
+## Target Users & Assumptions
+
+**BZNUS is built for small home-based F&B business owners who:**
+- handle customer orders, order fulfillment, and personalised preferences across multiple platforms such as WhatsApp, Instagram, and Facebook
+- want to consolidate scattered customer information into one organised system
+- prefer fast, keyboard‑driven workflows and are comfortable with basic CLI usage 
+- anticipate growing their customer base and need a system that scales with their business
+- understand their business needs and can manage customer contact details responsibly
+
+**Assumptions about users:**
+- You have basic familiarity with CLI usage. 
+- You understand your business operations and can maintain accurate customer information.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -143,7 +158,7 @@ Format: `add n/NAME [p/PHONE] [ig/INSTAGRAM] [fb/FACEBOOK] [a/ADDRESS] [r/REMARK
 
 <box type="important" seamless>
 
-**Duplicate Handling:** Customer names are unique (case-insensitive). For example, "John Doe" and "john doe" are considered the same person, and the app will reject the duplicate entry. Different customers may share contact details (e.g. phone, Facebook, Instagram, or address).
+**Duplicate Handling:** Customer names are unique (case-insensitive). For example, "John Doe" and "john doe" are considered the same person, and the app will reject the duplicate entry. Whitespace is also normalized: "   John      Doe" and "John Doe" are treated as the same customer name. Different customers may share contact details (e.g. phone, Facebook, Instagram, or address).
 
 </box>
 
@@ -154,9 +169,29 @@ Format: `add n/NAME [p/PHONE] [ig/INSTAGRAM] [fb/FACEBOOK] [a/ADDRESS] [r/REMARK
 </box>
 
 Examples:
-* `add n/John Doe p/98765432 ig/john a/John Street, Blk 123, #01-01 r/prefers weekend delivery t/VIP t/regular`
-* `add n/Betsy Crowe t/friend fb/betsy.crowe a/Blk 456, Bedok North r/allergic to peanuts`
-* `add n/Tech Corp SG p/67778888 ig/techcorp.sg a/Tech Tower, Level 12 r/Invoicing required`
+1. `add n/John Doe p/98765432 ig/john a/John Street, Blk 123, #01-01 r/prefers weekend delivery t/VIP t/regular`
+2. `add n/Betsy Crowe t/friend fb/betsy.crowe a/Blk 456, Bedok North r/allergic to peanuts`
+3. `add n/Tech Corp SG p/67778888 ig/techcorp.sg a/Tech Tower, Level 12 r/Invoicing required`
+
+<box type="info" seamless>
+
+**Expected output:**
+On success, if all fields are provided, the app displays: 
+```
+New customer added: NAME
+Phone: PHONE | Facebook: FACEBOOK | Instagram: INSTAGRAM
+Address: ADDRESS
+Remark: REMARK
+Tags: TAG1, TAG2, ...
+```
+Note that only the fields provided in the command will be shown in the output. For example, if you add a customer with only name and phone number, the output will only show the name, phone number and `Tags: -`.
+
+**Sample output for `add n/John Doe p/98765432 ig/john a/John Street, Blk 123, #01-01 r/prefers weekend delivery t/VIP t/regular` (Example 1):**
+<Insert screenshot here>
+
+If the customer name is a duplicate (case-insensitive) or invalid input is provided, an error message will be shown. Please refer to the [Troubleshooting section](#troubleshooting) for more details.
+
+</box>
 
 </div>
 
@@ -178,6 +213,13 @@ Format: `list`
 
 **Tag display:** Very long tags may be truncated in the customer card for readability.
 Hover over a truncated tag to view its full text in a tooltip.
+
+</box>
+
+<box type="info" seamless>
+
+**Expected output:**
+Displays all customers in the database, or shows "Customer list is empty." if the database is empty.
 
 </box>
 
@@ -207,10 +249,29 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [ig/INSTAGRAM] [fb/FACEBOOK] [a/ADDRESS] 
   * `t/` clears all existing tags.
 
 Examples:
-*  `edit 1 p/91234567 a/John Street, Blk 123, #02-02` Edits the phone number and delivery address of the 1st customer to be `91234567` and `John Street, Blk 123, #02-02` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd customer to be `Betsy Crower` and clears all existing tags.
-*  `edit 3 ig/ r/` Clears Instagram and remark for the 3rd customer.
-*  `edit 4 p/ fb/ ig/ a/` Fails as this would remove all contact methods from the 4th customer.
+1. `edit 1 p/91234567 a/John Street, Blk 123, #02-02` Edits the phone number and delivery address of the 1st customer to be `91234567` and `John Street, Blk 123, #02-02` respectively.
+2. `edit 2 n/Betsy Crower t/` Edits the name of the 2nd customer to be `Betsy Crower` and clears all existing tags.
+3. `edit 3 ig/ r/` Clears Instagram and remark for the 3rd customer.
+4. `edit 4 p/ fb/ ig/ a/` Fails as this would remove all contact methods from the 4th customer.
+
+<box type="info" seamless>
+
+**Expected output:**
+On success, if the edited customer still has all contact details, the app displays the following success message:
+```
+Edited Customer: NAME
+Phone: PHONE | Facebook: FACEBOOK | Instagram: INSTAGRAM
+Address: ADDRESS
+Remark: REMARK
+Tags: TAG1, TAG2, ...
+```
+
+Sample output for `edit 1 p/91234567 a/John Street, Blk 123, #02-02` (Example 1):
+<Insert screenshot here>
+
+If the index is invalid, the customer name becomes a duplicate, or all contact methods would be cleared, an error message will be shown. Please refer to the [Troubleshooting section](#troubleshooting) for more details.
+
+</box>
 
 </div>
 
@@ -453,8 +514,11 @@ BZNUS data is saved automatically as a JSON file `[JAR file location]/data/addre
 <box type="warning" seamless>
 
 **Caution:**
-If your changes to the data file makes its format invalid, BZNUS will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
+If your changes to the data file makes its format invalid, BZNUS will discard all data and start with an empty data file at the next run. Hence, it is recommended to make a backup of the file before editing it.<br>
+
 Furthermore, certain edits can cause BZNUS to behave in unexpected ways (e.g. if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+
+**Disclaimer:** If you manually edit the data file to remove **all contact methods** from a customer (e.g. delete phone, Facebook, and Instagram), the app **will not validate this error** when reopened. The customer will be loaded with no contact methods. It is your responsibility to ensure at least one contact method is present for each customer in the data file.
 
 </box>
 
@@ -521,3 +585,9 @@ _Details coming soon ..._
 | **Help**  | `help`           |
 | **Clear** | `clear`          |
 | **Exit**  | `exit`           |
+
+--------------------------------------------------------------------------------------------------------------------
+
+## Troubleshooting
+This section provides solutions to common issues that users may encounter when using BZNUS.
+

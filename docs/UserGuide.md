@@ -111,6 +111,7 @@ On startup, the order list is automatically filtered to display only orders with
 Shows a message explaining how to access the help page.
 
 ![help message](images/helpMessage.png)
+* The keyword `help` is case-insensitive
 
 Format: `help`
 

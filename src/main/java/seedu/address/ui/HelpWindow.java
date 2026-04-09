@@ -67,21 +67,18 @@ public class HelpWindow extends UiPart<Stage> {
                 "add n/NAME [p/PHONE] [ig/INSTAGRAM] [fb/FACEBOOK] [a/ADDRESS] [r/REMARK] [t/TAG]…​",
                 "add n/John Doe p/98765432 a/John Street, Blk 123, #01-01 r/favorite customer");
 
-        addCommandBlock("list", "Shows a list of all customers in the address book.",
+        addCommandBlock("list", "Shows a list of all customers in the customer database.",
                 "list",
                 "list");
 
-        addCommandBlock("edit", "Edits an existing customer in the address book.",
+        addCommandBlock("edit", "Edits an existing customer in the displayed customer list.",
                 "edit INDEX [n/NAME] [p/PHONE] [ig/INSTAGRAM] [fb/FACEBOOK] [a/ADDRESS] [r/REMARK] [t/TAG]…​",
                 "edit 1 p/91234567 a/John Street, Blk 123, #02-02 r/favorite customer");
 
-        addCommandBlock("find", "Finds customers whose any of the field contain any of the given keywords.",
-                "find KEYWORD [MORE_KEYWORDS]",
-                "find John");
-
-        addCommandBlock("find", "Finds customers with specific fields containing the given keywords",
-                "find PREFIX/KEYWORD",
-                "find n/John");
+        addCommandBlock("find", "Finds customers whose details match the given keywords. "
+                + "You can search across all fields or target a specific field using prefixes.",
+                "find KEYWORD or find PREFIX/KEYWORD",
+                "find John or find n/John");
 
         addCommandBlock("delete", "Deletes the specified customer from the customer database.",
                 "delete INDEX",
@@ -90,7 +87,7 @@ public class HelpWindow extends UiPart<Stage> {
         orderSeparator.getStyleClass().add("help-separator");
         helpContentBox.getChildren().addAll(orderSeparator);
 
-        addCommandBlock("order", "Adds a new order to a specific customer.",
+        addCommandBlock("order", "Adds a new order for a specific customer.",
                 "order INDEX i/ITEM_NAME q/QUANTITY at/DATE [a/DELIVERY_ADDRESS] [s/STATUS]",
                 "order 2 i/Burger q/5 at/2026-03-15 1800 a/123 Jurong West St 42, #05-01");
 
@@ -99,23 +96,24 @@ public class HelpWindow extends UiPart<Stage> {
                 "delete-o 1");
 
         addCommandBlock("find-o", "Search for different orders with 4 category options: "
-                + "item name, delivery address, customer id, status",
+                + "item name, delivery address, customer id, status.",
                 "find-o Category-Type/Category-Keywords",
                 "find-o i/pizza");
 
-        addCommandBlock("edit-o", "Edits the details of the order identified "
-                + "by the index number used in the displayed order list. "
-                + "Existing values will be overwritten by the input values.",
+        addCommandBlock("edit-o", "Updates fields of an existing order. "
+                + "Any field you specify replaces the previous value; other fields stay unchanged. ",
                 "edit-o ORDER_INDEX [i/ITEM_NAME] [q/QUANTITY] [at/DATE] [a/DELIVERY_ADDRESS] [s/STATUS]",
                 "edit-o 1 i/Pizza q/3 at/2026-04-02 1200");
 
-        addCommandBlock("list-o", "Shows a list of all orders in the address book.",
+        addCommandBlock("list-o", "Shows a list of all orders in the order database.",
                 "list-o",
                 "list-o");
 
-        addCommandBlock("clear", "Clears all customers and their orders from BZNUS.",
-                "clear",
-                "clear");
+        addCommandBlock("clear",
+                "Shows the confirmation warning for clearing all entries. "
+                        + "Requires 'clear CONFIRM' to permanently delete all customers and orders.",
+                "clear [CONFIRM]",
+                "clear CONFIRM");
 
         addCommandBlock("exit", "Exits the program.",
                 "exit",

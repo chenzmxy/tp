@@ -3,6 +3,7 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Scene?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -12,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-         title="Address App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+         title="BZNUS" minWidth="760" minHeight="600" onCloseRequest="#handleExit">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
@@ -23,7 +24,7 @@
         <URL value="@Extensions.css" />
       </stylesheets>
 
-      <VBox>
+      <VBox styleClass="main-root">
         <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
           <Menu mnemonicParsing="false" text="File">
             <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
@@ -33,32 +34,36 @@
           </Menu>
         </MenuBar>
 
-        <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
+        <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="command-section">
           <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
+            <Insets top="10" right="14" bottom="10" left="14" />
           </padding>
         </StackPane>
 
-        <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
+        <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="feedback-section"
                    minHeight="100" prefHeight="100" maxHeight="100">
           <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
+            <Insets top="8" right="14" bottom="8" left="14" />
           </padding>
         </StackPane>
 
         <SplitPane VBox.vgrow="ALWAYS" dividerPositions="0.5">
-          <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340">
-            <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
-            </padding>
-            <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+          <VBox styleClass="split-column" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+            <Label text="CUSTOMERS" styleClass="panel-column-header" maxWidth="Infinity" />
+            <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" styleClass="panel-body">
+              <padding>
+                <Insets top="0" right="0" bottom="0" left="0" />
+              </padding>
+            </StackPane>
           </VBox>
 
-          <VBox fx:id="orderList" styleClass="pane-with-border" minWidth="340" prefWidth="340">
-            <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
-            </padding>
-            <StackPane fx:id="orderListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+          <VBox styleClass="split-column" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+            <Label text="ORDERS" styleClass="panel-column-header" maxWidth="Infinity" />
+            <StackPane fx:id="orderListPanelPlaceholder" VBox.vgrow="ALWAYS" styleClass="panel-body">
+              <padding>
+                <Insets top="0" right="0" bottom="0" left="0" />
+              </padding>
+            </StackPane>
           </VBox>
         </SplitPane>
 

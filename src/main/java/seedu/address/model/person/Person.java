@@ -16,8 +16,8 @@ import seedu.address.model.tag.Tag;
  * Represents a Person in the address book.
  * Guarantees: name and tags are present and not null, field values are validated, immutable.
  * <p>
- * Phone, Facebook, Instagram and address are optional and may be null, but at least one of them must be present.
- * Remark is optional and may be null.
+ * Phone, Facebook, and Instagram are optional and may be null, but at least one of them must be present.
+ * Address and Remark are optional and may be null.
  */
 public class Person {
 
@@ -26,17 +26,17 @@ public class Person {
     private final Phone phone; // can be null
     private final Facebook facebook; // can be null
     private final Instagram instagram; // can be null
-    private final Remark remark; // can be null
 
     // Data fields
     private final Address address; // can be null
+    private final Remark remark; // can be null
     private final Set<Tag> tags = new HashSet<>();
     private final UUID id;
 
     /**
      * Name and tags must be present and not null.
-     * At least one of phone, Facebook, Instagram or address must be present (not null).
-     * Remark can be null.
+     * At least one of phone, Facebook, or Instagram must be present (not null).
+     * Address and Remark can be null.
      */
     public Person(Name name, Phone phone, Facebook facebook, Instagram instagram, Address address, Remark remark,
                   Set<Tag> tags) {

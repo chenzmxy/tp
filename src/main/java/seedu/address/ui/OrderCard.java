@@ -2,7 +2,6 @@ package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.order.Order;
 
@@ -14,11 +13,13 @@ public class OrderCard extends UiPart<Region> {
     private static final String FXML = "OrderListCard.fxml";
 
     public final Order order;
-
+    public final int displayedIndex;
     @FXML
-    private HBox cardPane;
+    private Label id;
     @FXML
     private Label item;
+    @FXML
+    private Label quantity;
     @FXML
     private Label address;
     @FXML
@@ -29,28 +30,48 @@ public class OrderCard extends UiPart<Region> {
     private Label customer;
 
     /**
-     * Creates an {@code OrderCard} with the given {@code Order} and index to display.
+     * Creates an {@code OrderCard} with the given {@code Order}.
      */
     public OrderCard(Order order, int displayedIndex, String customerName) {
         super(FXML);
         this.order = order;
+        this.displayedIndex = displayedIndex;
 
-        switch (order.getStatus().value) {
+        applyStatusStyle(order.getStatus().value);
+
+        id.setText(displayedIndex + ".");
+        item.setText("Order: " + order.getItem().value);
+        quantity.setText("Quantity: " + order.getQuantity().value);
+
+        address.setText("Address: " + order.getAddress().value);
+
+        date.setText("Date: " + order.getDeliveryTime().value);
+        configureWrappingLabel(item);
+        configureWrappingLabel(quantity);
+        configureWrappingLabel(address);
+
+        status.setText("Status: " + order.getStatus().value);
+    }
+
+    private void applyStatusStyle(String statusValue) {
+        status.getStyleClass().removeIf(s -> s.startsWith("status-"));
+        switch (statusValue) {
         case "PREPARING":
-            status.setStyle("-fx-background-color: #dce5f6; -fx-text-fill: #083fa7;"); // Lemon chiffon
+            status.getStyleClass().add("status-preparing");
             break;
         case "READY":
-            status.setStyle("-fx-background-color: #f0f4c5; -fx-text-fill: #7b8405;"); // Light green
+            status.getStyleClass().add("status-ready");
             break;
         case "DELIVERED":
-            status.setStyle("-fx-background-color: #c9f8c9; -fx-text-fill: #067606;"); // Pale green
+            status.getStyleClass().add("status-delivered");
             break;
         case "CANCELLED":
-            status.setStyle("-fx-background-color: #f9cfd5; -fx-text-fill: #9d081f;"); // Light pink
+            status.getStyleClass().add("status-cancelled");
             break;
         default:
-            status.setStyle("-fx-background-color: #cfcece; -fx-text-fill: black;");
+            status.getStyleClass().add("status-unknown");
         }
+    }
 
         item.setText("Order " + displayedIndex + ": " + order.getItem().value
                                             + " (x " + order.getQuantity().value + ")");
@@ -62,5 +83,8 @@ public class OrderCard extends UiPart<Region> {
         date.setText("Date: " + order.getDeliveryTime().value);
 
         status.setText("Status: " + order.getStatus().value);
+    private void configureWrappingLabel(Label label) {
+        label.setWrapText(true);
+        label.setMaxWidth(Double.MAX_VALUE);
     }
 }

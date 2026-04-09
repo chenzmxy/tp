@@ -24,6 +24,11 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final String ORDER_COMMAND_ADD = "order";
+    private static final String ORDER_COMMAND_EDIT = "edit-o";
+    private static final String ORDER_COMMAND_DELETE = "delete-o";
+    private static final String ORDER_COMMAND_FIND = "find-o";
+    private static final String ORDER_COMMAND_LIST = "list-o";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -114,11 +119,12 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic);
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-
-        orderListPanel = new OrderListPanel(logic.getFilteredOrderList(), logic);
+        orderListPanel = new OrderListPanel(logic.getFilteredOrderList());
         orderListPanelPlaceholder.getChildren().add(orderListPanel.getRoot());
+
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic,
+                person -> orderListPanel.setOrdersContext(person));
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -185,6 +191,11 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
+            if (isOrderCommand(commandText)) {
+                personListPanel.clearSelection();
+                orderListPanel.setOrdersContext(null);
+            }
+
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }
@@ -199,5 +210,21 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    /**
+     * Returns true if the command text starts with an order command word.
+     */
+    private boolean isOrderCommand(String commandText) {
+        String trimmed = commandText == null ? "" : commandText.trim();
+        if (trimmed.isEmpty()) {
+            return false;
+        }
+        String commandWord = trimmed.split("\\s+")[0].toLowerCase();
+        return commandWord.equals(ORDER_COMMAND_ADD)
+                || commandWord.equals(ORDER_COMMAND_EDIT)
+                || commandWord.equals(ORDER_COMMAND_DELETE)
+                || commandWord.equals(ORDER_COMMAND_FIND)
+                || commandWord.equals(ORDER_COMMAND_LIST);
     }
 }

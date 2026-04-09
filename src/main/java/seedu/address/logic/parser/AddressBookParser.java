@@ -56,6 +56,10 @@ public class AddressBookParser {
         // Lower level log messages are used sparingly to minimize noise in the code.
         logger.fine("Command word: " + commandWord + "; Arguments: " + arguments);
 
+        if (commandWord.equalsIgnoreCase(HelpCommand.COMMAND_WORD)) {
+            return new HelpCommand();
+        }
+
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
@@ -74,7 +78,7 @@ public class AddressBookParser {
             return new DeleteOrderCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
+            return new ClearCommandParser().parse(arguments);
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
@@ -87,9 +91,6 @@ public class AddressBookParser {
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
-
-        case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
 
         case ListOrderCommand.COMMAND_WORD:
             return new ListOrderCommand();

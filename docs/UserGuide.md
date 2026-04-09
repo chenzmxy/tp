@@ -57,21 +57,22 @@ BZNUS is a **desktop app for tracking customer contacts, food orders and custome
 3. Copy the `.jar` file to the folder you want to use as the _home folder_ for BZNUS.
 
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar bznus.jar` command to run the application.<br>
-   A GUI similar to the following should appear in a few seconds. Note how the app contains some sample data.<br>\
-   ![Ui](images/Ui.png)
+   A GUI like this should appear in a few seconds. Note how the app contains some sample data.<br>\
+   ![Ui](images/Ui.png)<br>
+On startup, the order list is automatically filtered to display only orders with the statuses `PREPARING` or `READY`.
 
 5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
    * `list` : Lists all customers.
 
-   * `add n/John Doe p/98765432 a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the customer database.
+   * `add n/John Doe p/98765432 a/John street, block 123, #01-01` : Adds a customer named `John Doe` to the customer database.
 
    * `order 1  i/Pizza  q/3  at/2026-06-02 1200 a/123 Jurong West St 42, #05-01 s/PREPARING` : Adds an order for 3 pizzas to the 1st customer in the current list.
 
-   * `delete 3` : Deletes the 3rd contact shown in the current list.
+   * `delete 3` : Deletes the 3rd customer shown in the current list.
 
-   * `clear` : Deletes all contacts.
+   * `clear` : Shows a confirmation message before deleting all customers and their orders.
 
    * `exit` : Exits the app.
 
@@ -89,7 +90,7 @@ BZNUS is a **desktop app for tracking customer contacts, food orders and custome
   e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 
 * Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+  e.g. `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
   e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
@@ -97,7 +98,7 @@ BZNUS is a **desktop app for tracking customer contacts, food orders and custome
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
+* Extraneous parameters for commands that do not take in parameters (such as `help`, `list` and `exit`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines. Space characters surrounding line-breaks may be omitted when copied over to the application.
@@ -110,6 +111,7 @@ BZNUS is a **desktop app for tracking customer contacts, food orders and custome
 Shows a message explaining how to access the help page.
 
 ![help message](images/helpMessage.png)
+* The keyword `help` is case-insensitive
 
 Format: `help`
 
@@ -125,33 +127,34 @@ Adds a customer to the customer database.
 
 Format: `add n/NAME [p/PHONE] [ig/INSTAGRAM] [fb/FACEBOOK] [a/ADDRESS] [r/REMARK] [t/TAG]…​`
 
-* `NAME` is mandatory. It should only contain alphanumeric characters, spaces, and apostrophes (e.g., Mary O'Connor). It cannot be blank.
-* `PHONE` must be a numeric string between 8 and 15 digits long (e.g., 91234567 or 60123456789).
-* `INSTAGRAM` should be 1–30 characters long and contain only letters, numbers, underscores, and periods. It should not end with a period or have consecutive periods. No internal whitespaces allowed. The `@` prefix is optional.
-* `FACEBOOK` should be 5-50 characters long and contain only letters, numbers, and periods. It should not have leading, trailing, or consecutive periods. No internal whitespaces allowed. The `@` prefix is optional.
-* `ADDRESS` can be any non-blank string.
-* `REMARK` can be any string.
+* `NAME` is mandatory. It must be 1 to 100 characters long, start with an alphanumeric character, and contain only letters, numbers, spaces, apostrophes (`'`), slashes (`/`), and hyphens (`-`).
+* `PHONE` must be 7 to 15 digits long and contain only numbers (e.g. 9123456 or 60123456789). No spaces, '+' sign, or other symbols are allowed.
+* `INSTAGRAM` must be 1 to 30 characters long and contain only letters, numbers, underscores, and periods. It must not end with a period or have consecutive periods. No internal whitespaces allowed. The `@` prefix is optional.
+* `FACEBOOK` must be 5 to 50 characters long and contain only letters, numbers, and periods. It must not have leading, trailing, or consecutive periods. No internal whitespaces allowed. The `@` prefix is optional.
+* `ADDRESS` can be any non-blank string, but cannot exceed 200 characters.
+* `REMARK` can be any non-blank string, but cannot exceed 500 characters.
+* `TAG` must contain at least one letter or number, and may include spaces, underscores, and hyphens.
 
 <box type="important" seamless>
 
-**Note:** A customer must have **at least one** contact method (`p/PHONE`, `ig/INSTAGRAM`, `fb/FACEBOOK` or `a/ADDRESS`). The command will fail and show an error message if all contact methods are missing.
+**Note:** A customer must have **at least one** contact method: `p/PHONE`, `ig/INSTAGRAM`, or `fb/FACEBOOK`. The command will fail and show an error message if all contact methods are missing.
 
 </box>
 
 <box type="important" seamless>
 
-**Duplicate Handling:** Customer names are unique (case-insensitive). For example, "John Doe" and "john doe" are considered the same person, and the app will reject the duplicate entry.
+**Duplicate Handling:** Customer names are unique (case-insensitive). For example, "John Doe" and "john doe" are considered the same person, and the app will reject the duplicate entry. Different customers may share contact details (e.g. phone, Facebook, or Instagram).
 
 </box>
 
 <box type="tip" seamless>
 
-**Tip:** If you have two customers with the same name, use descriptors to differentiate them (e.g., "John Doe (Clementi)" and "John Doe (Jurong)"). A customer can also have any number of tags (including 0).
+**Tip:** If you have two customers with the same name, use descriptors to differentiate them (e.g. "**John Doe (Clementi)**" and "**John Doe (Jurong)**"). A customer can also have any number of tags (including 0).
 
 </box>
 
 Examples:
-* `add n/John Doe p/98765432 ig/john a/John Street, Blk 123, #01-01 r/prefers weekend delivery t/VIP t/regular`
+* `add n/John Doe p/98765432 ig/john a/John Street, Blk 123, #01-01 r/prefers weekend delivery t/halal t/regular`
 * `add n/Betsy Crowe t/friend fb/betsy.crowe a/Blk 456, Bedok North r/allergic to peanuts`
 * `add n/Tech Corp SG p/67778888 ig/techcorp.sg a/Tech Tower, Level 12 r/Invoicing required`
 
@@ -161,9 +164,22 @@ Examples:
 
 ### <a id="list"></a>Listing all customers : `list`
 
-Shows a list of all customers in the address book.
+Shows a list of all customers in the customer database.
 
 Format: `list`
+
+<box type="tip" seamless>
+
+**Tip:** This is a useful command to reset filters on the customer list at any time.
+
+</box>
+
+<box type="tip" seamless>
+
+**Tag display:** Very long tags may be truncated in the customer card for readability.
+Hover over a truncated tag to view its full text in a tooltip.
+
+</box>
 
 </div>
 
@@ -171,30 +187,30 @@ Format: `list`
 
 ### <a id="edit"></a>Editing a customer : `edit`
 
-Edits an existing customer in the address book.
+Edits an existing customer in the displayed customer list.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [ig/INSTAGRAM] [fb/FACEBOOK] [a/ADDRESS] [r/REMARK] [t/TAG]…​`
 
 * Edits the customer at the specified `INDEX`. The index refers to the index number shown in the displayed customer list. The index **must be a positive integer** 1, 2, 3, …​
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* You can clear optional single-value fields by providing the prefix with no value:
+* At least one field to edit must be provided.
+* Existing values will be replaced by the values you provide.
+* You can clear the following single-valued fields by providing the prefix without a value:
   * `p/` clears phone
   * `ig/` clears Instagram
   * `fb/` clears Facebook
   * `a/` clears address
   * `r/` clears remark
-* `n/` cannot be empty. Use `n/NEW_NAME` to change name.
-* After the edit is applied, the customer must still have at least one contact method (`p/`, `ig/`, `fb/`, or `a/`). If not, the edit is rejected.
-* When editing tags, the existing tags of the customer will be removed i.e adding of tags is not cumulative.
-* You can remove all the customer’s tags by typing `t/` without
-    specifying any tags after it.
+* `n/` (name) cannot be empty if present. Use `n/NEW_NAME` to change the name.
+* After the edit is applied, the customer must still have at least one contact method (`p/`, `ig/`, or `fb/`). Otherwise, the edit is rejected.
+* Tags are handled as a set:
+  * t/TAG [t/MORE_TAGS]...` replaces all the customer's existing tags with the tag(s) provided. I.e. the addition of tags is not cumulative.
+  * `t/` clears all existing tags.
 
 Examples:
 *  `edit 1 p/91234567 a/John Street, Blk 123, #02-02` Edits the phone number and delivery address of the 1st customer to be `91234567` and `John Street, Blk 123, #02-02` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd customer to be `Betsy Crower` and clears all existing tags.
 *  `edit 3 ig/ r/` Clears Instagram and remark for the 3rd customer.
-*  `edit 4 p/ fb/ ig/ a/` Fails if this would remove all contact methods from the 4th customer.
+*  `edit 4 p/ fb/ ig/ a/` Fails as this would remove all contact methods from the 4th customer.
 
 </div>
 
@@ -205,9 +221,9 @@ Examples:
 Finds customers whose details match the given keywords. You can search across all fields or target a specific field using prefixes.
 
 #### General Search
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find KEYWORD`
 
-* The search is case-insensitive. e.g `hans` will match `Hans`.
+* The search is case-insensitive. e.g. `hans` will match `Hans`.
 * All fields are searched.
 * Partial matches are supported e.g. `Han` will match `Hans`.
 
@@ -216,10 +232,16 @@ Examples:
 * `find 99272758` returns `Bernice Yu` if her contact details contains these digits<br>\
   ![result for 'find 99272758'](images/findBernice.png)
 
+<box type="important" seamless>
+
+**Note:** All text after `find` is treated as a single keyword. For example, `find John Doe` searches for the phrase “John Doe” as one keyword, not two separate keywords.
+
+</box>
+
 #### Specific Field Search
 Format: `find PREFIX/KEYWORD`
 
-* The search is case-insensitive. e.g `hans` will match `Hans`.
+* The search is case-insensitive. e.g. `hans` will match `Hans`.
 * Limits the search to a single specified field.
 * Allows searching with multiple prefixes.
 
@@ -256,7 +278,7 @@ Format: `delete INDEX`
 </box>
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd customer in the address book.
+* `list` followed by `delete 2` deletes the 2nd customer in the customer database.
 * `find Betsy` followed by `delete 1` deletes the 1st customer in the results of the `find` command.
 
 ---
@@ -274,9 +296,10 @@ Format: `order INDEX i/ITEM_NAME q/QUANTITY at/DELIVERY_TIME [a/DELIVERY_ADDRESS
 * Adds an order to the customer at the specified `INDEX`.
 * The index refers to the index number shown in the displayed customer list.
 * The index **must be a positive integer** 1, 2, 3, …​
-* `ITEM_NAME` must contain only alphanumeric characters and spaces, and cannot be blank.
+* `ITEM_NAME` must **begin with a letter or a number**, contain only alphanumeric characters, spaces, and basic punctuation (e.g. '-', '&', apostrophes), and **cannot be blank**.
 * `QUANTITY` **must be a positive integer** 1, 2, 3, …​.
-* `DELIVERY_TIME` must be in `yyyy-mm-dd hhmm` format and must be a future date/time.
+* `DELIVERY_TIME` must be in `yyyy-mm-dd hhmm` format.\
+If the time entered is not in the future, the order will still be added (to support recording of completed orders), but a warning will be shown.
 * If `DELIVERY_ADDRESS` is not provided, the customer's stored address will be used.\
 If the customer has no stored address, you will be prompted to enter a delivery address for the order.
 * If `STATUS` is not provided, it defaults to `PREPARING`. Valid statuses: `PREPARING`, `READY`, `DELIVERED`, `CANCELLED`.
@@ -314,6 +337,13 @@ Format: `find-o Category-Type/Category-Keywords`
 * `find-o s/Delivered` - Look for orders that are already delivered
 * * `find-o i/burger a/Kent Ridge` - Look for orders with item keyword "burger" and delivery address "Kent Ridge"
 
+<box type="tip" seamless>
+
+**Tip:** Besides using `c/`, you can also click on a customer entry in the list to view all orders of that customer.
+![Click a customer entry to view all orders](images/customer-click-view-orders.png)
+
+</box>
+
 </div>
 
 <div class="section-spacing">
@@ -328,9 +358,10 @@ Format: `edit-o ORDER_INDEX [i/ITEM_NAME] [q/QUANTITY] [at/DELIVERY_TIME] [a/DEL
 * **At least one** of `i/`, `q/`, `at/`, `a/`, or `s/` must be provided. Omitting all of them is not allowed.
 * The order **stays with the same customer**; you cannot reassign an order to another customer with this command.
 * Field rules are the same as when using **`order`** (see **Adding an order** above):
-  * `ITEM_NAME` should contain only alphanumeric characters and spaces, and cannot be blank.
+  * `ITEM_NAME` must **begin with a letter or a number**, contain only alphanumeric characters, spaces, and basic punctuation (e.g. '-', '&', apostrophes), and **cannot be blank**.
   * `QUANTITY` **must be a positive integer** 1, 2, 3, …​.
-  * `DELIVERY_TIME` must be in `yyyy-mm-dd hhmm` format and must be a future date/time.
+  * `DELIVERY_TIME` must be in `yyyy-mm-dd hhmm` format.\
+    Unlike when adding an order, no warning is shown if the updated delivery time is not in the future (as edits may involve updating completed orders).
   * If `DELIVERY_ADDRESS` is not provided, the customer's stored address will be used.
   * If `STATUS` is not provided, it defaults to `PREPARING`. Valid statuses: `PREPARING`, `READY`, `DELIVERED`, `CANCELLED`.
 * After a successful edit, the full order list is shown again.
@@ -346,9 +377,15 @@ Format: `edit-o ORDER_INDEX [i/ITEM_NAME] [q/QUANTITY] [at/DELIVERY_TIME] [a/DEL
 
 ### <a id="list-o"></a>Listing all orders : `list-o`
 
-Shows a list of all orders in the address book.
+Shows a list of all orders in the order database.
 
 Format: `list-o`
+
+<box type="tip" seamless>
+
+**Tip:** This is a useful command to reset filters on the order list at any time.
+
+</box>
 
 </div>
 
@@ -360,7 +397,7 @@ Format: `delete-o ORDER_INDEX`
 
 * Deletes the order at the specified `ORDER_INDEX`.
 * The order index refers to the index number shown in the displayed order list.
-* The index **must be positive integer** 1, 2, 3, …​
+* The index **must be a positive integer** 1, 2, 3, …​
 
 **Examples:**
 * `list-o` followed by `delete-o 3` deletes the 3rd order in the results of the `list-o` command.
@@ -375,8 +412,17 @@ Format: `delete-o ORDER_INDEX`
 ### <a id="clear"></a>Clearing all entries : `clear`
 
 Clears all customers and their orders from BZNUS.
+To prevent accidental data loss, this command requires a specific confirmation keyword to execute.
 
-Format: `clear`
+Format:
+* `clear` (shows confirmation message)
+* `clear CONFIRM` (confirms and permanently deletes all data)
+
+<box type="important" seamless>
+
+**Note:** This action is irreversible. Once you run clear CONFIRM, all customer profiles, order histories, and related data will be permanently removed from the application.
+
+</box>
 
 </div>
 
@@ -407,11 +453,17 @@ BZNUS data is saved in the hard disk automatically after any command that change
 
 BZNUS data is saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
+<box type="important" seamless>
+
+**Important:** Only edit `addressbook.json` when BZNUS is **not** running. If you modify the file while the app is open, your changes will not be loaded into the current session. When you next run a command that saves data (e.g. `exit`), the app will overwrite the file and discard your manual changes.
+
+</box>
+
 <box type="warning" seamless>
 
 **Caution:**
 If your changes to the data file makes its format invalid, BZNUS will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause BZNUS to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+Furthermore, certain edits can cause BZNUS to behave in unexpected ways (e.g. if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 
 </box>
 
@@ -447,13 +499,13 @@ _Details coming soon ..._
 
 ### <a id="c-command"></a>Customer Commands
 
-Action     | Format, Examples
------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Add**    | `add n/NAME [p/PHONE_NUMBER] [fb/FACEBOOK] [ig/INSTAGRAM] [a/ADDRESS] [r/REMARK] [t/TAG]…​` <br> e.g., `add n/James Ho p/99996666 fb/james.Ho ig/james_Ho a/123, Clementi Rd, 1234665 r/extra spicy, no onion t/friend t/regular`
-**Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [fb/FACEBOOK] [ig/INSTAGRAM] [a/ADDRESS] [r/REMARK] [t/TAG]…​` <br> e.g., `edit 2 n/James Lee ig/jamesLee`
-**Find**   | `find KEYWORD [MORE_KEYWORDS]` <br> e.g., `find James Jake` <br> Or `find PREFIX/KEYWORD` <br> e.g., `find fb/james` or `find ig/james_ho`
-**List**   | `list`
-**Delete** | `delete INDEX` <br> e.g., `delete 3`
+| Action              | Format, Examples                                                                                                                                                                                                                  |
+|---------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add Customer**    | `add n/NAME [p/PHONE_NUMBER] [fb/FACEBOOK] [ig/INSTAGRAM] [a/ADDRESS] [r/REMARK] [t/TAG]…​` <br> e.g., `add n/James Ho p/99996666 fb/james.Ho ig/james_Ho a/123, Clementi Rd, 1234665 r/extra spicy, no onion t/friend t/regular` |
+| **Edit Customer**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [fb/FACEBOOK] [ig/INSTAGRAM] [a/ADDRESS] [r/REMARK] [t/TAG]…​` <br> e.g., `edit 2 n/James Lee ig/jamesLee`                                                                                  |
+| **Find Customer**   | `find KEYWORD [MORE_KEYWORDS]` <br> e.g., `find James Jake` <br> Or `find PREFIX/KEYWORD` <br> e.g., `find fb/james` or `find ig/james_ho`                                                                                        |
+| **List Customers**  | `list`                                                                                                                                                                                                                            |
+| **Delete Customer** | `delete INDEX` <br> e.g., `delete 3`                                                                                                                                                                                              |
 
 </div>
 
@@ -461,20 +513,20 @@ Action     | Format, Examples
 
 ### <a id="o-command"></a>Order Commands
 
-Action     | Format, Examples
------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Add Order**| `order INDEX i/ITEM_NAME q/QUANTITY at/DELIVERY_TIME [a/DELIVERY_ADDRESS] [s/STATUS]` <br> e.g., `order 3 i/Pizza q/3 at/2026-04-02 1200 a/123 Jurong West St 42, #05-01 s/PREPARING`
-**Find Order** | `find-o Category-Type/Category-Keywords` <br> e.g., `find-o i/pizza`
-**Edit Order** | `edit-o ORDER_INDEX [i/ITEM_NAME] [q/QUANTITY] [at/DATE] [a/DELIVERY_ADDRESS] [s/STATUS]` <br> e.g., `edit-o 2 q/5 s/READY`
-**List Orders** | `list-o`
-**Delete Order** | `delete-o ORDER_INDEX` <br> e.g., `delete-o 1`
+| Action           | Format, Examples                                                                                                                                                                      |
+|------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add Order**    | `order INDEX i/ITEM_NAME q/QUANTITY at/DELIVERY_TIME [a/DELIVERY_ADDRESS] [s/STATUS]` <br> e.g., `order 3 i/Pizza q/3 at/2026-04-02 1200 a/123 Jurong West St 42, #05-01 s/PREPARING` |
+| **Find Order**   | `find-o Category-Type/Category-Keywords` <br> e.g., `find-o i/pizza`                                                                                                                  |
+| **Edit Order**   | `edit-o ORDER_INDEX [i/ITEM_NAME] [q/QUANTITY] [at/DELIVERY_TIME] [a/DELIVERY_ADDRESS] [s/STATUS]` <br> e.g., `edit-o 2 q/5 s/READY`                                                  |
+| **List Orders**  | `list-o`                                                                                                                                                                              |
+| **Delete Order** | `delete-o ORDER_INDEX` <br> e.g., `delete-o 1`                                                                                                                                        |
 
 </div>
 
 ### <a id="others"></a>Other Commands
 
-Action     | Format, Examples
------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Help**   | `help`
-**Clear**  | `clear`
-**Exit**   | `exit`
+| Action    | Format, Examples |
+|-----------|------------------|
+| **Help**  | `help`           |
+| **Clear** | `clear`          |
+| **Exit**  | `exit`           |

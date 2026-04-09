@@ -713,7 +713,7 @@ Keep to only one value for each single-valued prefix specified (`n/`, `p/`, `fb/
 <panel header="Invalid index" type="seamless">
 
 **Warning shown:**  
-"The customer index provided is invalid."
+"The customer index provided is invalid. Please use an index from the displayed customer list."
 
 **Why this happens:**  
 The index does not exist in the currently displayed customer list.

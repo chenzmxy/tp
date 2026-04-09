@@ -9,7 +9,7 @@
        styleClass="orders-context-label"
        text="Orders"
        maxWidth="Infinity"
-       alignment="CENTER" 
+       alignment="CENTER"
   />
   <ListView fx:id="orderListView" VBox.vgrow="ALWAYS" />
 </VBox>

@@ -182,8 +182,7 @@ This section describes some noteworthy details on how certain features are imple
 <div class="section-spacing">
 
 ### Find Order feature
-
-#### Implementation 
+#### Implementation
 
 The find order(find-o) feature is facilitated by `OrderContainsKeywordsPredicate` and related classes.It allows users to search for orders based on different criteria (item, address, customer index, order status) with AND logic, meaning that only orders that match all specified criteria will be returned in the search results.
 
@@ -201,7 +200,7 @@ These operations are exposed in the `Model` interface:
 
 Given below is an example usage scenario and how the find order feature behaves at each step.
 
-Step 1. The user launches the application and types find-o i/pizza. The `FindOrderCommandParser`  receives `i/pizza`, parses it, and builds a map of search criteria with the key `i` and value `pizza`. 
+Step 1. The user launches the application and types find-o i/pizza. The `FindOrderCommandParser`  receives `i/pizza`, parses it, and builds a map of search criteria with the key `i` and value `pizza`.
 
 <puml src="diagrams/Find-oState0.puml" alt="Find-oState0" />
 
@@ -234,7 +233,7 @@ The following sequence diagram shows how an undo operation goes through the `Log
 
 <puml src="diagrams/Find-oSequenceDiagram.puml" alt="FindOrderCommand Sequence Diagram" />
 
-The following sequence diatram shows how the `Model` component handles the find order command when filtering the order list:
+The following sequence diagram shows how the `Model` component handles the find order command when filtering the order list:
 
 <puml src="diagrams/Find-oSequenceDiagram-Model.puml" alt="FindOrderCommand Logic-Model Sequence Diagram" />
 

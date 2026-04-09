@@ -9,7 +9,7 @@
 
 <!-- Order card icon: change the Image url below (place files under src/main/resources/images/). -->
 <VBox styleClass="order-card" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-      spacing="8" fillWidth="true" minWidth="0" maxWidth="420">
+      spacing="8" fillWidth="true" minWidth="0" maxWidth="Infinity">
   <padding>
     <Insets top="0" right="0" bottom="0" left="0" />
   </padding>

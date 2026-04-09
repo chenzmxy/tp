@@ -55,11 +55,18 @@ public class OrderListPanel extends UiPart<Region> {
         protected void updateItem(Order order, boolean empty) {
             super.updateItem(order, empty);
 
+            if (getGraphic() instanceof Region oldRoot) {
+                oldRoot.maxWidthProperty().unbind();
+            }
+
             if (empty || order == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new OrderCard(order, getIndex() + 1).getRoot());
+                OrderCard card = new OrderCard(order, getIndex() + 1);
+                Region cardRoot = card.getRoot();
+                cardRoot.maxWidthProperty().bind(orderListView.widthProperty().subtract(32));
+                setGraphic(cardRoot);
             }
         }
     }

@@ -73,8 +73,10 @@ public class EditCommandTest {
     }
 
     @Test
-    public void execute_remarkSpecifiedUnfilteredList_success() {
+    public void execute_singleFieldSpecifiedUnfilteredList_success() {
         Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+
+        // Only remark is updated (non-contact field)
         Person editedPerson = new PersonBuilder(personToEdit).withRemark(VALID_REMARK_BOB).build();
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withRemark(VALID_REMARK_BOB).build();
@@ -92,18 +94,15 @@ public class EditCommandTest {
     public void execute_clearOptionalFieldsKeepingAtLeastOneContactMethod_success() {
         Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
 
-        // Address remains unchanged so at least one contact method is still present after clear operations
-        assertTrue(personToEdit.getAddress().isPresent());
+        // Ensure phone exists so clearing other contact fields still satisfies the rule.
+        assertTrue(personToEdit.getPhone().isPresent());
 
         Person editedPerson = new PersonBuilder(personToEdit)
-                .withoutPhone()
                 .withoutFacebook()
                 .withoutInstagram()
-                .withoutRemark()
                 .build();
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
-                .clearPhone()
                 .clearFacebook()
                 .clearInstagram()
                 .clearRemark()
@@ -121,7 +120,6 @@ public class EditCommandTest {
     @Test
     public void execute_clearLastContactMethod_failure() {
         Person person = new PersonBuilder()
-                .withoutAddress()
                 .withoutFacebook()
                 .withoutInstagram()
                 .withPhone(VALID_PHONE_BOB)

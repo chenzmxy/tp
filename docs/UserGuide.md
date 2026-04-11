@@ -270,7 +270,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [ig/INSTAGRAM] [fb/FACEBOOK] [a/ADDRESS] 
 
 **Important:** Updating a customer's address **does not** update the delivery address of their existing orders.
 
-When an order is created **without specifying a delivery address**, the order takes a *snapshot* of the customer’s address at that moment. This value is stored permanently in the order.
+When an order is created **without specifying a delivery address**, the order takes a *snapshot* of the customer’s address at that moment. This address does **not stay linked** to the customer.
 
 - Editing the customer’s address later **will not** change created orders.
 - To update an order’s delivery address, use `edit-o ORDER_INDEX a/NEW_ADDRESS`.

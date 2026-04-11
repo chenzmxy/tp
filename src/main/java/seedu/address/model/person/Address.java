@@ -11,7 +11,7 @@ public class Address {
 
     public static final int MAX_ADDRESS_LENGTH = 200;
     public static final String MESSAGE_CONSTRAINTS =
-            "Address must follow the format: Street Address, City, Postal Code\n"
+            "Address must only contain alphanumeric characters, spaces and the following special characters: ,.'/#&()-.\n"
             + "Each section must start with alphanumeric characters, and must not exceed "
             + MAX_ADDRESS_LENGTH + " characters total.";
 

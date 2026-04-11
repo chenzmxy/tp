@@ -98,7 +98,11 @@ The `UI` component,
 
 Here's a (partial) class diagram of the `Logic` component:
 
-<puml src="diagrams/LogicClassDiagram.puml" width="550"/>
+<div style="text-align: center;">
+<puml src="diagrams/LogicClassDiagram.puml" width="485" />
+</div>
+
+<div style="height: 10px;"></div>
 
 The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("delete 1")` API call as an example.
 
@@ -476,24 +480,24 @@ _{more aspects and alternatives to be added}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                      | I want to …​                                                                                                 | So that I can…​                                                                                                                          |
-|----------|------------------------------|--------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------|
-| `* * *`  | First-time user              | Add a customer with their name and at least one contact field (phone, email, Facebook, Instagram or address) | Maintain a centralized database of my customers regardless of which platform they use to contact me                                      |
-| `* * *`  | User                         | Delete customer profiles                                                                                     | Remove customers who no longer order from me and keep my customer database clean                                                         |
-| `* * *`  | Seller with many customers   | View a list of all my customers                                                                              | View my customer base at a glance                                                                                                        |
-| `* * *`  | User                         | Add new food orders for a specific customer (item, quantity, time, destination, status)                      | Record new orders as they arrive from different message platforms                                                                        |
-| `* * *`  | User                         | Delete food orders by a specific customer                                                                    | Keep my records updated when a customer cancels their order                                                                              |
-| `* * *`  | Conscientious seller         | View a specific customer's order history alongside their contact details                                     | Quickly understand their past preferences and current pending requests before responding to their messages                               |
-| `* * *`  | Busy seller with many orders | View a list of all upcoming food orders across my entire customer base                                       | Plan my order preparation schedule and ensure no orders are missed during peak periods                                                   |
-| `**`     | Seller with many customers   | Search for specific customers by name                                                                        | Quickly retrieve customer details without scrolling through a long list                                                                  |
-| `**`     | Seller with many customers   | Search for customers by their phone number, Facebook username, or Instagram handle                           | Quickly identify a returning customer even if I only have their social media handle or phone number                                      |
-| `**`     | User                         | Edit customer details including their name, phone number, delivery address or social media handles           | Update addresses or contact numbers when they change                                                                                     |
-| `**`     | User                         | Edit existing order details for any customer                                                                 | Keep my records updated when a customer edits their request                                                                              |
-| `**`     | Conscientious seller         | Categorize customers by type (e.g., Corporate, Regular, New)                                                 | Tailor my marketing efforts based on customer type to build long-term relationships                                                      |
-| `**`     | Conscientious seller         | Add special notes for each user (“prefers weekend delivery”, “no chilli” etc)                                | Deliver a more personalised service                                                                                                      |
-| `**`     | Conscientious seller         | Record the dietary restrictions of each customer (e.g., vegan, no peanuts)                                   | Avoid preparing products that are potentially harmful for them                                                                           |
-| `*`      | User                         | Upload a profile picture for a customer contact                                                              | Visually verify a customer's identity during order handovers and reduce the risk of record-entry errors for customers with similar names |
-| `*`      | User                         | Store contact details of ingredient suppliers separately                                                     | Maintain a clear separation between my customers and my ingredient providers                                                             |
+| Priority | As a …​                      | I want to …​                                                                                       | So that I can…​                                                                                                                          |
+|----------|------------------------------|----------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------|
+| `* * *`  | First-time user              | Add a customer with their name and at least one contact field (phone, Facebook, or Instagram)      | Maintain a centralized database of my customers regardless of which platform they use to contact me                                      |
+| `* * *`  | User                         | Delete customer profiles                                                                           | Remove customers who no longer order from me and keep my customer database clean                                                         |
+| `* * *`  | Seller with many customers   | View a list of all my customers                                                                    | View my customer base at a glance                                                                                                        |
+| `* * *`  | User                         | Add new food orders for a specific customer (item, quantity, time, destination, status)            | Record new orders as they arrive from different message platforms                                                                        |
+| `* * *`  | User                         | Delete food orders by a specific customer                                                          | Keep my records updated when a customer cancels their order                                                                              |
+| `* * *`  | Conscientious seller         | View a specific customer's order history alongside their contact details                           | Quickly understand their past preferences and current pending requests before responding to their messages                               |
+| `* * *`  | Busy seller with many orders | View a list of all upcoming food orders across my entire customer base                             | Plan my order preparation schedule and ensure no orders are missed during peak periods                                                   |
+| `**`     | Seller with many customers   | Search for specific customers by name                                                              | Quickly retrieve customer details without scrolling through a long list                                                                  |
+| `**`     | Seller with many customers   | Search for customers by their phone number, Facebook username, or Instagram handle                 | Quickly identify a returning customer even if I only have their social media handle or phone number                                      |
+| `**`     | User                         | Edit customer details including their name, phone number, delivery address or social media handles | Update addresses or contact numbers when they change                                                                                     |
+| `**`     | User                         | Edit existing order details for any customer                                                       | Keep my records updated when a customer edits their request                                                                              |
+| `**`     | Conscientious seller         | Categorize customers by type (e.g., Corporate, Regular, New)                                       | Tailor my marketing efforts based on customer type to build long-term relationships                                                      |
+| `**`     | Conscientious seller         | Add special notes for each user (“prefers weekend delivery”, “no chilli” etc)                      | Deliver a more personalised service                                                                                                      |
+| `**`     | Conscientious seller         | Record the dietary restrictions of each customer (e.g., vegan, no peanuts)                         | Avoid preparing products that are potentially harmful for them                                                                           |
+| `*`      | User                         | Upload a profile picture for a customer contact                                                    | Visually verify a customer's identity during order handovers and reduce the risk of record-entry errors for customers with similar names |
+| `*`      | User                         | Store contact details of ingredient suppliers separately                                           | Maintain a clear separation between my customers and my ingredient providers                                                             |
 
 </div>
 
@@ -625,7 +629,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS:**
 
-1. User enters search keywords (e.g., name, phone number, delivery address).
+1. User enters search keywords (e.g. name, phone number, delivery address).
 
 2. BZNUS retrieves and displays a list of customer profiles matching the keywords.
 
@@ -885,7 +889,7 @@ testers are expected to do more *exploratory* testing.
    1. Prerequisite: No existing customer named "John Tan".
    
    2. Test case: `add n/John Tan p/phone` <br>
-      Expected: Command fails with an error message indicating that the phone number must be 8–15 digits and contain only numbers. No customer added.
+      Expected: Command fails with an error message indicating that the phone number must be 7–15 digits and contain only numbers. No customer added.
 
 5. Adding a customer **without a name** 
 

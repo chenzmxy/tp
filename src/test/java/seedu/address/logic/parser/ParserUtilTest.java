@@ -219,4 +219,10 @@ public class ParserUtilTest {
 
         assertEquals(expectedTagSet, actualTagSet);
     }
+
+    @Test
+    public void ensureNoUnsupportedPrefixTokensInValue_mergedUnknownPrefix_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.ensureNoUnsupportedPrefixTokensInValue(
+                "1234567 x/hello", ParserUtil.PREFIXES_FOR_PERSON_COMMAND));
+    }
 }

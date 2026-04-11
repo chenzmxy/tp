@@ -200,7 +200,7 @@ Tags: TAG1, TAG2, ...
 Note that only the fields provided in the command will be shown in the output. For example, if you add a customer with only name and phone number, the output will only show the name, phone number and `Tags: -`.
 
 **Sample output for Example 1:**
-![Sample output for Example 1](images/addCustomerSampleOutput.png)
+![Sample output for adding a customer](images/addCustomerSampleOutput.png)
 <br>
 If the customer name is a duplicate or invalid input is provided, an error message will be shown. Please refer to the [Troubleshooting section](#troubleshooting) for more details.
 
@@ -221,7 +221,7 @@ Format: `list`
 **Expected output:**
 Displays all customers in the database, or shows "Customer list is empty." if the database is empty.
 
-![Sample output for List Customers](images/listCustomersSampleOutput.png)
+![Sample output for listing customers](images/listCustomersSampleOutput.png)
 
 </box>
 
@@ -283,7 +283,12 @@ Tags: TAG1, TAG2, ...
 ```
 
 **Sample output for Example 1:**
-![Sample output for Edit Customer](images/editCustomerSampleOutput.png)
+
+**Before `edit`**
+![Original state before editing a customer]()
+
+**After `edit`**
+![Sample output for editing a customer](images/editCustomerSampleOutput.png)
 
 If the index is invalid, the customer name becomes a duplicate, or all contact methods would be cleared, an error message will be shown. Please refer to the [Troubleshooting section](#troubleshooting) for more details.
 
@@ -648,7 +653,7 @@ This section provides quick fixes for common user-facing issues.
 
 <panel header="Duplicate customer name" type="seamless">
 
-**Warning shown:**
+**Error shown:**
 "A customer with the same name already exists in the database."
 
 **Why this happens:**
@@ -660,9 +665,26 @@ Use a different name that is not already in the customer database
 
 </panel>
 
-<panel header="No contact method provided" type="seamless">
+<panel header="Duplicate contact details warning (non-blocking)" type="seamless">
 
 **Warning shown:**
+"WARNING: Duplicate contact details detected. This is allowed, but please verify..."
+
+**Why this happens:**
+The customer shares the same `PHONE`, `FACEBOOK`, or `INSTAGRAM` as an existing customer.
+
+**What to do:**
+- Review the matched fields in the warning, then run the suggested `find` commands if you wish to see which customers share those contact methods.
+  - The warning may suggest `find p/PHONE`, `find fb/FACEBOOK`, or `find ig/INSTAGRAM` based on the matches found. `PHONE`, `FACEBOOK` and `INSTAGRAM` take on the new customer’s values.
+- If the overlap is intentional (e.g. shared household/business contact), no action is needed.
+- If it is unintentional, run `edit` to correct the contact field(s). Refer to the [Editing a customer](#edit) section for more details.
+
+</panel>
+
+
+<panel header="No contact method provided" type="seamless">
+
+**Error shown:**
 "At least one contact method (phone, Facebook, or Instagram) must be provided."
 
 **Why this happens:**
@@ -675,7 +697,7 @@ Include at least one of `p/`, `ig/`, or `fb/`.
 
 <panel header="Invalid field format" type="seamless">
 
-**Warning shown (any one of these):**
+**Error shown (any one of these):**
 - "Name must be 1 to 100 characters, start with a letter or number, and contain only letters, numbers, spaces, apostrophes ('), slashes (/), and hyphens (-)."
 - "Phone number must be 7 to 15 digits and contain only numbers (no spaces, '+' sign, or other symbols)."
 - "Instagram username must be 1 to 30 characters, start with a letter or number, and contain only letters, numbers, underscores, and periods..."
@@ -694,21 +716,21 @@ Correct the specific field format and run the command again. Refer to the [Addin
 
 <panel header="Invalid command format" type="seamless">
 
-**Warning shown:**
+**Error shown:**
 "Invalid command format! ..."
 
 **Why this happens:**
 The command is missing required prefixes or has the wrong structure.
 
 **What to do:**
-Ensure `add` includes `n/NAME` and at least one of `p/`, `ig/`, or `fb/`. 
+Ensure the `add` command includes `n/NAME` and at least one of `p/`, `ig/`, or `fb/`. 
 Refer to the [Adding a customer](#add) section for the correct format.
 
 </panel>
 
 <panel header="Duplicate single-valued prefixes" type="seamless">
 
-**Warning shown (example):**
+**Error shown (example):**
 "Multiple values specified for the following single-valued field(s): n/"
 
 **Why this happens:**
@@ -725,7 +747,7 @@ Keep to only one value for each single-valued prefix specified (`n/`, `p/`, `fb/
 
 <panel header="Invalid index" type="seamless">
 
-**Warning shown:**
+**Error shown:**
 "The customer index provided is invalid. Please use an index from the displayed customer list."
 
 **Why this happens:**
@@ -740,24 +762,25 @@ The index does not exist in the currently displayed customer list.
 
 <panel header="Invalid command format" type="seamless">
 
-**Warning shown:**
+**Error shown:**
 "Invalid command format! ..."
 
 **Why this happens:**
-- Case 1: The structure of the command is incorrect (e.g. you ran `edit INDEX` without specifying any fields to change).<br>
-- Case 2: The index entered is not a positive integer.
+- Case 1: The customer index entered is not a positive integer.
+- Case 2: The structure of the command is incorrect (e.g. you ran `edit INDEX` without specifying any fields to change).
 
 **What to do:**
-- Solution 1: Ensure you include a valid customer index and at least one field to edit (e.g., `n/`, `a/`, `p/`, `fb/`, `ig/`, `r/`). Refer to the [Editing a customer](#edit) section for the correct format.
-    Example: `edit 1 n/John Doe`<br>
-
-- Solution 2: Use a positive integer index that is within the range of the currently displayed customer list.
+- Check the full error message shown in the app for the correct `edit` command format and an example.
+- Ensure you provide:
+  1. A positive integer index within the range of the currently displayed customer list; and
+  2. At least one field to edit (e.g. `n/`, `a/`, `p/`, `fb/`, `ig/`, `r/`).
+- Refer to the [Editing a customer](#edit) section for more details.
 
 </panel>
 
 <panel header="Edit rejected after clearing at least one of `p/`, `ig/`, or `fb/`" type="seamless">
 
-**Warning shown:**
+**Error shown:**
 "The edited customer must still have at least one contact method (phone, Facebook, or Instagram)."
 
 **Why this happens:**
@@ -770,7 +793,7 @@ Ensure at least one of `p/`, `ig/`, or `fb/` remains after editing.
 
 <panel header="Duplicate customer after editing name" type="seamless">
 
-**Warning shown:**
+**Error shown:**
 "A customer with the same name already exists in the database."
 
 **Why this happens:**
@@ -784,7 +807,7 @@ Use a different name that is not already in the customer database
 
 <panel header="Duplicate single‑valued prefixes" type="seamless">
 
-**Warning shown (example):**
+**Error shown (example):**
 "Multiple values specified for the following single-valued field(s): n/"
 
 **Why this happens:**

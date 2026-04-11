@@ -75,7 +75,7 @@ BZNUS is a **one-stop desktop app for managing customer contacts, food orders an
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar bznus.jar` command to run the application.<br>
    A GUI like this should appear in a few seconds. Note how the app contains some sample data.<br>\
    ![Ui](images/Ui.png)<br>\
-On startup, the order list is automatically filtered to display only orders with the statuses `PREPARING` or `READY`.
+On startup, the order list is automatically filtered to display only active orders with the statuses `PREPARING` or `READY` to reduce clutter.
 
 5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
@@ -382,9 +382,15 @@ Format: `order INDEX i/ITEM_NAME q/QUANTITY at/DELIVERY_TIME [a/DELIVERY_ADDRESS
 * `QUANTITY` **must be a positive integer** 1, 2, 3, …​.
 * `DELIVERY_TIME` must be in `yyyy-mm-dd hhmm` format.\
 If the time entered is not in the future, the order will still be added (to support recording of completed orders), but a warning will be shown.
-* If `DELIVERY_ADDRESS` is not provided, the customer's stored address will be used.\
-If the customer has no stored address, you will be prompted to enter a delivery address for the order.
+* If `DELIVERY_ADDRESS` is not provided, the customer's stored address will be used. Later changes to the customer’s address **will not** affect the delivery addresses of orders that have already been created.\
+If the customer has no stored address, the system displays an error message prompting you to enter a delivery address for the order.
 * If `STATUS` is not provided, it defaults to `PREPARING`. Valid statuses: `PREPARING`, `READY`, `DELIVERED`, `CANCELLED`.
+
+<box type="important" seamless>
+
+**Duplicate orders allowed:** You can add multiple orders with identical details, as customers may place identical orders more than once. You may also wish to split a large batch order into multiple smaller orders for easier tracking (especially since each order entry can only be assigned a single status).
+
+</box>
 
 <box type="tip" seamless>
 
@@ -644,7 +650,7 @@ To help you understand how BZNUS handles corrupted data files:
 |---------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Add Customer**    | `add n/NAME [p/PHONE_NUMBER] [fb/FACEBOOK] [ig/INSTAGRAM] [a/ADDRESS] [r/REMARK] [t/TAG]…​` <br> e.g., `add n/James Ho p/99996666 fb/james.Ho ig/james_Ho a/123, Clementi Rd, 1234665 r/extra spicy, no onion t/friend t/regular` |
 | **Edit Customer**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [fb/FACEBOOK] [ig/INSTAGRAM] [a/ADDRESS] [r/REMARK] [t/TAG]…​` <br> e.g., `edit 2 n/James Lee ig/jamesLee`                                                                                  |
-| **Find Customer**   | `find KEYWORD [MORE_KEYWORDS]` <br> e.g., `find James Jake` <br> Or `find PREFIX/KEYWORD` <br> e.g., `find fb/james` or `find ig/james_ho`                                                                                        |
+| **Find Customer**   | `find KEYWORD` <br> e.g., `find James Ho` <br> Or `find PREFIX/KEYWORD` <br> e.g., `find fb/james` or `find ig/james_ho`                                                                                                          |
 | **List Customers**  | `list`                                                                                                                                                                                                                            |
 | **Delete Customer** | `delete INDEX` <br> e.g., `delete 3`                                                                                                                                                                                              |
 

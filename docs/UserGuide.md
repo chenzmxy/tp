@@ -202,7 +202,7 @@ Note that only the fields provided in the command will be shown in the output. F
 **Sample output for Example 1:**
 ![Sample output for adding a customer](images/addCustomerSampleOutput.png)
 <br>
-If the customer name is a duplicate or invalid input is provided, an error message will be shown. Please refer to the [Troubleshooting section](#troubleshooting) for more details.
+If the customer name is a duplicate or invalid input is provided, an error message will be shown. Please refer to the [Troubleshooting](#troubleshooting) section for more details.
 
 </box>
 
@@ -284,13 +284,15 @@ Tags: TAG1, TAG2, ...
 
 **Sample output for Example 1:**
 
-**Before `edit`**
-![Original state before editing a customer]()
+**Before `edit`**  
+<div style="margin-left: 30px; margin-bottom: 15px;">
+  <img src="images/editCustomerBeforeSampleOutput.png" alt="Original customer before edit">
+</div>
 
 **After `edit`**
 ![Sample output for editing a customer](images/editCustomerSampleOutput.png)
 
-If the index is invalid, the customer name becomes a duplicate, or all contact methods would be cleared, an error message will be shown. Please refer to the [Troubleshooting section](#troubleshooting) for more details.
+If the command fails (e.g. invalid index, duplicate name, invalid command format, or edited customer lacks contact methods), an error message will be shown. Please refer to the [Troubleshooting](#troubleshooting) section for more details.
 
 </box>
 
@@ -677,7 +679,7 @@ The customer shares the same `PHONE`, `FACEBOOK`, or `INSTAGRAM` as an existing 
 - Review the matched fields in the warning, then run the suggested `find` commands if you wish to see which customers share those contact methods.
   - The warning may suggest `find p/PHONE`, `find fb/FACEBOOK`, or `find ig/INSTAGRAM` based on the matches found. `PHONE`, `FACEBOOK` and `INSTAGRAM` take on the new customer’s values.
 - If the overlap is intentional (e.g. shared household/business contact), no action is needed.
-- If it is unintentional, run `edit` to correct the contact field(s). Refer to the [Editing a customer](#edit) section for more details.
+- If it is unintentional, run `edit` to correct the contact field(s). Please refer to the [Editing a customer](#edit) section for more details.
 
 </panel>
 
@@ -710,7 +712,7 @@ Include at least one of `p/`, `ig/`, or `fb/`.
 The input for a specific field does not meet the required field constraints.
 
 **What to do:**
-Correct the specific field format and run the command again. Refer to the [Adding a customer](#add) section for detailed field requirements.
+Correct the specific field format and run the command again. Please refer to the [Adding a customer](#add) section for detailed field requirements.
 
 </panel>
 
@@ -724,7 +726,7 @@ The command is missing required prefixes or has the wrong structure.
 
 **What to do:**
 Ensure the `add` command includes `n/NAME` and at least one of `p/`, `ig/`, or `fb/`. 
-Refer to the [Adding a customer](#add) section for the correct format.
+Please refer to the [Adding a customer](#add) section for the correct format.
 
 </panel>
 
@@ -774,7 +776,7 @@ The index does not exist in the currently displayed customer list.
 - Ensure you provide:
   1. A positive integer index within the range of the currently displayed customer list; and
   2. At least one field to edit (e.g. `n/`, `a/`, `p/`, `fb/`, `ig/`, `r/`).
-- Refer to the [Editing a customer](#edit) section for more details.
+- Please refer to the [Editing a customer](#edit) section for more details.
 
 </panel>
 

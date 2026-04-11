@@ -147,7 +147,7 @@ Format: `add n/NAME [p/PHONE] [ig/INSTAGRAM] [fb/FACEBOOK] [a/ADDRESS] [r/REMARK
 * `PHONE` must be 7 to 15 digits long and contain only numbers (e.g. 9123456 or 60123456789). No spaces, '+' sign, or other symbols are allowed.
 * `INSTAGRAM` must be 1 to 30 characters long and contain only letters, numbers, underscores, and periods. It must not end with a period or have consecutive periods. No internal whitespaces allowed. The `@` prefix is optional.
 * `FACEBOOK` must be 5 to 50 characters long and contain only letters, numbers, and periods. It must not have leading, trailing, or consecutive periods. No internal whitespaces allowed. The `@` prefix is optional.
-* `ADDRESS` can be any non-blank string, but cannot exceed 200 characters.
+* `ADDRESS` must only contain alphanumeric characters, spaces, and the following special characters: ,.'/#&()-. It must start with an alphanumeric character, and cannot exceed 200 characters.
 * `REMARK` can be any non-blank string, but cannot exceed 500 characters.
 * `TAG` must contain at least one letter or number, and may include spaces, underscores, and hyphens.
 

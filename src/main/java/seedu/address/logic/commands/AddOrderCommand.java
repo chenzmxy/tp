@@ -35,7 +35,7 @@ public class AddOrderCommand extends Command {
     public static final String COMMAND_WORD = "order";
 
     public static final String MESSAGE_PAST_TIME =
-            "⚠\uFE0F WARNING: The delivery time entered is not in the future!";
+            "WARNING: The delivery time entered is not in the future!";
 
     public static final String MESSAGE_SUCCESS = "New order added: %1$s";
 

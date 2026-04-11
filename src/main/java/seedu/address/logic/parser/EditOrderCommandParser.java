@@ -69,6 +69,7 @@ public class EditOrderCommandParser implements Parser<EditOrderCommand> {
                 )
             );
         }
+
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             editOrderDescriptor.setAddress(
                 ParserUtil.parseAddress(
@@ -76,6 +77,7 @@ public class EditOrderCommandParser implements Parser<EditOrderCommand> {
                 )
             );
         }
+
         if (argMultimap.getValue(PREFIX_STATUS).isPresent()) {
             editOrderDescriptor.setStatus(
                 ParserUtil.parseStatus(

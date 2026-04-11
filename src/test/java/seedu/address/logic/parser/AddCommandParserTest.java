@@ -182,7 +182,7 @@ public class AddCommandParserTest {
     }
 
     @Test
-    public void parse_optionalFieldsMissing_success() {
+    public void parse_someOptionalFieldsMissing_success() {
         // zero tags
         Person expectedPerson = new PersonBuilder(AMY).withRemark(VALID_REMARK_AMY).withTags().build();
         assertParseSuccess(parser,
@@ -199,65 +199,62 @@ public class AddCommandParserTest {
         // only name and instagram (no phone, facebook, address and remark)
         assertParseSuccess(parser, NAME_DESC_AMY + INSTAGRAM_DESC_AMY, new AddCommand(AMY_INSTAGRAM_ONLY));
 
-        // only name and address (no phone, facebook, instagram and remark)
-        assertParseSuccess(parser, NAME_DESC_AMY + ADDRESS_DESC_AMY, new AddCommand(AMY_ADDRESS_ONLY));
-
-        // only name, phone and facebook
-        Person expectedPersonWithPhoneFb =
-                new PersonBuilder(AMY_PHONE_ONLY).withFacebook(VALID_FACEBOOK_AMY).build();
-        assertParseSuccess(parser,
-                NAME_DESC_AMY + PHONE_DESC_AMY + FACEBOOK_DESC_AMY,
-                new AddCommand(expectedPersonWithPhoneFb));
-
-        // only name, phone and address
+        // only name, phone and address (1 contact method)
         Person expectedPersonWithPhoneAddress =
                 new PersonBuilder(AMY_PHONE_ONLY).withAddress(VALID_ADDRESS_AMY).build();
         assertParseSuccess(parser,
                 NAME_DESC_AMY + PHONE_DESC_AMY + ADDRESS_DESC_AMY,
                 new AddCommand(expectedPersonWithPhoneAddress));
 
-        // only name, facebook and address
+        // only name, phone and remark (1 contact method)
+        Person expectedPersonWithPhoneRemark = new PersonBuilder(AMY_PHONE_ONLY).withRemark(VALID_REMARK_AMY).build();
+        assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + REMARK_DESC_AMY,
+                new AddCommand(expectedPersonWithPhoneRemark));
+
+        // only name, phone and facebook (2 contact methods)
+        Person expectedPersonWithPhoneFb =
+                new PersonBuilder(AMY_PHONE_ONLY).withFacebook(VALID_FACEBOOK_AMY).build();
+        assertParseSuccess(parser,
+                NAME_DESC_AMY + PHONE_DESC_AMY + FACEBOOK_DESC_AMY,
+                new AddCommand(expectedPersonWithPhoneFb));
+
+        // only name, phone and instagram (2 contact methods)
+        Person expectedPersonWithPhoneIg = new PersonBuilder(AMY_PHONE_ONLY).withInstagram(VALID_INSTAGRAM_AMY).build();
+        assertParseSuccess(parser,
+                NAME_DESC_AMY + PHONE_DESC_AMY + INSTAGRAM_DESC_AMY,
+                new AddCommand(expectedPersonWithPhoneIg));
+
+        // only name, facebook and address (1 contact method)
         Person expectedPersonWithFbAddress =
                 new PersonBuilder(AMY_FACEBOOK_ONLY).withAddress(VALID_ADDRESS_AMY).build();
         assertParseSuccess(parser,
                 NAME_DESC_AMY + FACEBOOK_DESC_AMY + ADDRESS_DESC_AMY,
                 new AddCommand(expectedPersonWithFbAddress));
 
-        // only name, phone and instagram
-        Person expectedPersonWithPhoneIg = new PersonBuilder(AMY_PHONE_ONLY).withInstagram(VALID_INSTAGRAM_AMY).build();
-        assertParseSuccess(parser,
-                NAME_DESC_AMY + PHONE_DESC_AMY + INSTAGRAM_DESC_AMY,
-                new AddCommand(expectedPersonWithPhoneIg));
+        // only name, facebook and remark (1 contact method)
+        Person expectedPersonWithFbRemark = new PersonBuilder(AMY_FACEBOOK_ONLY).withRemark(VALID_REMARK_AMY).build();
+        assertParseSuccess(parser, NAME_DESC_AMY + FACEBOOK_DESC_AMY + REMARK_DESC_AMY,
+                new AddCommand(expectedPersonWithFbRemark));
 
-        // only name, facebook and instagram
+        // only name, facebook and instagram (2 contact methods)
         Person expectedPersonWithFbIg =
                 new PersonBuilder(AMY_FACEBOOK_ONLY).withInstagram(VALID_INSTAGRAM_AMY).build();
         assertParseSuccess(parser,
                 NAME_DESC_AMY + FACEBOOK_DESC_AMY + INSTAGRAM_DESC_AMY,
                 new AddCommand(expectedPersonWithFbIg));
 
-        // only name, address and instagram
+        // only name, instagram and address (1 contact method)
         Person expectedPersonWithAddressIg =
                 new PersonBuilder(AMY_ADDRESS_ONLY).withInstagram(VALID_INSTAGRAM_AMY).build();
         assertParseSuccess(parser,
                 NAME_DESC_AMY + ADDRESS_DESC_AMY + INSTAGRAM_DESC_AMY,
                 new AddCommand(expectedPersonWithAddressIg));
 
-        // only name, phone and remark
-        Person expectedPersonWithPhoneRemark = new PersonBuilder(AMY_PHONE_ONLY).withRemark(VALID_REMARK_AMY).build();
-        assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + REMARK_DESC_AMY,
-                new AddCommand(expectedPersonWithPhoneRemark));
-
-        // only name, instagram and remark
+        // only name, instagram and remark (1 contact method)
         Person expectedPersonWithIgRemark = new PersonBuilder(AMY_INSTAGRAM_ONLY).withRemark(VALID_REMARK_AMY).build();
         assertParseSuccess(parser, NAME_DESC_AMY + INSTAGRAM_DESC_AMY + REMARK_DESC_AMY,
                 new AddCommand(expectedPersonWithIgRemark));
 
-        // only name, address and remark
-        Person expectedPersonWithAddressRemark =
-                new PersonBuilder(AMY_ADDRESS_ONLY).withRemark(VALID_REMARK_AMY).build();
-        assertParseSuccess(parser, NAME_DESC_AMY + ADDRESS_DESC_AMY + REMARK_DESC_AMY,
-                new AddCommand(expectedPersonWithAddressRemark));
     }
 
     @Test
@@ -287,6 +284,12 @@ public class AddCommandParserTest {
 
         // name with remark but no contact methods
         assertParseFailure(parser, NAME_DESC_AMY + REMARK_DESC_AMY, expectedMessage);
+
+        // only name and address (address is not a contact method)
+        assertParseFailure(parser, NAME_DESC_AMY + ADDRESS_DESC_AMY, expectedMessage);
+
+        // only name, address and remark (address is not a contact method)
+        assertParseFailure(parser, NAME_DESC_AMY + ADDRESS_DESC_AMY + REMARK_DESC_AMY, expectedMessage);
     }
 
     @Test

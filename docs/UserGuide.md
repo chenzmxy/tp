@@ -159,9 +159,20 @@ Format: `add n/NAME [p/PHONE] [ig/INSTAGRAM] [fb/FACEBOOK] [a/ADDRESS] [r/REMARK
 
 <box type="important" seamless>
 
-**Duplicate Handling:** Customer names are unique (case-insensitive). For example, "John Doe" and "john doe" are considered the same person, and the app will reject the duplicate entry. Whitespace is also normalized: "   John      Doe" and "John Doe" are treated as the same customer name. Different customers may share contact details (e.g. phone, Facebook, or Instagram).
+**Duplicate Handling:** Customer names are unique (case-insensitive). For example, "John Doe" and "john doe" are considered the same person, and the app will reject the duplicate entry. Whitespace is also normalized: "   John      Doe" and "John Doe" are treated as the same customer name.
 
 </box>
+
+<box type="info" seamless>
+
+**Note**: BZNUS allows multiple customers to share the **same phone number,
+Instagram handle, or Facebook username**. This is **intentional**, as shared
+contact methods are common in real-world scenarios (e.g. corporate
+accounts, household landlines, shared business social media, or proxy
+ordering).
+
+</box>
+
 
 <box type="tip" seamless>
 

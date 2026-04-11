@@ -145,8 +145,8 @@ Format: `add n/NAME [p/PHONE] [ig/INSTAGRAM] [fb/FACEBOOK] [a/ADDRESS] [r/REMARK
 
 * `NAME` is mandatory. It must be 1 to 100 characters long, start with an alphanumeric character, and contain only letters, numbers, spaces, apostrophes (`'`), slashes (`/`), and hyphens (`-`).
 * `PHONE` must be 7 to 15 digits long and contain only numbers (e.g. 9123456 or 60123456789). No spaces, '+' sign, or other symbols are allowed.
-* `INSTAGRAM` must be 1 to 30 characters long(not including the `@` prefix) and contain only letters, numbers, underscores, and periods. It must not end with a period or have consecutive periods. No internal whitespaces allowed. The `@` prefix is optional.
-* `FACEBOOK` must be 5 to 50 characters long(not including the `@` prefix) and contain only letters, numbers, and periods. It must not have leading, trailing, or consecutive periods. No internal whitespaces allowed. The `@` prefix is optional.
+* `INSTAGRAM` must be 1 to 30 characters long (not including the `@` prefix) and contain only letters, numbers, underscores, and periods. It must not end with a period or have consecutive periods. No internal whitespaces allowed. The `@` prefix is optional.
+* `FACEBOOK` must be 5 to 50 characters long (not including the `@` prefix) and contain only letters, numbers, and periods. It must not have leading, trailing, or consecutive periods. No internal whitespaces allowed. The `@` prefix is optional.
 * `ADDRESS` can be any non-blank string, but cannot exceed 200 characters.
 * `REMARK` can be any non-blank string, but cannot exceed 500 characters.
 * `TAG` must contain at least one letter or number, and may include spaces, underscores, and hyphens.
@@ -272,9 +272,9 @@ Tags: TAG1, TAG2, ...
 Sample output for Example 1:
 ![Sample output for Edit Customer](images/editCustomerSampleOutput.png)
 
-If the index is invalid, the customer name becomes a duplicate, or all contact methods would be cleared, an error message will be shown. Please refer to the [Troubleshooting section](#troubleshooting) for more details.
+If the index is invalid, the customer name becomes a duplicate, or all contact methods are cleared, an error message will be shown. Please refer to the [Troubleshooting section](#troubleshooting) for more details.
 
-Note: After you edit a customer, the order card may not update to reflect the changes in the customer's name or cotact details unless you click the edited customer entry in the customer list again.
+Note: After you edit a customer, the order card may not update to reflect the changes in the customer's name or contact details unless you click the edited customer entry in the customer list again.
 
 </box>
 

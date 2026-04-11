@@ -112,11 +112,10 @@ public class EditCommand extends Command {
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         logger.info("Successfully edited customer: " + editedPerson.getName());
-      
+
         List<Person> existingPersons = model.getAddressBook().getPersonList().stream()
                 .filter(person -> !person.getId().equals(personToEdit.getId())).collect(Collectors.toList());
         Optional<Set<String>> dupWarning = DuplicateContactMatcher.findWarning(editedPerson, existingPersons);
-
         logger.info(dupWarning.map(fields -> "Duplicate contact details found for edited customer: " + fields)
                 .orElse("No duplicate contact details found for edited customer."));
 

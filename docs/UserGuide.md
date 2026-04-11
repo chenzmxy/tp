@@ -18,12 +18,12 @@ BZNUS is a **one-stop desktop app for managing customer contacts, food orders an
 **BZNUS is built for small home-based F&B business owners who:**
 - handle customer orders, order fulfillment, and personalised preferences across multiple platforms such as WhatsApp, Instagram, and Facebook
 - want to consolidate scattered customer information into one organised system
-- prefer fast, keyboard‑driven workflows and are comfortable with basic CLI usage 
+- prefer fast, keyboard‑driven workflows and are comfortable with basic CLI usage
 - anticipate growing their customer base and need a system that scales with their business
 - understand their business needs and can manage customer contact details responsibly
 
 **Assumptions about users:**
-- You have basic familiarity with CLI usage. 
+- You have basic familiarity with CLI usage.
 - You understand your business operations and can maintain accurate customer information.
 
 --------------------------------------------------------------------------------------------------------------------
@@ -163,7 +163,7 @@ Format: `add n/NAME [p/PHONE] [ig/INSTAGRAM] [fb/FACEBOOK] [a/ADDRESS] [r/REMARK
 
 </box>
 
-<box type="tip" seamless>
+<box type="important" seamless>
 
 **Possible Duplicate Warning:** If a new customer shares the same `PHONE`, `FACEBOOK`, or `INSTAGRAM` as an existing customer, BZNUS shows a non-blocking warning in the result message. The customer is still added.
 
@@ -555,9 +555,9 @@ To help you understand how BZNUS handles corrupted data files:
 - If `addressbook.json` is corrupted, BZNUS loads empty customer and orders lists on app startup but **does not overwrite the corrupted file** unless you explicitly save the current session.
 - **Commands that save data:**
   - Any data‑modifying command (e.g. `add`, `clear`, `exit`) will save the current in-memory data and **overwrite** the corrupted file.
-- **Actions that do _not_ save data:**  
+- **Actions that do _not_ save data:**
   - Closing the window using the **X** button or pressing **`Ctrl+C`  in the terminal where BZNUS is running** does **not** save in-memory changes. The corrupted file remains unchanged, and BZNUS will load empty lists again on the next startup.
-  
+
 </box>
 
 <box type="tip" seamless>
@@ -642,27 +642,27 @@ This section provides quick fixes for common user-facing issues.
 
 <panel header="Duplicate customer name" type="seamless">
 
-**Warning shown:**  
+**Warning shown:**
 "A customer with the same name already exists in the database."
 
-**Why this happens:**  
+**Why this happens:**
 Customer names are unique (case-insensitive, whitespace-normalized).
 
-**What to do:**  
-Use a different name that is not already in the customer database  
+**What to do:**
+Use a different name that is not already in the customer database
 (e.g. include a descriptor such as `John Doe (Jurong)`).
 
 </panel>
 
 <panel header="No contact method provided" type="seamless">
 
-**Warning shown:**  
+**Warning shown:**
 "At least one contact method (phone, Facebook, or Instagram) must be provided."
 
-**Why this happens:**  
+**Why this happens:**
 At least one contact method is required.
 
-**What to do:**  
+**What to do:**
 Include at least one of `p/`, `ig/`, or `fb/`.
 
 </panel>
@@ -678,37 +678,37 @@ Include at least one of `p/`, `ig/`, or `fb/`.
 - "Remark cannot be blank and must not exceed 500 characters."
 - "Tag must contain at least one letter or number, and may include spaces, underscores, and hyphens."
 
-**Why this happens:**  
+**Why this happens:**
 The input for a specific field does not meet the required field constraints.
 
-**What to do:**  
+**What to do:**
 Correct the specific field format and run the command again. Refer to the [Adding a customer](#add) section for detailed field requirements.
 
 </panel>
 
 <panel header="Invalid command format" type="seamless">
 
-**Warning shown:**  
+**Warning shown:**
 "Invalid command format! ..."
 
-**Why this happens:**  
+**Why this happens:**
 The command is missing required prefixes or has the wrong structure.
 
-**What to do:**  
-Ensure `add` includes `n/NAME` and at least one of `p/`, `ig/`, or `fb/`.  
+**What to do:**
+Ensure `add` includes `n/NAME` and at least one of `p/`, `ig/`, or `fb/`. 
 Refer to the [Adding a customer](#add) section for the correct format.
 
 </panel>
 
 <panel header="Duplicate single-valued prefixes" type="seamless">
 
-**Warning shown (example):**  
+**Warning shown (example):**
 "Multiple values specified for the following single-valued field(s): n/"
 
-**Why this happens:**  
+**Why this happens:**
 Prefixes like `n/`, `p/`, `fb/`, `ig/`, `a/`, and `r/` can only appear once.
 
-**What to do:**  
+**What to do:**
 Keep to only one value for each single-valued prefix specified (`n/`, `p/`, `fb/`, `ig/`, `a/`, `r/`).
 
 </panel>
@@ -719,10 +719,10 @@ Keep to only one value for each single-valued prefix specified (`n/`, `p/`, `fb/
 
 <panel header="Invalid index" type="seamless">
 
-**Warning shown:**  
+**Warning shown:**
 "The customer index provided is invalid. Please use an index from the displayed customer list."
 
-**Why this happens:**  
+**Why this happens:**
 The index does not exist in the currently displayed customer list.
 
 **What to do:**
@@ -734,15 +734,15 @@ The index does not exist in the currently displayed customer list.
 
 <panel header="Invalid command format" type="seamless">
 
-**Warning shown:**  
+**Warning shown:**
 "Invalid command format! ..."
 
-**Why this happens:**  
-- Case 1: The structure of the command is incorrect (e.g. you ran `edit INDEX` without specifying any fields to change).<br>  
+**Why this happens:**
+- Case 1: The structure of the command is incorrect (e.g. you ran `edit INDEX` without specifying any fields to change).<br>
 - Case 2: The index entered is not a positive integer.
 
-**What to do:**  
-- Solution 1: Ensure you include a valid customer index and at least one field to edit (e.g., `n/`, `a/`, `p/`, `fb/`, `ig/`, `r/`). Refer to the [Editing a customer](#edit) section for the correct format.  
+**What to do:**
+- Solution 1: Ensure you include a valid customer index and at least one field to edit (e.g., `n/`, `a/`, `p/`, `fb/`, `ig/`, `r/`). Refer to the [Editing a customer](#edit) section for the correct format.
     Example: `edit 1 n/John Doe`<br>
 
 - Solution 2: Use a positive integer index that is within the range of the currently displayed customer list.
@@ -751,40 +751,40 @@ The index does not exist in the currently displayed customer list.
 
 <panel header="Edit rejected after clearing at least one of `p/`, `ig/`, or `fb/`" type="seamless">
 
-**Warning shown:**  
+**Warning shown:**
 "The edited customer must still have at least one contact method (phone, Facebook, or Instagram)."
 
-**Why this happens:**  
+**Why this happens:**
 The edit would leave the customer with no contact methods.
 
-**What to do:**  
+**What to do:**
 Ensure at least one of `p/`, `ig/`, or `fb/` remains after editing.
 
 </panel>
 
 <panel header="Duplicate customer after editing name" type="seamless">
 
-**Warning shown:**  
+**Warning shown:**
 "A customer with the same name already exists in the database."
 
-**Why this happens:**  
+**Why this happens:**
 Customer names must be unique (case‑insensitive, whitespace‑normalised).
 
-**What to do:**  
-Use a different name that is not already in the customer database  
+**What to do:**
+Use a different name that is not already in the customer database
 (e.g. include a descriptor such as `John Doe (Jurong)`).
 
 </panel>
 
 <panel header="Duplicate single‑valued prefixes" type="seamless">
 
-**Warning shown (example):**  
+**Warning shown (example):**
 "Multiple values specified for the following single-valued field(s): n/"
 
-**Why this happens:**  
+**Why this happens:**
 Prefixes such as `n/`, `p/`, `fb/`, `ig/`, `a/`, and `r/` can only appear once in the command.
 
-**What to do:**  
+**What to do:**
 Keep only one value for each single-valued prefix specified (`n/`, `p/`, `fb/`, `ig/`, `a/`, `r/`).
 
 </panel>
@@ -795,7 +795,7 @@ Keep only one value for each single-valued prefix specified (`n/`, `p/`, `fb/`, 
 
 <panel header="Customer list is empty after running `list`" type="seamless">
 
-**Why this happens:**  
+**Why this happens:**
 There are currently no customers stored in BZNUS, or the data file (`addressbook.json`) could not be loaded.
 
 **What to do:**

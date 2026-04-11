@@ -306,7 +306,7 @@ The edit command updates fields of the customer at `INDEX` in the currently disp
 
 1. `AddressBookParser` routes `edit` input to `EditCommandParser`.
 2. `EditCommandParser` parses index and optional prefixed fields into an `EditPersonDescriptor`.
-3. `EditCommand#execute(Model model)`: 
+3. `EditCommand#execute(Model model)`:
     * resolves target customer from `model.getFilteredPersonList()`,
     * applies descriptor updates to construct an edited `Person`,
     * replaces original person in model,
@@ -528,17 +528,17 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 2a. BZNUS detects invalid or missing fields (e.g. empty name, no contact method, or invalid field format).
 
   * 2a1. BZNUS displays an error message indicating the issue found.
-  
+ 
   * 2a2. User updates the entered details.
 
     Use case resumes from step 2.
-  
+
 * 3a. BZNUS detects that the customer name provided matches that of an existing customer (case-insensitive).
 
   * 3a1. BZNUS displays an error message indicating the issue found.
 
   * 3a2. User updates the entered details.
-    
+
     Use case resumes from step 2.
 
 ---
@@ -584,7 +584,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Guarantees:**
 * If the command succeeds, the customer's data is updated as requested and saved to storage.
-* If the command fails at any point, the customer's data remains unchanged. 
+* If the command fails at any point, the customer's data remains unchanged.
 * Only customers that are currently displayed can be edited.
 
 **MSS:**
@@ -606,14 +606,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 2a. BZNUS detects invalid user input (e.g. invalid index, no fields supplied, empty name, or invalid field value).
 
     * 2a1. BZNUS shows an error message indicating the issue found.
-  
+
     * 2a2. User updates the entered details.
 
         Use case resumes from step 2.
 
 * 3a. BZNUS detects a post-edit constraint violation (duplicate customer name, or all contact methods cleared for the customer).
 
-    * 3a1. BZNUS shows an error message indicating the issue found. 
+    * 3a1. BZNUS shows an error message indicating the issue found.
 
     * 3a2. User updates the entered details.
 
@@ -883,14 +883,14 @@ testers are expected to do more *exploratory* testing.
 4. Adding a customer with **invalid field format**
 
    1. Prerequisite: No existing customer named "John Tan".
-   
+
    2. Test case: `add n/John Tan p/phone` <br>
       Expected: Command fails with an error message indicating that the phone number must be 8–15 digits and contain only numbers. No customer added.
 
-5. Adding a customer **without a name** 
+5. Adding a customer **without a name**
 
-   1. Prerequisite: No existing customer named "John Tan". 
-   
+   1. Prerequisite: No existing customer named "John Tan".
+
    2. Test case: `add ig/john.tan` <br>
       Expected: Command fails with an invalid command format error. No customer added.
 
@@ -915,31 +915,31 @@ testers are expected to do more *exploratory* testing.
 1. Editing a customer with an **updated field value**
 
    1. Prerequisite: List all customers using the `list` command. At least one customer exists in the list.
-   
+
    2. Test case: `edit 1 p/91234567` <br>
       Expected: First displayed customer's phone number is updated to 91234567. Success message shown.
 
 2. Editing a customer by **clearing an optional field**
 
    1. Prerequisite: First displayed customer has Instagram.
-   
+
    2. Test case: `edit 1 ig/`<br>
       Expected: First displayed customer's Instagram is cleared. Success message shown.
-   
+
 3. Editing a customer by **clearing multiple optional fields but keeping one contact method**
 
    1. Prerequisite: First displayed customer has at least one contact method.
-   
+
    2. Test case: `edit 1 p/ fb/ ig/test.ig`<br>
       Expected: First displayed customer's phone/Facebook are cleared, with Instagram set to "test.ig". Success message shown.
-   
+
 4. Editing a customer by **clearing all contact methods**
 
    1. Prerequisite: First displayed customer has at least one contact method.
-   
+
    2. Test case: `edit 1 p/ fb/ ig/`<br>
       Expected: Command fails with an error message indicating that at least one contact method must remain. No changes applied.
-   
+
 5. Editing a customer **without providing any fields** to edit
 
    1. Test case: `edit 1`<br>
@@ -953,22 +953,22 @@ testers are expected to do more *exploratory* testing.
 7. Editing a customer with an **invalid index value** (index larger than the number of customers displayed)
 
    1. Prerequisite: Less than 20 customers exist in the displayed customer list.
-   
+
    2. Test case: `edit 20 p/91234567`<br>
       Expected: Command fails with an error message indicating that the supplied index is invalid. No changes applied.
 
 8. Editing a customer with **invalid field format**
-   
+
    1. Test case: `edit 1 fb/.abc`<br>
       Expected: Command fails with an error message indicating the Facebook username requirements. No changes applied.
 
 9. Editing a customer by providing a **duplicate name** (case-insensitive)
 
    1. Prerequisite: An existing customer that is not being edited has the name "Bernice Yu".
-         
+
    2. Test case: `edit 1 n/bernice yu`<br>
       Expected: Command fails with an error message indicating that a customer with the same name already exists. No changes applied.
-         
+
 10. Optional persistence check
 
     1. After any successful edit, close and relaunch the app.<br>
@@ -1000,17 +1000,17 @@ testers are expected to do more *exploratory* testing.
       Expected: No customer is deleted. An error message is shown.
 
 2. Deleting a customer from a filtered list
-   
+
    1. Prerequisites: Run a filtering command such as `find <keyword>` to filter the customer list. The filtered list should contain at least one customer.
 
    2. Test case: `delete 1`<br>
    Expected: The first customer in the filtered list is deleted. A message containing the details of the deleted customer is shown.
 
-   3. Test case: `delete x` (where x is larger than the filtered list size)<br> 
+   3. Test case: `delete x` (where x is larger than the filtered list size)<br>
    Expected: No customer is deleted. An error message is shown.
 
 3. Deleting a customer with associated orders
-      
+
    1. Prerequisites: The customer to be deleted has one or more associated orders. Ensure the customer's orders are visible using the `list-o` command or by selecting the customer.
 
    2. Test case: `delete 1`<br>
@@ -1130,7 +1130,7 @@ testers are expected to do more *exploratory* testing.
 
     1. Test case: `list-o 1`<br>
     Expected: Command is accepted and behaves the same as `list-o` (all orders shown).
-   
+
 3. Listing all orders with an empty order list
 
     1. Prerequisites: No order exist in the order list

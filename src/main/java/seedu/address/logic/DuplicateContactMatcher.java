@@ -25,7 +25,6 @@ public final class DuplicateContactMatcher {
         for (Person existingPerson : existingPersons) {
             matchedFields.addAll(subject.getMatchingContactFields(existingPerson));
         }
-
         return matchedFields.isEmpty() ? Optional.empty() : Optional.of(Set.copyOf(matchedFields));
     }
 }

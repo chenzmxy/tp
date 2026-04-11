@@ -115,16 +115,14 @@ public class EditCommand extends Command {
       
         logger.info("Checking for duplicate contact details for edited customer: " + editedPerson.getName());
         List<Person> existingPersons = model.getAddressBook().getPersonList().stream()
-                .filter(person -> !person.getId().equals(personToEdit.getId()))
-                .collect(Collectors.toList());
-        Optional<DuplicateContactMatcher.DuplicateContactWarning> duplicateWarning =
-                DuplicateContactMatcher.findWarning(editedPerson, existingPersons);
+                .filter(person -> !person.getId().equals(personToEdit.getId())).collect(Collectors.toList());
+        Optional<Set<String>> dupWarning = DuplicateContactMatcher.findWarning(editedPerson, existingPersons);
 
-        logger.info(duplicateWarning.map(warning -> "Duplicate contact details found for edited customer: "
-                + warning.getMatchedFields()).orElse("No duplicate contact details found for edited customer."));
+        logger.info(dupWarning.map(fields -> "Duplicate contact details found for edited customer: " + fields)
+                .orElse("No duplicate contact details found for edited customer."));
 
-        return new CommandResult(duplicateWarning.map(Messages::formatDuplicateContactWarning).orElse("")
-                + String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)));
+        return new CommandResult(dupWarning.map(fields -> Messages.formatDuplicateContactWarning(fields, editedPerson))
+                .orElse("") + String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson)));
     }
 
     /**

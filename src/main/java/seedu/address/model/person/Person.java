@@ -22,6 +22,10 @@ import seedu.address.model.tag.Tag;
  */
 public class Person {
 
+    public static final String MATCH_FIELD_PHONE = "phone";
+    public static final String MATCH_FIELD_FACEBOOK = "Facebook";
+    public static final String MATCH_FIELD_INSTAGRAM = "Instagram";
+
     // Identity fields
     private final Name name;
     private final Phone phone; // can be null
@@ -115,13 +119,13 @@ public class Person {
 
         Set<String> matchingFields = new LinkedHashSet<>();
         if (hasSameNonNullValue(phone, otherPerson.phone)) {
-            matchingFields.add("phone");
+            matchingFields.add(MATCH_FIELD_PHONE);
         }
         if (hasSameNonNullValue(facebook, otherPerson.facebook)) {
-            matchingFields.add("Facebook");
+            matchingFields.add(MATCH_FIELD_FACEBOOK);
         }
         if (hasSameNonNullValue(instagram, otherPerson.instagram)) {
-            matchingFields.add("Instagram");
+            matchingFields.add(MATCH_FIELD_INSTAGRAM);
         }
 
         return Collections.unmodifiableSet(matchingFields);

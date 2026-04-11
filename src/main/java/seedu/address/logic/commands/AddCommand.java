@@ -11,6 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
@@ -72,17 +73,16 @@ public class AddCommand extends Command {
 
         logger.info("Checking for duplicate contact details for added customer: " + toAdd.getName());
         List<Person> existingPersons = model.getAddressBook().getPersonList();
-        Optional<DuplicateContactMatcher.DuplicateContactWarning> duplicateWarning =
-                DuplicateContactMatcher.findWarning(toAdd, existingPersons);
-        logger.info(duplicateWarning.map(warning -> "Duplicate contact details found for added customer: "
-                + warning.getMatchedFields()).orElse("No duplicate contact details found for added customer."));
+        Optional<Set<String>> duplicateWarning = DuplicateContactMatcher.findWarning(toAdd, existingPersons);
+        logger.info(duplicateWarning.map(fields -> "Duplicate contact details found for added customer: " + fields)
+                .orElse("No duplicate contact details found for added customer."));
 
         logger.info("Adding customer: " + toAdd.getName());
         model.addPerson(toAdd);
         logger.info("Successfully added customer: " + toAdd.getName());
 
-        return new CommandResult(duplicateWarning.map(Messages::formatDuplicateContactWarning).orElse("")
-                + String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
+        return new CommandResult(duplicateWarning.map(fields -> Messages.formatDuplicateContactWarning(fields, toAdd))
+                .orElse("") + String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
     }
 
     @Override

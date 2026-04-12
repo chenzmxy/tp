@@ -617,7 +617,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     * 3a2. User updates the entered details.
 
-        Use case ends resumes from step 2.
+        Use case resumes from step 2.
 
 ---
 
@@ -887,7 +887,7 @@ testers are expected to do more *exploratory* testing.
    2. Test case: `add n/John Tan p/phone` <br>
       Expected: Command fails with an error message indicating that the phone number must be 8–15 digits and contain only numbers. No customer added.
 
-5. Adding a customer **without a name** 
+5. Adding a customer **without a name**
 
    1. Prerequisite: No existing customer named "John Tan". 
    

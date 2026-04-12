@@ -648,7 +648,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS:**
 
-1. User enters the `list` command.
+1. User enters the list customers command.
 
 2. BZNUS retrieves all customers.
 
@@ -737,7 +737,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS:**
 
-1. User enters the `list-o` command.
+1. User enters the list orders command.
 
 2. BZNUS retrieves all orders.
 

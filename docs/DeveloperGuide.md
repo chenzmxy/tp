@@ -676,7 +676,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS:**
 
-1. User enters the order command along with the order details.
+1. User enters the add order command along with the order details.
 
 2. BZNUS stores the new order.
 
@@ -1154,6 +1154,12 @@ Team size: 5
    * “This customer has associated orders that will also be deleted. Delete customer? (yes/no)”<br><br>
 
     The command will only proceed if the user explicitly confirms. This enhancement prevents accidental deletions and improves data safety.
+
+4. **Allow edit and delete order commands to support bulk operations**: Currently, users can only modify or delete orders one at a time. We plan to enhance the two existing order commands to support deleting multiple orders or updating the status of multiple orders at once. For example:
+    * `delete-o 1, 3, 5` deletes the first, third, and fifth orders in the displayed list.
+    * `edit-o 2, 4 s/DELIVERED` updates the status of the second and fourth orders in the displayed list to 'DELIVERED'.<br><br>
+
+   This enhancement improves efficiency for users managing high order volumes.
 
 <div class="section-spacing">
 

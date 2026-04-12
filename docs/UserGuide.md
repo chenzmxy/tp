@@ -456,6 +456,8 @@ Format:
 * `clear` (shows confirmation message)
 * `clear CONFIRM` (confirms and permanently deletes all data)
 
+**Note:** `clear` only shows a warning. `clear CONFIRM` executes immediately, even if `clear` was not run just before.
+
 <box type="important" seamless>
 
 **Note:** This action is irreversible. Once you run clear CONFIRM, all customer profiles, order histories, and related data will be permanently removed from the application.

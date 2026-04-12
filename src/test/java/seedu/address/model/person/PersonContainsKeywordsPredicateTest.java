@@ -108,7 +108,7 @@ public class PersonContainsKeywordsPredicateTest {
     }
 
     @Test
-    public void test_InstagramContainsPhrase_returnsTrue() {
+    public void test_instagramContainsPhrase_returnsTrue() {
         PersonContainsKeywordsPredicate predicate = new PersonContainsKeywordsPredicate(
                 "charlie_1234", true, new HashMap<>());
         assertTrue(predicate.test(new PersonBuilder().withInstagram("charlie_1234").build()));

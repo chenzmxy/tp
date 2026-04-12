@@ -405,7 +405,9 @@ Format: `find-o Category-Type/Category-Keywords`
 * `find-o i/pizza` - Look for orders with item keyword "pizza"
 * `find-o a/Ang Mo Kio` - Look for orders with delivery address "Ang Mo Kio"
 * `find-o s/Delivered` - Look for orders that are already delivered
-* * `find-o i/burger a/Kent Ridge` - Look for orders with item keyword "burger" and delivery address "Kent Ridge"
+* `find-o i/burger a/Kent Ridge` - Look for orders with item keyword "burger" and delivery address "Kent Ridge"
+![Find-o command with multiple prefixes](images/find-oPic.png)
+
 
 <box type="tip" seamless>
 

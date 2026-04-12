@@ -84,6 +84,14 @@ public class ParserUtil {
     }
 
     /**
+     * Replaces each literal {@code \/} with {@code /}.
+     */
+    public static String unescapeNameSlashes(String name) {
+        requireNonNull(name);
+        return name.replace("\\/", "/");
+    }
+
+    /**
      * Parses a {@code String name} into a {@code Name}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -92,10 +100,11 @@ public class ParserUtil {
     public static Name parseName(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();
-        if (!Name.isValidName(trimmedName)) {
+        String unescaped = unescapeNameSlashes(trimmedName);
+        if (!Name.isValidName(unescaped)) {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
-        return new Name(trimmedName);
+        return new Name(unescaped);
     }
 
     /**

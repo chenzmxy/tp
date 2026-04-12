@@ -144,6 +144,7 @@ Adds a customer to the customer database.
 Format: `add n/NAME [p/PHONE] [ig/INSTAGRAM] [fb/FACEBOOK] [a/ADDRESS] [r/REMARK] [t/TAG]…​`
 
 * `NAME` is mandatory. It must be 1 to 100 characters long, start with an alphanumeric character, and contain only letters, numbers, spaces, apostrophes (`'`), slashes (`/`), and hyphens (`-`).
+  * If you need a `/` in the name, type **`\/`** for a literal slash. BZNUS stores the name with a normal `/` (the backslash is not kept). Example: `n/Ravi S\/O Ramasamy` is stored as `Ravi S/O Ramasamy`.
 * `PHONE` must be 7 to 15 digits long and contain only numbers (e.g. 9123456 or 60123456789). No spaces, '+' sign, or other symbols are allowed.
 * `INSTAGRAM` must be 1 to 30 characters long and contain only letters, numbers, underscores, and periods. It must not end with a period or have consecutive periods. No internal whitespaces allowed. The `@` prefix is optional.
 * `FACEBOOK` must be 5 to 50 characters long and contain only letters, numbers, and periods. It must not have leading, trailing, or consecutive periods. No internal whitespaces allowed. The `@` prefix is optional.
@@ -245,7 +246,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [ig/INSTAGRAM] [fb/FACEBOOK] [a/ADDRESS] 
   * `fb/` clears Facebook
   * `a/` clears address
   * `r/` clears remark
-* `n/` (name) cannot be empty if present. Use `n/NEW_NAME` to change the name.
+* `n/` (name) cannot be empty if present. Use `n/NEW_NAME` to change the name. The same **`\/`** rule as for [`add`](#add) applies if you need a literal `/` in the new name.
 * After the edit is applied, the customer must still have at least one contact method (`p/`, `ig/`, or `fb/`). Otherwise, the edit is rejected.
 * Tags are handled as a set:
   * t/TAG [t/MORE_TAGS]...` replaces all the customer's existing tags with the tag(s) provided. I.e. the addition of tags is not cumulative.

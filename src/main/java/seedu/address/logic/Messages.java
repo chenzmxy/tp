@@ -32,7 +32,7 @@ public class Messages {
     public static final String MESSAGE_NO_SAVED_ADDRESS =
             "Customer has no saved address. Please specify delivery address with a/ or use a/PICKUP for pickup orders.";
     public static final String MESSAGE_UNSUPPORTED_PREFIX =
-            "Unsupported prefix '%1$s' in this command. Check the command format for valid prefixes.";
+            "Unsupported prefix '%1$s' in this command. Valid prefixes: n/, p/, fb/, ig/, a/, r/, t/.";
 
     /**
      * Returns an error message indicating the duplicate prefixes.

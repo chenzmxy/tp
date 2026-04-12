@@ -268,6 +268,7 @@ Examples:
 Format: `find PREFIX/KEYWORD`
 
 * The search is case-insensitive. e.g. `hans` will match `Hans`.
+* For `fb/` and `ig/`, the search is period-insensitive. e.g. `find fb/johndoe` can match `john.doe`.
 * Limits the search to a single specified field.
 * Allows searching with multiple prefixes.
 

@@ -476,6 +476,18 @@ Format: `edit-o ORDER_INDEX [i/ITEM_NAME] [q/QUANTITY] [at/DELIVERY_TIME] [a/DEL
 * `edit-o 1 s/READY` — marks the first pizza order in the search results as ready.
 * `edit-o 1 i/Salad at/2026-05-01 1800 a/Blk 123 Main Street` — updates item, delivery time, and address for the first order in the current list.
 
+<box type="info" seamless>
+
+**Sample Output for Example 3:**
+
+**Before `edit-o`**
+![Order list before edit-o](images/edit-o-before.png)
+
+**After `edit-o`**
+![Order list after edit-o](images/edit-o-after.png)
+
+</box>
+
 </div>
 
 <div class="section-spacing">

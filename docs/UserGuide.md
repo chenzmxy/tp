@@ -297,7 +297,7 @@ Examples:
 * `find John` returns `John` and `John doe`
 ![result for 'find John'](images/findJohn.png)
 * `find 85632563` returns `Bernice Yu` if her contact details contains these digits<br>\
-  ![result for 'find 85632563'](images/findBernice.png)
+  ![result for 'find 85632563'](images/findBernice2.png)
 
 <box type="important" seamless>
 

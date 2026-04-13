@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.AddOrderCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.order.DeliveryTime;
@@ -68,8 +69,22 @@ public class AddOrderCommandParser implements Parser<AddOrderCommand> {
         logger.log(Level.FINE, "Parsing item, quantity, and delivery time");
 
         Item item = ParserUtil.parseItem(argMultimap.getValue(PREFIX_ITEM).get());
-        Quantity quantity = ParserUtil.parseQuantity(argMultimap.getValue(PREFIX_QUANTITY).get());
-        DeliveryTime deliveryTime = ParserUtil.parseDeliveryTime(argMultimap.getValue(PREFIX_DATETIME).get());
+
+        String qtyValue = argMultimap.getValue(PREFIX_QUANTITY).get();
+        qtyValue = ParserUtil.ensureNoUnsupportedPrefixTokensInValue(
+                qtyValue,
+                Messages.MESSAGE_UNSUPPORTED_ORDER_PREFIX,
+                ParserUtil.PREFIXES_FOR_ORDER_COMMAND
+        );
+        Quantity quantity = ParserUtil.parseQuantity(qtyValue);
+
+        String dtValue = argMultimap.getValue(PREFIX_DATETIME).get();
+        dtValue = ParserUtil.ensureNoUnsupportedPrefixTokensInValue(
+                dtValue,
+                Messages.MESSAGE_UNSUPPORTED_ORDER_PREFIX,
+                ParserUtil.PREFIXES_FOR_ORDER_COMMAND
+        );
+        DeliveryTime deliveryTime = ParserUtil.parseDeliveryTime(dtValue);
 
         boolean isPast = !deliveryTime.isInFuture();
 
@@ -78,10 +93,19 @@ public class AddOrderCommandParser implements Parser<AddOrderCommand> {
                 ? Optional.of(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()))
                 : Optional.empty();
 
-        Optional<Status> status = argMultimap.getValue(PREFIX_STATUS)
-                .isPresent()
-                ? Optional.of(ParserUtil.parseStatus(argMultimap.getValue(PREFIX_STATUS).get()))
-                : Optional.empty();
+        Optional<Status> status = Optional.empty();
+
+        if (argMultimap.getValue(PREFIX_STATUS).isPresent()) {
+            String rawStatusValue = argMultimap.getValue(PREFIX_STATUS).get();
+
+            ParserUtil.ensureNoUnsupportedPrefixTokensInValue(
+                    rawStatusValue,
+                    Messages.MESSAGE_UNSUPPORTED_ORDER_PREFIX,
+                    ParserUtil.PREFIXES_FOR_ORDER_COMMAND
+            );
+
+            status = Optional.of(ParserUtil.parseStatus(rawStatusValue));
+        }
 
         logger.log(Level.INFO, "Successfully parsed AddOrderCommand");
 

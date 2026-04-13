@@ -2,11 +2,15 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FACEBOOK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INSTAGRAM;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ITEM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Arrays;
@@ -47,6 +51,13 @@ public class ParserUtil {
         PREFIX_NAME, PREFIX_PHONE, PREFIX_FACEBOOK, PREFIX_INSTAGRAM, PREFIX_ADDRESS, PREFIX_REMARK, PREFIX_TAG
     };
 
+    /**
+     * Prefixes recognised by {@code order} (used to detect stray {@code x/}-style tokens).
+     */
+    public static final Prefix[] PREFIXES_FOR_ORDER_COMMAND = {
+        PREFIX_ITEM, PREFIX_QUANTITY, PREFIX_DATETIME, PREFIX_ADDRESS, PREFIX_STATUS
+    };
+
     private static final Pattern EMBEDDED_PREFIX_LIKE_TOKEN = Pattern.compile("\\s+([a-zA-Z][a-zA-Z0-9]*)/");
 
     /**
@@ -65,6 +76,34 @@ public class ParserUtil {
             String token = m.group(1) + "/";
             if (!allowed.contains(token)) {
                 throw new ParseException(String.format(Messages.MESSAGE_UNSUPPORTED_PREFIX, token));
+            }
+        }
+        return value;
+    }
+
+    /**
+     * Ensures {@code value} does not contain any substring that resembles an
+     * unsupported prefix token (e.g. {@code x/hello}) that is not one of the
+     * given {@code allowedPrefixes}. Uses {@code errorMessage} when reporting
+     * unsupported prefixes.
+     *
+     * @return {@code value} unchanged, allowing convenient chaining into {@code parseX} methods
+     */
+    public static String ensureNoUnsupportedPrefixTokensInValue(
+            String value, String errorMessage, Prefix... allowedPrefixes
+    ) throws ParseException {
+        requireNonNull(value);
+        requireNonNull(allowedPrefixes);
+
+        Set<String> allowed = Arrays.stream(allowedPrefixes)
+                .map(Prefix::getPrefix)
+                .collect(Collectors.toSet());
+
+        Matcher m = EMBEDDED_PREFIX_LIKE_TOKEN.matcher(value);
+        while (m.find()) {
+            String token = m.group(1) + "/";
+            if (!allowed.contains(token)) {
+                throw new ParseException(String.format(errorMessage, token));
             }
         }
         return value;

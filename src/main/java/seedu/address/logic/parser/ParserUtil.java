@@ -1,13 +1,25 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FACEBOOK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INSTAGRAM;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.Messages;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.order.DeliveryTime;
 import seedu.address.model.order.Item;
@@ -29,6 +41,36 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
     /**
+     * Prefixes recognised by {@code add} and {@code edit} for customers (used to detect stray {@code x/}-style tokens).
+     */
+    public static final Prefix[] PREFIXES_FOR_PERSON_COMMAND = {
+        PREFIX_NAME, PREFIX_PHONE, PREFIX_FACEBOOK, PREFIX_INSTAGRAM, PREFIX_ADDRESS, PREFIX_REMARK, PREFIX_TAG
+    };
+
+    private static final Pattern EMBEDDED_PREFIX_LIKE_TOKEN = Pattern.compile("\\s+([a-zA-Z][a-zA-Z0-9]*)/");
+
+    /**
+     * Ensures {@code value} does not contain a substring that looks like an unknown field prefix (e.g. {@code x/hello})
+     * that is not one of the allowed {@link Prefix}
+     *
+     * @return {@code value} unchanged, for convenient chaining into {@code parseX} methods
+     */
+    public static String ensureNoUnsupportedPrefixTokensInValue(String value, Prefix... allowedPrefixes)
+            throws ParseException {
+        requireNonNull(value);
+        requireNonNull(allowedPrefixes);
+        Set<String> allowed = Arrays.stream(allowedPrefixes).map(Prefix::getPrefix).collect(Collectors.toSet());
+        Matcher m = EMBEDDED_PREFIX_LIKE_TOKEN.matcher(value);
+        while (m.find()) {
+            String token = m.group(1) + "/";
+            if (!allowed.contains(token)) {
+                throw new ParseException(String.format(Messages.MESSAGE_UNSUPPORTED_PREFIX, token));
+            }
+        }
+        return value;
+    }
+
+    /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
@@ -42,6 +84,14 @@ public class ParserUtil {
     }
 
     /**
+     * Replaces each literal {@code \/} with {@code /}.
+     */
+    public static String unescapeNameSlashes(String name) {
+        requireNonNull(name);
+        return name.replace("\\/", "/");
+    }
+
+    /**
      * Parses a {@code String name} into a {@code Name}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -50,10 +100,11 @@ public class ParserUtil {
     public static Name parseName(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();
-        if (!Name.isValidName(trimmedName)) {
+        String unescaped = unescapeNameSlashes(trimmedName);
+        if (!Name.isValidName(unescaped)) {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
-        return new Name(trimmedName);
+        return new Name(unescaped);
     }
 
     /**
@@ -140,6 +191,7 @@ public class ParserUtil {
     public static Tag parseTag(String tag) throws ParseException {
         requireNonNull(tag);
         String trimmedTag = tag.trim();
+        ensureNoUnsupportedPrefixTokensInValue(trimmedTag, PREFIXES_FOR_PERSON_COMMAND);
         if (!Tag.isValidTagName(trimmedTag)) {
             throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
         }

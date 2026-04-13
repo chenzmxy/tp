@@ -98,6 +98,13 @@ public class EditCommandParserTest {
     }
 
     @Test
+    public void parse_unsupportedPrefixInPhoneValue_failure() {
+        assertParseFailure(parser,
+                "1 p/1234567 x/hello",
+                String.format(Messages.MESSAGE_UNSUPPORTED_PREFIX, "x/"));
+    }
+
+    @Test
     public void parse_invalidValue_failure() {
         assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
         assertParseFailure(parser, "1" + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS); // invalid phone

@@ -34,6 +34,9 @@ public class Messages {
             "The edited customer must still have at least one contact method (phone, Facebook, or Instagram).";
     public static final String MESSAGE_NO_SAVED_ADDRESS =
             "Customer has no saved address. Please specify delivery address with a/ or use a/PICKUP for pickup orders.";
+    public static final String MESSAGE_UNSUPPORTED_PREFIX =
+            "Unsupported prefix '%1$s' in this command. Valid prefixes: n/, p/, fb/, ig/, a/, r/, t/.";
+
     public static final String MESSAGE_WARNING_DUPLICATE_CONTACT = "WARNING: Duplicate contact details detected. "
             + "This is allowed, but please verify.%nMatched fields: %s%n%s%n%n";
     /**

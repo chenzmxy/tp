@@ -341,7 +341,7 @@ Format: `order INDEX i/ITEM_NAME q/QUANTITY at/DELIVERY_TIME [a/DELIVERY_ADDRESS
 * The index refers to the index number shown in the displayed customer list.
 * The index **must be a positive integer** 1, 2, 3, …​
 * `ITEM_NAME` must **begin with a letter or a number**, contain only alphanumeric characters, spaces, and basic punctuation (e.g. '-', '&', apostrophes), and **cannot be blank**.
-* `QUANTITY` **must be a positive integer** 1, 2, 3, …​.\
+* `QUANTITY` **must be a positive integer without formatting characters** such as commas and spaces.\
   If you enter an unusually large quantity (200 or more), the order will still be added, but a warning will be shown to help prevent accidental input errors.
 * `DELIVERY_TIME` must be in `yyyy-mm-dd hhmm` format.\
 If the time entered is not in the future, the order will still be added (to support recording of completed orders), but a warning will be shown.
@@ -426,7 +426,7 @@ Format: `edit-o ORDER_INDEX [i/ITEM_NAME] [q/QUANTITY] [at/DELIVERY_TIME] [a/DEL
 * The order **stays with the same customer**; you cannot reassign an order to another customer with this command.
 * Field rules are the same as when using **`order`** (see **Adding an order** above):
   * `ITEM_NAME` must **begin with a letter or a number**, contain only alphanumeric characters, spaces, and basic punctuation (e.g. '-', '&', apostrophes), and **cannot be blank**.
-  * `QUANTITY` **must be a positive integer** 1, 2, 3, …​.
+  * `QUANTITY` **must be a positive integer without formatting characters** such as commas and spaces.
   * `DELIVERY_TIME` must be in `yyyy-mm-dd hhmm` format.\
     Unlike when adding an order, no warning is shown if the updated delivery time is not in the future (as edits may involve updating completed orders).
   * If `DELIVERY_ADDRESS` is omitted in `edit-o`, the order **keeps its current delivery address**. (This differs from **`order`**, where omitting `a/` fills in the customer's stored address when present.)

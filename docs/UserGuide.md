@@ -657,7 +657,7 @@ Customer names are unique (case-insensitive). Extra spaces in names are cleaned 
 Use a different name that is not already in the customer database
 (e.g. include a descriptor such as `John Doe (Jurong)`).
 
-Bonus: Use **tags** or **remarks** to further differentiate customers with similar names.
+Tip: Use **tags** or **remarks** to further differentiate customers with similar names.
 
 </panel>
 
@@ -670,10 +670,12 @@ Bonus: Use **tags** or **remarks** to further differentiate customers with simil
 The customer shares the same `PHONE`, `FACEBOOK`, or `INSTAGRAM` as an existing customer.
 
 **What to do:**
-- Review the matched fields in the warning, then run the suggested `find` commands if you wish to see which customers share those contact methods.
+- Review the matched fields in the warning.
+- (Optional) Run the suggested `find` commands to review overlaps:
   - The warning may suggest `find p/PHONE`, `find fb/FACEBOOK`, or `find ig/INSTAGRAM` based on the matches found. `PHONE`, `FACEBOOK` and `INSTAGRAM` take on the new customer’s values.
+  - Tip: You can also combine prefixes (e.g. `find p/PHONE ig/INSTAGRAM`) to check whether any customer matches multiple contact fields, which may indicate a likely duplicate.
 - If the overlap is intentional (e.g. shared household/business contact), no action is needed.
-- If it is unintentional, run `edit` to correct the contact field(s). Refer to [Editing a customer](#edit) for more details.
+- If it is unintentional, run `edit` to correct the contact field(s) of the added customer. Refer to [Editing a customer](#edit) for more details.
 
 </panel>
 

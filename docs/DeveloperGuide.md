@@ -1182,20 +1182,20 @@ Team size: 5
 
 3. **Allow editing of the customer linked to an existing order**: Currently, once an order is created, the customer associated with it cannot be changed. This is inconvenient when a user accidentally selects the wrong customer. We plan to extend the edit order command to support updating the customer the order is linked to. The system will validate that the new customer exists and update the order accordingly. This enhancement addresses the flaw where users must delete and recreate an order to correct a customer assignment.
 
-3. **Add a confirmation step before deleting a customer or an order**: Deleting a customer or an order currently executes immediately, which increases the risk of accidental data loss. We plan to introduce a confirmation prompt, for example:
+4. **Add a confirmation step before deleting a customer or an order**: Deleting a customer or an order currently executes immediately, which increases the risk of accidental data loss. We plan to introduce a confirmation prompt, for example:
    * “Delete order? (yes/no)” 
    * “Delete customer? (yes/no)”
    * “This customer has associated orders that will also be deleted. Delete customer? (yes/no)”<br><br>
 
     The command will only proceed if the user explicitly confirms. This enhancement prevents accidental deletions and improves data safety.
 
-4. **Allow edit and delete order commands to support bulk operations**: Currently, users can only modify or delete orders one at a time. We plan to enhance the two existing order commands to support deleting multiple orders or updating the status of multiple orders at once. For example:
+5. **Allow edit and delete order commands to support bulk operations**: Currently, users can only modify or delete orders one at a time. We plan to enhance the two existing order commands to support deleting multiple orders or updating the status of multiple orders at once. For example:
     * `delete-o 1, 3, 5` deletes the first, third, and fifth orders in the displayed list.
     * `edit-o 2, 4 s/DELIVERED` updates the status of the second and fourth orders in the displayed list to 'DELIVERED'.<br><br>
 
    This enhancement improves efficiency for users managing high order volumes.
 
-5. **Auto-focus the changed entity after successful write commands (`add`, `edit`, `order`, `edit-o`)**:
+6. **Auto-focus the changed entity after successful write commands (`add`, `edit`, `order`, `edit-o`)**:
    Currently, after a successful `add`, `edit` or `order`, the list view for customers/orders is reset, though the success message displays the add/edited entity's full details for easy verification. (For `edit-o`, the list view remains filtered.) Users who wish to double-check the changes made may still need to manually scroll through the list to locate the respective customer/order card. This could be a usability flaw for high-volume customer/order workflows.
 
    In a future version, we plan to implement a centralized post-command focus policy in `MainWindow`:

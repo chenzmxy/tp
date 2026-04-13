@@ -479,6 +479,15 @@ Shows a list of all orders in the order database.
 
 Format: `list-o`
 
+<box type="info" seamless>
+
+**Expected output:**
+Displays all corders in the database, or shows "Order list is empty." if the database is empty.
+
+![Sample output for Orders](images/listOrdersSampleOutput.png)
+
+</box>
+
 <box type="tip" seamless>
 
 **Tip:** This is a useful command to reset filters on the order list at any time.
@@ -530,7 +539,9 @@ To prevent accidental data loss, this command requires a specific confirmation k
 
 Format:
 * `clear` (shows confirmation message)
+  ![clear command warning](images/clearCommandDisplayWarning.png)
 * `clear CONFIRM` (confirms and permanently deletes all data)
+  ![clear confirm result](images/clearConfirm.png)
 
 **Note:** `clear` only shows a warning. `clear CONFIRM` executes immediately, even if `clear` was not run just before.
 

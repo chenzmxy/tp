@@ -805,7 +805,7 @@ Refer to [Invalid field format for `add`](#invalid-field-format-troubleshooting)
 
 <panel header="Unsupported/invalid prefix" type="seamless">
 
-Refer to [Unsupported/invalid prefix](#invalid-prefix-troubleshooting) for details.
+Refer to [Unsupported/invalid prefix for `add`](#invalid-prefix-troubleshooting) for details.
 
 </panel>
 
@@ -838,7 +838,7 @@ Use a different name that is not already in the customer database
 
 <panel header="Duplicate contact details warning after editing" type="seamless">
 
-Refer to [Duplicate contact details warning (non-blocking)](#duplicate-contact-warning-troubleshooting) for details.
+Refer to [Duplicate contact details warning (non-blocking) for `add`](#duplicate-contact-warning-troubleshooting) for details.
 
 </panel>
 

@@ -29,4 +29,7 @@ public class ResultDisplay extends UiPart<Region> {
         resultDisplay.setText(feedbackToUser);
     }
 
+    public String getFeedbackToUser() {
+        return resultDisplay.getText();
+    }
 }

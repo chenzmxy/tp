@@ -23,6 +23,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class MainWindow extends UiPart<Stage> {
 
+    public static final String STARTUP_ORDER_FILTER_MESSAGE =
+            "Displaying only active orders (PREPARING / READY). Use 'list-o' to view all orders.";
+
     private static final String FXML = "MainWindow.fxml";
     private static final String ORDER_COMMAND_ADD = "order";
     private static final String ORDER_COMMAND_EDIT = "edit-o";
@@ -125,7 +128,10 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic,
                 person -> {
                     orderListPanel.setOrdersContext(person);
-                    resultDisplay.setFeedbackToUser("");
+
+                    if (resultDisplay.getFeedbackToUser().equals(STARTUP_ORDER_FILTER_MESSAGE)) {
+                        resultDisplay.setFeedbackToUser("");
+                    }
                 });
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 

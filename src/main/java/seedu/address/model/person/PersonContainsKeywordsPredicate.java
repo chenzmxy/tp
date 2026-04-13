@@ -53,7 +53,7 @@ public class PersonContainsKeywordsPredicate implements Predicate<Person> {
         String lowerPhrase = searchPhrase.toLowerCase();
         return person.getName().fullName.toLowerCase().contains(lowerPhrase)
                 || person.getPhone().map(p -> p.value.toLowerCase().contains(lowerPhrase)).orElse(false)
-                || person.getFacebook().map(fb -> fb.value.toLowerCase().contains(lowerPhrase)).orElse(false)
+                || person.getFacebook().map(fb -> containsCleanPhrase(fb.value, searchPhrase)).orElse(false)
                 || person.getInstagram().map(ig -> ig.value.toLowerCase().contains(lowerPhrase)).orElse(false)
                 || person.getAddress().map(a -> a.value.toLowerCase().contains(lowerPhrase)).orElse(false)
                 || person.getRemark().map(r -> r.value.toLowerCase().contains(lowerPhrase)).orElse(false)
@@ -89,9 +89,8 @@ public class PersonContainsKeywordsPredicate implements Predicate<Person> {
 
         if (specificKeywords.containsKey(SearchType.FACEBOOK)) {
             String val = specificKeywords.get(SearchType.FACEBOOK);
-            String cleanVal = val.startsWith("@") ? val.substring(1) : val;
             predicateList.add(p -> p.getFacebook().map(fb ->
-                    fb.value.toLowerCase().contains(cleanVal.toLowerCase())).orElse(false));
+                    containsCleanPhrase(fb.value, val)).orElse(false));
         }
 
         if (specificKeywords.containsKey(SearchType.INSTAGRAM)) {
@@ -112,6 +111,16 @@ public class PersonContainsKeywordsPredicate implements Predicate<Person> {
         }
 
         return predicateList.stream().allMatch(p -> p.test(customer));
+    }
+
+    private static String cleanPhrase(String phrase) {
+        return phrase.replace("@", "").replace(".", "").toLowerCase();
+    }
+
+    private static boolean containsCleanPhrase(String storedValue, String phrase) {
+        String cleanStoredValue = cleanPhrase(storedValue);
+        String cleanPhrase = cleanPhrase(phrase);
+        return cleanStoredValue.contains(cleanPhrase);
     }
 
     public String getSummary() {

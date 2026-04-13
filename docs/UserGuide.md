@@ -272,7 +272,9 @@ Tags: TAG1, TAG2, ...
 Sample output for Example 1:
 ![Sample output for Edit Customer](images/editCustomerSampleOutput.png)
 
-If the index is invalid, the customer name becomes a duplicate, or all contact methods would be cleared, an error message will be shown. Please refer to the [Troubleshooting section](#troubleshooting) for more details.
+If the index is invalid, the customer name becomes a duplicate, or all contact methods are cleared, an error message will be shown. Please refer to the [Troubleshooting section](#troubleshooting) for more details.
+
+Note: After you edit a customer, the order card may not update to reflect the changes in the customer's name or contact details unless you click the edited customer entry in the customer list again.
 
 </box>
 
@@ -292,9 +294,10 @@ Format: `find KEYWORD`
 * Partial matches are supported e.g. `Han` will match `Hans`.
 
 Examples:
-* `find John` returns `john` and `John Doe`
+* `find John` returns `John` and `John doe`
+  ![result for 'find John'](images/findJohn.png)
 * `find 99272758` returns `Bernice Yu` if her contact details contains these digits<br>\
-  ![result for 'find 99272758'](images/findBernice.png)
+  ![result for 'find 99272758'](images/findBernice2.png)
 
 <box type="important" seamless>
 
@@ -322,6 +325,9 @@ Examples:
 * `find n/Alice` returns all customers whose name contains `Alice`.
 * `find t/regular` returns all customers whose tags contain `regular`.
 * `find n/Bob r/non-spicy` returns all customers whose name contains `Bob` and whose remark contains `non-spicy`.
+
+Note: 
+Find command uses AND logic when multiple prefixes are used. In the above example, only customers who satisfy both conditions (name contains `Bob` AND remark contains `non-spicy`) will be returned.
 
 </div>
 
@@ -399,7 +405,9 @@ Format: `find-o Category-Type/Category-Keywords`
 * `find-o i/pizza` - Look for orders with item keyword "pizza"
 * `find-o a/Ang Mo Kio` - Look for orders with delivery address "Ang Mo Kio"
 * `find-o s/Delivered` - Look for orders that are already delivered
-* * `find-o i/burger a/Kent Ridge` - Look for orders with item keyword "burger" and delivery address "Kent Ridge"
+* `find-o i/burger a/Ang Mo Kio` - Look for orders with item keyword "burger" and delivery address "Ang Mo Kio"
+![result for 'find-o i/burger a/Ang Mo Kio'](images/find-o.png)
+
 
 <box type="tip" seamless>
 
@@ -665,8 +673,8 @@ Include at least one of `p/`, `ig/`, or `fb/`.
 **Warning shown (any one of these):**
 - "Name must be 1 to 100 characters, start with a letter or number, and contain only letters, numbers, spaces, apostrophes ('), slashes (/), and hyphens (-)."
 - "Phone number must be 7 to 15 digits and contain only numbers (no spaces, '+' sign, or other symbols)."
-- "Instagram username must be 1 to 30 characters, start with a letter or number, and contain only letters, numbers, underscores, and periods..."
-- "Facebook username must be 5 to 50 characters, start with a letter or number, and contain only letters, numbers, and periods..."
+- "Instagram username must be 1 to 30 characters (not including the `@` prefix), start with a letter or number, and contain only letters, numbers, underscores, and periods..."
+- "Facebook username must be 5 to 50 characters (not including the `@` prefix), start with a letter or number, and contain only letters, numbers, and periods..."
 - "Address cannot be blank and must not exceed 200 characters."
 - "Remark cannot be blank and must not exceed 500 characters."
 - "Tag must contain at least one letter or number, and may include spaces, underscores, and hyphens."

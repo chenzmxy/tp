@@ -1215,19 +1215,21 @@ Team size: 5
 
    This enhancement improves efficiency for users managing high order volumes.
 
-6. **Auto-focus the changed entity after successful write commands (`add`, `edit`, `order`, `edit-o`)**:
-   Currently, after a successful `add`, `edit` or `order`, the list view for customers/orders is reset, though the success message displays the add/edited entity's full details for easy verification. (For `edit-o`, the list view remains filtered.) Users who wish to double-check the changes made may still need to manually scroll through the list to locate the respective customer/order card. This could be a usability flaw for high-volume customer/order workflows.
+6. **Auto-focus the changed entity after successful write commands (`add`, `edit`, `order`)**:
+   Currently, after a successful `add`, `edit` or `order`, the list view for customers/orders is reset, though the success message displays the add/edited entity's full details for easy verification. Users who wish to double-check the changes made may still need to manually scroll through the list to locate the respective customer/order card. This could impact usability for high-volume customer/order workflows.
 
    In a future version, we plan to implement a centralized post-command focus policy in `MainWindow`:
-    * Resolve the affected row for successful `add`, `edit`, `order`, and `edit-o`.
-    * Auto-scroll to the affected row.
+    * Resolve the affected entity for successful `add`, `edit`, and `order`.
+    * Auto-scroll to bring the affected entity card into focus.
 
    **Expected outcomes:**
-   * Input: `add n/Roy p/91234567` -> success message shown; customer list moves to Roy's row.
-   * Input: `edit 2 ig/roy_foods` -> success message shown; customer list moves to the edited customer row.
-   * Input: `order 1 i/Pizza q/2 at/2026-06-01 1200` -> success message shown; order list moves to the newly added order row.
+    * Input: `add n/Roy p/91234567` -> success message shown; customer list auto-scrolls to Roy's card.
+    * Input: `edit 2 ig/roy_foods` -> success message shown; customer list auto-scrolls to the edited customer's card.
+    * Input: `order 1 i/Pizza q/2 at/2026-06-01 1200` -> success message shown; order list auto-scrolls to the newly added order card.
 
    This is defined as a single enhancement because it addresses a singular UX flaw (lack of post-write focus) using one centralized mechanism (shared post-command focus handling), rather than separate per-command feature changes.
+
+    **Scope note:** The same autofocus functionality would be applied to `edit-o` too, but it is excluded from this enhancement as its filter-preserving behavior creates different post-edit focus semantics. Thus, it will be considered in a separate enhancement to keep this enhancement focused.
 
 <div class="section-spacing">
 

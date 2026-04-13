@@ -112,10 +112,6 @@ public class PersonContainsKeywordsPredicateTest {
         PersonContainsKeywordsPredicate predicate = new PersonContainsKeywordsPredicate(
                 "charlie_1234", true, new HashMap<>());
         assertTrue(predicate.test(new PersonBuilder().withInstagram("charlie_1234").build()));
-
-        predicate = new PersonContainsKeywordsPredicate(
-                "@charlie_1234", true, new HashMap<>());
-        assertTrue(predicate.test(new PersonBuilder().withInstagram("charlie1234").build()));
     }
 
     @Test
@@ -177,13 +173,9 @@ public class PersonContainsKeywordsPredicateTest {
                 PersonContainsKeywordsPredicate.SearchType.INSTAGRAM, "randomIgAccount"));
         assertTrue(predicate.test(new PersonBuilder().withInstagram("randomIgAccount").build()));
 
-        predicate = new PersonContainsKeywordsPredicate("ig/ALEX1234", false,
-                createMap(PersonContainsKeywordsPredicate.SearchType.INSTAGRAM, "ALEX1234"));
-        assertTrue(predicate.test(new PersonBuilder().withInstagram("Alex.1234").build()));
-
         predicate = new PersonContainsKeywordsPredicate("ig/@Bernice_Yu", false,
                 createMap(PersonContainsKeywordsPredicate.SearchType.INSTAGRAM, "@Bernice_Yu"));
-        assertTrue(predicate.test(new PersonBuilder().withInstagram("BerniceYu").build()));
+        assertTrue(predicate.test(new PersonBuilder().withInstagram("Bernice_Yu").build()));
 
         predicate = new PersonContainsKeywordsPredicate("r/VIP",
                 false, createMap(

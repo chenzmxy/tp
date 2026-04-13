@@ -95,9 +95,9 @@ public class PersonContainsKeywordsPredicate implements Predicate<Person> {
 
         if (specificKeywords.containsKey(SearchType.INSTAGRAM)) {
             String val = specificKeywords.get(SearchType.INSTAGRAM);
-            String cleanVal = cleanPhrase(val);
+            String cleanVal = val.startsWith("@") ? val.substring(1) : val;
             predicateList.add(p -> p.getInstagram().map(ig ->
-                    containsCleanPhrase(ig.value, val)).orElse(false));
+                    ig.value.toLowerCase().contains(cleanVal.toLowerCase())).orElse(false));
         }
 
         if (specificKeywords.containsKey(SearchType.REMARK)) {
@@ -114,8 +114,7 @@ public class PersonContainsKeywordsPredicate implements Predicate<Person> {
     }
 
     private static String cleanPhrase(String phrase) {
-        return phrase.replace("@", "").replace(".", "")
-                .replace("_", "").toLowerCase();
+        return phrase.replace("@", "").replace(".", "").toLowerCase();
     }
 
     private static boolean containsCleanPhrase(String storedValue, String phrase) {

@@ -545,14 +545,8 @@ Certain edits (e.g. entering out-of-range values) can cause BZNUS to behave in u
 
 <box type="warning" seamless>
 
-**Disclaimer:** If you remove **all contact methods** from a customer in the file (e.g. delete phone, Facebook, and Instagram), the app **will not detect this error** when reopened. The customer will be loaded with no contact methods. It is your responsibility to ensure each customer in the data file has at least one contact method.
-
-</box>
-
-<box type="warning" seamless>
-
 **Caution:**
-If your changes to the data file makes its format invalid, BZNUS will start with empty customer and order lists at the next run. Hence, it is recommended to make a backup of the file before editing it.
+If your changes to the data file makes its format invalid or violates app constraints (e.g. a customer ends up with no contact method), BZNUS will start with empty customer and order lists at the next run. Hence, it is recommended to make a backup of the file before editing it.
 
 **Save behavior:**
 To help you understand how BZNUS handles corrupted data files:
@@ -661,6 +655,8 @@ Tip: Use **tags** or **remarks** to further differentiate customers with similar
 
 </panel>
 
+<a id="duplicate-contact-warning-troubleshooting"></a>
+
 <panel header="Duplicate contact details warning (non-blocking)" type="seamless">
 
 **Warning shown:**
@@ -692,6 +688,8 @@ At least one contact method is required.
 Include at least one of `p/`, `ig/`, or `fb/`.
 
 </panel>
+
+<a id="invalid-field-format-troubleshooting"></a>
 
 <panel header="Invalid field format" type="seamless">
 
@@ -753,6 +751,12 @@ The index does not exist in the currently displayed customer list.
 
 </panel>
 
+<panel header="Invalid field format" type="seamless">
+
+Refer to [Invalid field format for `add`](#invalid-field-format-troubleshooting) for details.
+
+</panel>
+
 <panel header="Invalid command format" type="seamless">
 
 **Error shown:**
@@ -795,6 +799,12 @@ Customer names are unique (case‑insensitive). Extra spaces in names are cleane
 **What to do:**
 Use a different name that is not already in the customer database
 (e.g. include a descriptor such as `John Doe (Jurong)`).
+
+</panel>
+
+<panel header="Duplicate contact details warning after editing" type="seamless">
+
+Refer to [Duplicate contact details warning (non-blocking)](#duplicate-contact-warning-troubleshooting) for details.
 
 </panel>
 

@@ -13,6 +13,7 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.Messages;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Facebook;
@@ -185,6 +186,12 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseTag_embeddedUnsupportedPrefixLikeToken_throwsParseException() {
+        assertThrows(ParseException.class,
+                String.format(Messages.MESSAGE_UNSUPPORTED_PREFIX, "o/"), () -> ParserUtil.parseTag("vip o/hello"));
+    }
+
+    @Test
     public void parseTag_validValueWithoutWhitespace_returnsTag() throws Exception {
         Tag expectedTag = new Tag(VALID_TAG_1);
         assertEquals(expectedTag, ParserUtil.parseTag(VALID_TAG_1));
@@ -218,5 +225,11 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void ensureNoUnsupportedPrefixTokensInValue_mergedUnknownPrefix_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.ensureNoUnsupportedPrefixTokensInValue(
+                "1234567 x/hello", ParserUtil.PREFIXES_FOR_PERSON_COMMAND));
     }
 }

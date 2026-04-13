@@ -11,13 +11,17 @@ public class Address {
 
     public static final int MAX_ADDRESS_LENGTH = 200;
     public static final String MESSAGE_CONSTRAINTS =
-            "Address can take any value, must not be blank, and must not exceed " + MAX_ADDRESS_LENGTH + " characters.";
+            "Address must only contain alphanumeric characters, spaces and "
+            + "the following special characters: ,.'/#&()-.\n"
+            + "it must start with alphanumeric characters, and must not exceed "
+            + MAX_ADDRESS_LENGTH + " characters total.";
 
     /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
+     * The first character of the address must not be a whitespace
+     * The address should only contain alphanumeric characters, spaces, and the following special characters: ,.'/#&()-.
+     * The address must not exceed 200 characters in length.
      */
-    public static final String VALIDATION_REGEX = "[^\\s].{0,199}";
+    public static final String VALIDATION_REGEX = "^[a-zA-Z0-9#][A-Za-z0-9 ,.'/#&()-]{0,199}$";
 
     public final String value;
 

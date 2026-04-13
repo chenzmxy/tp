@@ -70,6 +70,15 @@ public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
 
     @Test
+    public void parse_unsupportedPrefixMergedIntoPhone_failure() {
+        // Same spacing as after "add" from AddressBookParser: a leading space before the first prefix (see
+        // ArgumentTokenizer). Unknown x/ is merged into the p/ value.
+        assertParseFailure(parser,
+                PREAMBLE_WHITESPACE + " n/John p/1234567 x/hello",
+                String.format(Messages.MESSAGE_UNSUPPORTED_PREFIX, "x/"));
+    }
+
+    @Test
     public void parse_allFieldsPresent_success() {
         Person expectedPerson = new PersonBuilder(BOB)
                 .withRemark(VALID_REMARK_BOB)

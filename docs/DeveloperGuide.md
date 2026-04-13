@@ -522,9 +522,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 3. BZNUS checks that the customer name is unique.
 
-4. BZNUS adds the customer to the system.
+4. BZNUS checks for matching contact details (phone, Facebook, Instagram) with existing customers.
 
-5. BZNUS shows a success message with the added customer's details and displays the full list of customers.
+5. BZNUS adds the customer to the system.
+
+6. BZNUS shows a success message with the added customer's details and displays the full list of customers.
 
    Use case ends.
 
@@ -545,6 +547,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * 3a2. User updates the entered details.
 
     Use case resumes from step 2.
+
+* 4a. BZNUS detects matching contact details with one or more existing customers.
+
+  * 4a1. BZNUS includes a non-blocking warning in the success message.
+
+    Use case resumes from step 5.
 
 ---
 
@@ -602,7 +610,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 4. BZNUS saves the updated details of the specified customer.
 
-5. BZNUS shows a success message with the customer's updated details and displays the full list of customers.
+5. BZNUS checks for matching contact details (phone, Facebook, Instagram) with other existing customers.
+
+6. BZNUS shows a success message with the customer's updated details and displays the full list of customers.
 
    Use case ends.
 
@@ -623,6 +633,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3a2. User updates the entered details.
 
         Use case resumes from step 2.
+
+* 5a. BZNUS detects matching contact details with one or more other customers.
+
+    * 5a1. BZNUS includes a non-blocking warning in the success message.
+
+      Use case resumes from step 6.
 
 ---
 

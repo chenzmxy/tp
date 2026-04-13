@@ -36,6 +36,8 @@ public class Messages {
             "Customer has no saved address. Please specify delivery address with a/ or use a/PICKUP for pickup orders.";
     public static final String MESSAGE_UNSUPPORTED_PREFIX =
             "Unsupported prefix '%1$s' in this command. Valid prefixes: n/, p/, fb/, ig/, a/, r/, t/.";
+    public static final String MESSAGE_UNSUPPORTED_ORDER_PREFIX =
+            "Unsupported prefix '%1$s' in this command. Valid prefixes: i/, q/, at/, a/, s/.";
 
     public static final String MESSAGE_WARNING_DUPLICATE_CONTACT = "WARNING: Duplicate contact details detected. "
             + "This is allowed, but please verify.%nMatched fields: %s%n%s%n%n";

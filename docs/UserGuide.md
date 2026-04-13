@@ -242,10 +242,10 @@ Tags: TAG1, TAG2, ...
 **After `edit`**
 ![Sample output for editing a customer](images/editCustomerSampleOutput.png)
 
-If the index is invalid, the customer name becomes a duplicate, or all contact methods are cleared, an error message will be shown. Please refer to the [Troubleshooting section](#troubleshooting) for more details.
+If the command fails (e.g. invalid index, duplicate name, invalid command format, or the edited customer ends up with no contact methods), an error message will be shown. Please refer to the [Troubleshooting](#troubleshooting) section for more details.
 
 Note: After you edit a customer, the order card may not update to reflect the changes in the customer's name or contact details unless you click the edited customer entry in the customer list again.
-If the command fails (e.g. invalid index, duplicate name, invalid command format, or edited customer lacks contact methods), an error message will be shown. Please refer to the [Troubleshooting](#troubleshooting) section for more details.
+
 
 </box>
 

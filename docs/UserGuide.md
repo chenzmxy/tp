@@ -135,12 +135,11 @@ Format: `add n/NAME [p/PHONE] [ig/INSTAGRAM] [fb/FACEBOOK] [a/ADDRESS] [r/REMARK
 
 **Note**: BZNUS allows multiple customers to share the **same phone number,
 Instagram handle, or Facebook username**. This is **intentional**, as shared
-contact methods are common in real-world scenarios (e.g. corporate
-accounts, household landlines, shared business social media, or proxy
-ordering).
+contact methods are common in real-world scenarios (e.g. corporate accounts, household landlines, or shared business social media).
+
+However, if you add a customer with contact details that overlap with an existing customer, BZNUS will show a **non-blocking warning** in the result message. You can review the warning and use `find` to check for potential duplicates.
 
 </box>
-
 
 <box type="tip" seamless>
 
@@ -169,6 +168,13 @@ Note that only the fields provided in the command will be shown in the output. F
 **Sample output for Example 1:**
 ![Sample output for adding a customer](images/addCustomerSampleOutput.png)
 <br>
+
+**Sample output (top of message): non-blocking duplicate contact warning:**<br>
+Duplicate fields detected: `INSTAGRAM: alex.yeoh`, `FACEBOOK: Alex.Yeoh`
+![Sample non-blocking duplicate contact warning](images/addCustomerDuplicateWarningSampleOutput.png)
+
+Note: The command still succeeds; the added customer's details appear after the warning in the same result box.
+
 If the customer name is a duplicate or invalid input is provided, an error message will be shown. Please refer to the [Troubleshooting](#troubleshooting) section for more details.
 
 </box>
@@ -659,7 +665,7 @@ Tip: Use **tags** or **remarks** to further differentiate customers with similar
 
 <a id="duplicate-contact-warning-troubleshooting"></a>
 
-<panel header="Duplicate contact details warning (non-blocking)" type="seamless">
+<panel id="duplicate-contact-warning" header="Duplicate contact details warning (non-blocking)" type="seamless">
 
 **Warning shown:**
 "WARNING: Duplicate contact details detected. This is allowed, but please verify..."
@@ -721,6 +727,26 @@ Refer to [Adding a customer](#add) for the correct format.
 
 </panel>
 
+<a id="invalid-prefix-troubleshooting"></a>
+
+<panel header="Unsupported/invalid prefix" type="seamless">
+
+**Error shown (Example):**
+"Unsupported prefix 'X/' in this command. Valid prefixes: n/, p/, fb/, ig/, a/, r/, t/."
+
+**Why this happens:**  
+A prefix not recognised by the command was used.
+
+**What to do:**
+* Remove or correct the unknown prefix. Use only the supported prefixes shown in the error message. 
+* Refer to [Adding a customer](#add) or [Editing a customer](#edit) for the accepted command formats.
+* If you intended to type a literal `/`, note that:
+  * `/` is **not allowed** in phone, Facebook, Instagram, or tags. 
+  * For names, escape it as `\/` (e.g. `n/John \/ Doe` → “John / Doe”). 
+  * For address and remark, `/` can be typed normally.
+
+</panel>
+
 <panel header="Duplicate single-valued prefixes" type="seamless">
 
 **Error shown (example):**
@@ -774,6 +800,12 @@ Refer to [Invalid field format for `add`](#invalid-field-format-troubleshooting)
   1. A positive integer index within the range of the currently displayed customer list; and
   2. At least one field to edit (e.g. `n/`, `a/`, `p/`, `fb/`, `ig/`, `r/`).
 - Refer to [Editing a customer](#edit) for more details.
+
+</panel>
+
+<panel header="Unsupported/invalid prefix" type="seamless">
+
+Refer to [Unsupported/invalid prefix](#invalid-prefix-troubleshooting) for details.
 
 </panel>
 

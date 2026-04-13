@@ -246,7 +246,6 @@ If the command fails (e.g. invalid index, duplicate name, invalid command format
 
 Note: After you edit a customer, the order card may not update to reflect the changes in the customer's name or contact details unless you click the edited customer entry in the customer list again.
 
-
 </box>
 
 </div>

@@ -1179,7 +1179,19 @@ Team size: 5
 
    This enhancement improves efficiency for users managing high order volumes.
 
-5. **Unify post‑command list behaviour for `add`/`edit`/`order` commands**: Currently, after executing `add`, `edit`, or `order`, the app returns to the full customer/order list (filters reset), though the success message displays the added/edited entity’s details in full. In a future version, we plan to update the shared command execution pipeline so that the aforementioned commands refresh the UI to show **only the affected customer/order**. This improves visibility of the updated entry and keeps the behaviour consistent across all modification commands.
+5. **Auto-focus the changed entity after successful write commands (`add`, `edit`, `order`, `edit-o`)**:
+   Currently, after a successful `add`, `edit` or `order`, the list view for customers/orders is reset, though the success message displays the add/edited entity's full details for easy verification. (For `edit-o`, the list view remains filtered.) Users who wish to double-check the changes made may still need to manually scroll through the list to locate the respective customer/order card. This could be a usability flaw for high-volume customer/order workflows.
+
+   In a future version, we plan to implement a centralized post-command focus policy in `MainWindow`:
+    * Resolve the affected row for successful `add`, `edit`, `order`, and `edit-o`.
+    * Auto-scroll to the affected row.
+
+   **Expected outcomes:**
+   * Input: `add n/Roy p/91234567` -> success message shown; customer list moves to Roy's row.
+   * Input: `edit 2 ig/roy_foods` -> success message shown; customer list moves to the edited customer row.
+   * Input: `order 1 i/Pizza q/2 at/2026-06-01 1200` -> success message shown; order list moves to the newly added order row.
+
+   This is defined as a single enhancement because it addresses a singular UX flaw (lack of post-write focus) using one centralized mechanism (shared post-command focus handling), rather than separate per-command feature changes.
 
 <div class="section-spacing">
 

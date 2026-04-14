@@ -1208,13 +1208,17 @@ Team size: 5
 
     The command will only proceed if the user explicitly confirms. This enhancement prevents accidental deletions and improves data safety.
 
-5. **Allow edit and delete order commands to support bulk operations**: Currently, users can only modify or delete orders one at a time. We plan to enhance the two existing order commands to support deleting multiple orders or updating the status of multiple orders at once. For example:
-    * `delete-o 1, 3, 5` deletes the first, third, and fifth orders in the displayed list.
-    * `edit-o 2, 4 s/DELIVERED` updates the status of the second and fourth orders in the displayed list to 'DELIVERED'.<br><br>
+5. **Allow delete order command to support bulk deleting of orders**: Currently, users can only delete orders one at a time. We plan to enhance the delete order command to support deleting multiple orders at once. For example:
+    * `delete-o 1, 3, 5` deletes the first, third, and fifth orders in the displayed list.<br><br>
 
    This enhancement improves efficiency for users managing high order volumes.
 
-6. **Auto-focus the changed entity after successful write commands (`add`, `edit`, `order`)**:
+6. **Allow edit order command to support bulk editing of orders**: Currently, users can only edit orders one at a time. We plan to enhance the edit order command to support editing multiple orders at once. For example:
+    * `edit-o 1, 3, 5 s/READY` sets the status of the first, third, and fifth orders in the displayed list to `READY`.<br><br>
+
+   This enhancement improves efficiency for users managing high order volumes.
+
+7. **Auto-focus the changed entity after successful write commands (`add`, `edit`, `order`)**:
    Currently, after a successful `add`, `edit` or `order`, the list view for customers/orders is reset, though the success message displays the added/edited entity's full details for easy verification. Users who wish to double-check the changes made may still need to manually scroll through the list to locate the respective customer/order card. This could impact usability for high-volume customer/order workflows.
 
    In a future version, we plan to implement a centralised post-command focus policy in `MainWindow`:
@@ -1230,7 +1234,7 @@ Team size: 5
 
    **Scope note:** Although the same autofocus capability is intended for `edit-o`, `edit-o` is excluded from this enhancement because post-edit focus depends on the active order filter state and requires command-specific handling to maintain consistent UX semantics with `add`, `edit`, and `order`. To keep this enhancement focused, it is scoped to `add`, `edit`, and `order` only. `edit-o` will be addressed in a separate enhancement.
 
-7. **Show a startup warning in the app when corrupted storage is detected**: Currently, when `addressbook.json` is corrupted on startup, BZNUS silently falls back to empty customer and order lists. The GUI does not indicate that the data file is invalid, which may confuse users who expect their data to appear. In a future version, when corrupted storage is detected at startup, BZNUS should still recover to a safe empty state and also **display a clear GUI warning** informing the user that the data file could not be loaded, along with the detected issue (e.g. "Data file is corrupted and cannot be loaded. Identified issue: Phone number must be 7-15 digits and contain only numbers... Starting with an empty address book."). This enhancement **improves transparency** and helps users understand why their data is missing, rather than assuming it was deleted or lost.
+8. **Show a startup warning in the app when corrupted storage is detected**: Currently, when `addressbook.json` is corrupted on startup, BZNUS silently falls back to empty customer and order lists. The GUI does not indicate that the data file is invalid, which may confuse users who expect their data to appear. In a future version, when corrupted storage is detected at startup, BZNUS should still recover to a safe empty state and also **display a clear GUI warning** informing the user that the data file could not be loaded, along with the detected issue (e.g. "Data file is corrupted and cannot be loaded. Identified issue: Phone number must be 7-15 digits and contain only numbers... Starting with an empty address book."). This enhancement **improves transparency** and helps users understand why their data is missing, rather than assuming it was deleted or lost.
 
 <div class="section-spacing">
 

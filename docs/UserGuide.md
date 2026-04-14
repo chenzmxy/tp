@@ -27,7 +27,7 @@ BZNUS is a **one-stop desktop app for managing customer contacts, food orders an
 
 ## <a id="quick-start"></a>Quick Start
 
-1. Ensure you have Java `17` or above installed in your Computer.<br>
+1. Ensure you have Java `17` or above installed on your computer.<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
 2. Download the latest `.jar` file from [here](https://github.com/AY2526S2-CS2103T-W09-3/tp/releases).
@@ -474,14 +474,14 @@ Updates fields of an existing order. Any field you specify replaces the previous
 
 Format: `edit-o ORDER_INDEX [i/ITEM_NAME] [q/QUANTITY] [at/DELIVERY_TIME] [a/DELIVERY_ADDRESS] [s/STATUS]`
 
-* Edits the order at the specified `ORDER_INDEX`. The index refers to the order number shown in the **currently displayed order list**. The index **must be a positive integer**
+* Edits the order at the specified `ORDER_INDEX`. The index refers to the order number shown in the **currently displayed order list**. The index **must be a positive integer**.
 * **At least one** of `i/`, `q/`, `at/`, `a/`, or `s/` must be provided. Omitting all of them is not allowed.
 * The order **stays with the same customer**; you cannot reassign an order to another customer with this command.
-* Field rules are the same as when using **`order`** (see **Adding an order** above):
+* Field rules are the same as when using [`order`](#order) (see [Adding an Order](#order)):
   * `ITEM_NAME` must **begin with a letter or a number**, contain only alphanumeric characters, spaces, and basic punctuation (e.g. '-', '&', apostrophes), and **cannot be blank**.
   * `QUANTITY` **must be a positive integer without formatting characters** such as commas and spaces.
-  * `DELIVERY_TIME` must be in `yyyy-mm-dd hhmm` format.\
-    If you supply `at/` and the time is not in the future, a warning is shown (same behaviour as **`order`**), but the edit still applies—useful for recording completed orders.
+  * `DELIVERY_TIME` must be in `yyyy-mm-dd hhmm` format.
+    If you supply `at/` and the time is not in the future, a warning is shown (same behaviour as **`order`**), but the edit still applies. This is useful for recording completed orders.
   * If `DELIVERY_ADDRESS` is omitted in `edit-o`, the order **keeps its current delivery address**. (This differs from **`order`**, where omitting `a/` fills in the customer's stored address when present.)
   * If `STATUS` is not provided, the order keeps its current status.
 * After a successful edit, the displayed order list updates to reflect the change.
@@ -516,7 +516,7 @@ Format: `list-o`
 <box type="info" seamless>
 
 **Expected output:**
-Displays all corders in the database, or shows "Order list is empty." if the database is empty.
+Displays all orders in the database, or shows "Order list is empty." if the database is empty.
 
 ![Sample output for Orders](images/listOrdersSampleOutput.png)
 
@@ -710,7 +710,7 @@ To help you understand how BZNUS handles a corrupted `addressbook.json`:
 | Action    | Format, Examples |
 |-----------|------------------|
 | **Help**  | `help`           |
-| **Clear** | `clear`          |
+| **Clear** | `clear` <br>`clear CONFIRM` |
 | **Exit**  | `exit`           |
 
 --------------------------------------------------------------------------------------------------------------------

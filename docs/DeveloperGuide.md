@@ -15,7 +15,7 @@
 
 This project is based on the AddressBook-Level3 (AB3) project created by the [SE-EDU initiative](https://se-education.org).
 
-This project made use of AI-assisted tools (GitHub Copilot / ChatGPT / Gemini) during development. The tools were used for code suggestions, auto-completion, documentation phrasing and feature design. All generated content was reviewed, tested, and modified by the team before inclusion.
+This project used AI-assisted tools (GitHub Copilot / ChatGPT / Gemini) during development. The tools were used for code suggestions, auto-completion, documentation phrasing and feature design. All generated content was reviewed, tested, and modified by the team before inclusion.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -35,15 +35,15 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 The ***Architecture Diagram*** given above explains the high-level design of the App.
 
-Given below is a quick overview of main components and how they interact with each other.
+Given below is a quick overview of the main components and how they interact with each other.
 
 **Main components of the architecture**
 
-**`Main`** (consisting of classes [`Main`](https://github.com/AY2526S2-CS2103T-W09-3/tp/blob/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/AY2526S2-CS2103T-W09-3/tp/blob/master/src/main/java/seedu/address/MainApp.java)) is in charge of the app launch and shut down.
-* At app launch, it initializes the other components in the correct sequence, and connects them up with each other.
-* At shut down, it shuts down the other components and invokes cleanup methods where necessary.
+**`Main`** (consisting of classes [`Main`](https://github.com/AY2526S2-CS2103T-W09-3/tp/blob/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/AY2526S2-CS2103T-W09-3/tp/blob/master/src/main/java/seedu/address/MainApp.java)) is in charge of the app launch and shutdown.
+* At app launch, it initialises the other components in the correct sequence and connects them up with each other.
+* At shutdown, it shuts down the other components and invokes cleanup methods where necessary.
 
-The bulk of the app's work is done by the following four components:
+The following four components do the bulk of the app's work:
 
 * [**`UI`**](#ui-component): The UI of the App.
 * [**`Logic`**](#logic-component): The command executor.
@@ -63,7 +63,7 @@ Each of the four main components (also shown in the diagram above),
 * defines its *API* in an `interface` with the same name as the Component.
 * implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point).
 
-For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent outside component's being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
+For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class, which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent outside components from being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
 
 <puml src="diagrams/ComponentManagers.puml" width="300" />
 
@@ -79,16 +79,16 @@ The **API** of this component is specified in [`Ui.java`](https://github.com/se-
 
 <puml src="diagrams/UiClassDiagram.puml" alt="Structure of the UI Component"/>
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `OrderListPanel`,`StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
+The UI consists of a `MainWindow` that is made up of parts, e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `OrderListPanel`, `StatusBarFooter`, etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class, which captures the commonalities between classes that represent parts of the visible GUI.
 
-The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
+The `UI` component uses the JavaFX UI framework. The layout of these UI parts is defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
 
 * executes user commands using the `Logic` component.
 * listens for changes to `Model` data so that the UI can be updated with the modified data.
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
-* depends on some classes in the `Model` component, as it displays `Person` object residing in the `Model`.
+* depends on some classes in the `Model` component, as it displays the `Person` object residing in the `Model`.
 
 </div>
 
@@ -106,30 +106,30 @@ Here's a (partial) class diagram of the `Logic` component:
 
 <div style="height: 10px;"></div>
 
-The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("delete 1")` API call as an example.
+The sequence diagram below illustrates the interactions within the `Logic` component, taking the `execute("delete 1")` API call as an example.
 
 <puml src="diagrams/DeleteSequenceDiagram.puml" alt="Interactions Inside the Logic Component for the `delete 1` Command" />
 
 <box type="info" seamless>
 
-**Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
+**Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X), but due to a limitation of PlantUML, the lifeline continues till the end of the diagram.
 </box>
 
 How the `Logic` component works:
 
-1. When `Logic` is called upon to execute a command, the user input is passed to an `AddressBookParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
-1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`.
+1. When `Logic` is called upon to execute a command, the user input is passed to an `AddressBookParser` object, which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
+1. This results in a `Command` object (more precisely, an object of one of its subclasses, e.g., `DeleteCommand`) which is executed by the `LogicManager`.
 1. When the command is executed, it can communicate with the `Model` (e.g., to delete a person and all his/her orders).<br>
    For readability, the diagram omits preliminary interactions with the `Model` that occur before the delete operations (e.g., retrieving the currently displayed list of persons).
-1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
+1. The result of the command execution is encapsulated as a `CommandResult` object, which is returned from `Logic`.
 
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
 
 <puml src="diagrams/ParserClasses.puml" width="600"/>
 
 How the parsing works:
-* When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
-* All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, `EditOrderCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
+* When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name, e.g., `AddCommandParser`), which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`), which the `AddressBookParser` returns as a `Command` object.
+* All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, `EditOrderCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible, e.g., during testing.
 
 </div>
 
@@ -168,7 +168,7 @@ The `Model` component,
 
 The `Storage` component,
 * can save both address book data and user preference data in JSON format, and read them back into corresponding objects.
-* inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
+* inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
 </div>
@@ -189,7 +189,7 @@ Diagrams are used selectively to illustrate representative command flows; comman
 
 ### Customer management
 
-Customer data is maintained in-memory by `AddressBook` and stored in `UniquePersonList`, with each customer represented by a `Person` entity. Persistence to disk is handled separately by the `Storage` component (e.g., JSON serialization in `JsonSerializableAddressBook` / `JsonAdaptedPerson` and writes via `storage.saveAddressBook(...)`).
+Customer data is maintained in-memory by `AddressBook` and stored in `UniquePersonList`, with each customer represented by a `Person` entity. Disk persistence is handled separately by the `Storage` component (e.g., JSON serialisation in `JsonSerializableAddressBook` / `JsonAdaptedPerson` and writes via `storage.saveAddressBook(...)`).
 
 `UniquePersonList` wraps an internal `ObservableList<Person>`, allowing the UI to stay in sync automatically when customers are added, edited, or removed.
 
@@ -225,7 +225,7 @@ An `Order` stores the following fields:
 
 These fields (except the customer’s `UUID`) are implemented as domain classes, allowing each to encapsulate its own validation and formatting logic. Optional fields, `Address` and `Status`, allow the system to fall back to the customer’s saved address or a default status when these values are not provided by the user.
 
-`OrderList` wraps an internal `ObservableList<Order>`, ensuring that UI components automatically update whenever orders are added or modified. This design integrates the new `Order` entity into the existing model while minimizing coupling.
+`OrderList` wraps an internal `ObservableList<Order>`, ensuring that UI components automatically update whenever orders are added or modified. This design integrates the new `Order` entity into the existing model while minimising coupling.
 
 </div>
 
@@ -234,7 +234,7 @@ These fields (except the customer’s `UUID`) are implemented as domain classes,
 ### Find Order feature
 #### Implementation
 
-The find order(find-o) feature is facilitated by `OrderContainsKeywordsPredicate` and related classes.It allows users to search for orders based on different criteria (item, address, customer index, order status) with AND logic, meaning that only orders that match all specified criteria will be returned in the search results.
+The find order (`find-o`) feature is facilitated by `OrderContainsKeywordsPredicate` and related classes. It allows users to search for orders based on different criteria (item, address, customer index, or order status) with AND logic, meaning that only orders that match all specified criteria will be returned in the search results.
 
 The feature involves three main components:
 
@@ -292,7 +292,7 @@ The following sequence diagram shows how the `Model` component handles the find 
 
 </box>
 
-The following activity diagram summarizes what happens when a user executes a new command:
+The following activity diagram summarises what happens when a user executes a new command:
 
 <puml src="diagrams/Find-oActivityDiagram.puml" width="250" />
 
@@ -302,11 +302,11 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 * **Alternative 1 (current choice):** Combine all criteria with AND logic.
   * Pros: Precise filtering; users can compose complex queries.
-  * Cons: More restrictive; requires users to remember all criteria are combined.
+  * Cons: More restrictive; requires users to remember that all criteria are combined.
 
 * **Alternative 2:** Combine all criteria with OR logic.
   * Pros: More flexible; users can find results that match any of the criteria.
-  * Cons: Less precise; may return too many results if criteria are broad.
+  * Cons: Less precise; may return too many results if the criteria are broad.
 
 **Aspect: Customer Identifier Format**
 * **Alternative 1 (current choice):** Use `c/` prefix for customer index.
@@ -332,7 +332,7 @@ Both commands follow the same architecture pattern: **parse → validate → exe
 
 #### Edit customer command (`edit`)
 
-The edit command updates fields of the customer at `INDEX` in the currently displayed customer list. At least one field must be provided.
+The edit command updates the fields of the customer at `INDEX` in the currently displayed customer list. At least one field must be provided.
 
 ##### Implementation Overview
 
@@ -348,7 +348,7 @@ The edit command updates fields of the customer at `INDEX` in the currently disp
 
 ##### Validation Highlights
 
-* Index must be valid in filtered customer list.
+* Index must be valid in the filtered customer list.
 * At least one field must be edited.
 * Edited customer must still satisfy basic requirements(e.g., required contact constraints, no duplicate conflicting identity rules)
 
@@ -390,11 +390,11 @@ These operations are exposed in the `Model` interface as `Model#commitAddressBoo
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialised with the initial address book state, and the `currentStatePointer` will point to that single address book state.
 
 <puml src="diagrams/UndoRedoState0.puml" alt="UndoRedoState0" />
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes the `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 <puml src="diagrams/UndoRedoState1.puml" alt="UndoRedoState1" />
 
@@ -408,15 +408,14 @@ Step 3. The user executes `add n/David …​` to add a new person. The `add` co
 
 </box>
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the person was a mistake and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restore the address book to that state.
 
 <puml src="diagrams/UndoRedoState3.puml" alt="UndoRedoState3" />
 
 
 <box type="info" seamless>
 
-**Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
+**Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 </box>
 
@@ -426,7 +425,7 @@ The following sequence diagram shows how an undo operation goes through the `Log
 
 <box type="info" seamless>
 
-**Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+**Note:** The lifeline for `UndoCommand` should end at the destroy marker (X), but due to a limitation of PlantUML, the lifeline reaches the end of the diagram.
 
 </box>
 
@@ -446,13 +445,13 @@ Step 5. The user then decides to execute the command `list`. Commands that do no
 
 <puml src="diagrams/UndoRedoState4.puml" alt="UndoRedoState4" />
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behaviour that most modern desktop applications follow.
 
 For `clear`, confirmation is argument-based (`clear CONFIRM`) rather than session-state-based; the application does not keep a pending confirmation state between commands.
 
 <puml src="diagrams/UndoRedoState5.puml" alt="UndoRedoState5" />
 
-The following activity diagram summarizes what happens when a user executes a new command:
+The following activity diagram summarises what happens when a user executes a new command:
 
 <puml src="diagrams/CommitActivityDiagram.puml" width="250" />
 
@@ -464,10 +463,10 @@ The following activity diagram summarizes what happens when a user executes a ne
   * Pros: Easy to implement.
   * Cons: May have performance issues in terms of memory usage.
 
-* **Alternative 2:** Individual command knows how to undo/redo by
+* **Alternative 2:** The individual command knows how to undo/redo by
   itself.
   * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-  * Cons: We must ensure that the implementation of each individual command are correct.
+  * Cons: We must ensure that the implementation of each command is correct.
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -491,7 +490,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 **Target user profile**:
 
 * is a home-based food and beverage (F&B) business owner
-* has a need to manage a significant number of customer contacts from multiple messaging platforms, complex dietary requirements, and food orders with varying deadlines
+* needs to manage a significant number of customer contacts from multiple messaging platforms, complex dietary requirements, and food orders with varying deadlines
 * prefers desktop apps over other types
 * can type fast
 * prefers typing to mouse interactions
@@ -538,7 +537,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Guarantees:**
 * If the command succeeds, exactly one new customer with a unique name is added to the system.
-* If the command fails at any point, no customer is added and the system state remains unchanged.
+* If the command fails at any point, no customer is added, and the system state remains unchanged.
 
 **MSS:**
 
@@ -630,7 +629,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1. User enters the edit customer command with a customer index.
 
-2. BZNUS validates the input (e.g. at least one field to edit, valid field formats, and valid index).
+2. BZNUS validates the input (e.g. at least one field to edit, valid field formats, and a valid index).
 
 3. BZNUS verifies post-edit constraints (customer name remains unique, and at least one contact method remains for the edited customer).
 
@@ -834,14 +833,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 #### Security & Privacy Requirements
 1. The system should not transmit customer or order data to external services during normal operation. Customer data should remain on the user's local machine unless the user explicitly copies or shares the data file.
-2. The system should fail safely on corrupted storage data (e.g. recover to a safe state) instead of executing undefined behavior.
+2. The system should fail safely on corrupted storage data (e.g. recover to a safe state) instead of executing undefined behaviour.
 
 #### Testability Requirements
 1. Core logic (parsing, command execution, and model updates) should be testable without launching the GUI.
 2. Command outcomes should be deterministic for the same input and initial state, enabling reliable automated tests.
 
 #### Maintainability Requirements
-1. The codebase should be organized in a modular fashion with clear separation of concerns (e.g. UI, logic, model, storage) to facilitate future enhancements and debugging.
+1. The codebase should be organised in a modular fashion with clear separation of concerns (e.g. UI, logic, model, storage) to facilitate future enhancements and debugging.
 2. The codebase should follow a consistent coding style (e.g. Java coding conventions) to support easy onboarding of new contributors.
 
 #### Constraints
@@ -865,7 +864,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Private contact detail**: A contact detail that is not meant to be shared with others
 * **Quantity**: The number of items ordered. Must be a valid positive integer.
 * **Status**: The current state of an order, restricted to one of `PREPARING`, `READY`, `DELIVERED`, or `CANCELLED`. Defaults to `PREPARING` if not specified.
-* **Tag**: A customizable, color-coded label assigned to a customer to quickly identify specific traits, preferences, or dietary restrictions (e.g., "vegan", "VIP", "corporate").
+* **Tag**: A customizable, colour-coded label assigned to a customer to quickly identify specific traits, preferences, or dietary restrictions (e.g., "vegan", "VIP", "corporate").
 * **UUID (Universally Unique Identifier)**: A unique identifier assigned to each customer, used to associate an order with a specific customer without storing a direct reference.
 
 --------------------------------------------------------------------------------------------------------------------
@@ -1198,7 +1197,7 @@ Team size: 5
     By providing users with more context upfront, this helps users quickly assess whether the new or edited entry is intentional, reducing unnecessary follow‑up `find` commands in cases where the warning already makes the situation clear.
 
 2. **Support Unicode characters in customer names (including duplicate detection and search)**:
-   The current customer name validation only accepts English alphanumeric characters and selected punctuation. This prevents users with **non‑English names** (e.g. Chinese, Tamil, Malay, or accented Latin names) from being added to the system, limiting the app’s usability in multilingual environments. A future version of BZNUS will expand the Name class to support **Unicode characters**. This enhancement also requires updating **name‑based duplicate detection, equality checks**, and **search behaviour** to correctly handle Unicode normalization (e.g. composed vs decomposed characters). These changes ensure consistent and correct behaviour once Unicode names are supported.
+   The current customer name validation only accepts English alphanumeric characters and selected punctuation. This prevents users with **non‑English names** (e.g. Chinese, Tamil, Malay, or accented Latin names) from being added to the system, limiting the app’s usability in multilingual environments. A future version of BZNUS will expand the Name class to support **Unicode characters**. This enhancement also requires updating **name‑based duplicate detection, equality checks**, and **search behaviour** to correctly handle Unicode normalisation (e.g. composed vs decomposed characters). These changes ensure consistent and correct behaviour once Unicode names are supported.
 
 3. **Allow editing of the customer linked to an existing order**: Currently, once an order is created, the customer associated with it cannot be changed. This is inconvenient when a user accidentally selects the wrong customer. We plan to extend the edit order command to support updating the customer the order is linked to. The system will validate that the new customer exists and update the order accordingly. This enhancement addresses the flaw where users must delete and recreate an order to correct a customer assignment.
 
@@ -1209,16 +1208,20 @@ Team size: 5
 
     The command will only proceed if the user explicitly confirms. This enhancement prevents accidental deletions and improves data safety.
 
-5. **Allow edit and delete order commands to support bulk operations**: Currently, users can only modify or delete orders one at a time. We plan to enhance the two existing order commands to support deleting multiple orders or updating the status of multiple orders at once. For example:
-    * `delete-o 1, 3, 5` deletes the first, third, and fifth orders in the displayed list.
-    * `edit-o 2, 4 s/DELIVERED` updates the status of the second and fourth orders in the displayed list to 'DELIVERED'.<br><br>
+5. **Allow the delete order command to support bulk deleting of orders**: Currently, users can only delete orders one at a time. We plan to enhance the delete order command to support deleting multiple orders at once. For example:
+    * `delete-o 1, 3, 5` deletes the first, third, and fifth orders in the displayed list.<br><br>
 
    This enhancement improves efficiency for users managing high order volumes.
 
-6. **Auto-focus the changed entity after successful write commands (`add`, `edit`, `order`)**:
-   Currently, after a successful `add`, `edit` or `order`, the list view for customers/orders is reset, though the success message displays the add/edited entity's full details for easy verification. Users who wish to double-check the changes made may still need to manually scroll through the list to locate the respective customer/order card. This could impact usability for high-volume customer/order workflows.
+6. **Allow the edit order command to support bulk editing of orders**: Currently, users can only edit orders one at a time. We plan to enhance the edit order command to support editing multiple orders at once. For example:
+    * `edit-o 1, 3, 5 s/READY` sets the status of the first, third, and fifth orders in the displayed list to `READY`.<br><br>
 
-   In a future version, we plan to implement a centralized post-command focus policy in `MainWindow`:
+   This enhancement improves efficiency for users managing high order volumes.
+
+7. **Auto-focus the changed entity after successful write commands (`add`, `edit`, `order`)**:
+   Currently, after a successful `add`, `edit` or `order`, the list view for customers/orders is reset, though the success message displays the added/edited entity's full details for easy verification. Users who wish to double-check the changes made may still need to manually scroll through the list to locate the respective customer/order card. This could impact usability for high-volume customer/order workflows.
+
+   In a future version, we plan to implement a centralised post-command focus policy in `MainWindow`:
     * Resolve the affected entity for successful `add`, `edit`, and `order`.
     * Auto-scroll to bring the affected entity card into focus.
 
@@ -1227,11 +1230,11 @@ Team size: 5
     * Input: `edit 2 ig/roy_foods` -> success message shown; customer list auto-scrolls to the edited customer's card.
     * Input: `order 1 i/Pizza q/2 at/2026-06-01 1200` -> success message shown; order list auto-scrolls to the newly added order card.
 
-   This is defined as a single enhancement because it addresses a singular UX flaw (lack of post-write focus) using one centralized mechanism (shared post-command focus handling), rather than separate per-command feature changes.
+   This is defined as a single enhancement because it addresses a singular UX flaw (lack of post-write focus) using one centralised mechanism (shared post-command focus handling), rather than separate per-command feature changes.
 
    **Scope note:** Although the same autofocus capability is intended for `edit-o`, `edit-o` is excluded from this enhancement because post-edit focus depends on the active order filter state and requires command-specific handling to maintain consistent UX semantics with `add`, `edit`, and `order`. To keep this enhancement focused, it is scoped to `add`, `edit`, and `order` only. `edit-o` will be addressed in a separate enhancement.
 
-7. **Show a startup warning in the app when corrupted storage is detected**: Currently, when `addressbook.json` is corrupted on startup, BZNUS silently falls back to empty customer and order lists. The GUI does not indicate that the data file is invalid, which may confuse users who expect their data to appear. In a future version, when corrupted storage is detected at startup, BZNUS should still recover to a safe empty state and also **display a clear GUI warning** informing the user that the data file could not be loaded, along with the detected issue (e.g. "Data file is corrupted and cannot be loaded. Identified issue: Phone number must be 7-15 digits and contain only numbers... Starting with an empty address book."). This enhancement **improves transparency** and helps users understand why their data is missing, rather than assuming it was deleted or lost.
+8. **Show a startup warning in the app when corrupted storage is detected**: Currently, when `addressbook.json` is corrupted on startup, BZNUS silently falls back to empty customer and order lists. The GUI does not indicate that the data file is invalid, which may confuse users who expect their data to appear. In a future version, when corrupted storage is detected at startup, BZNUS should still recover to a safe empty state and also **display a clear GUI warning** informing the user that the data file could not be loaded, along with the detected issue (e.g. "Data file is corrupted and cannot be loaded. Identified issue: Phone number must be 7-15 digits and contain only numbers... Starting with an empty address book."). This enhancement **improves transparency** and helps users understand why their data is missing, rather than assuming it was deleted or lost.
 
 <div class="section-spacing">
 

@@ -13,8 +13,8 @@ public class Name {
     public static final String MESSAGE_CONSTRAINTS = """
         Customer name must:
         • be 1 to %d characters long
-        • start with an alphanumeric character
-        • contain only letters, numbers, spaces, apostrophes ('), slashes (/), and hyphens (-)
+        • begin with a letter or a number
+        • contain only letters, numbers, spaces, and the following punctuation: ' / ( ) -
         • use \\/ in the command if you need a literal /
         """.formatted(MAX_NAME_LENGTH);
 

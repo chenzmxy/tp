@@ -50,7 +50,7 @@ The following four components do the bulk of the app's work:
 * [**`Model`**](#model-component): Holds the data of the App in memory.
 * [**`Storage`**](#storage-component): Reads data from, and writes data to, the hard disk.
 
-[**` Commons`**](#common-classes) represents a collection of classes used by multiple other components.
+[**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 
 **How the architecture components interact with each other**
 
@@ -79,7 +79,7 @@ The **API** of this component is specified in [`Ui.java`](https://github.com/se-
 
 <puml src="diagrams/UiClassDiagram.puml" alt="Structure of the UI Component"/>
 
-The UI consists of a `MainWindow` that is made up of parts, e.g.` CommandBox`, `ResultDisplay`, `PersonListPanel`, `OrderListPanel`, `StatusBarFooter`, etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class, which captures the commonalities between classes that represent parts of the visible GUI.
+The UI consists of a `MainWindow` that is made up of parts, e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `OrderListPanel`, `StatusBarFooter`, etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class, which captures the commonalities between classes that represent parts of the visible GUI.
 
 The `UI` component uses the JavaFX UI framework. The layout of these UI parts is defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
 
@@ -108,7 +108,7 @@ Here's a (partial) class diagram of the `Logic` component:
 
 The sequence diagram below illustrates the interactions within the `Logic` component, taking the `execute("delete 1")` API call as an example.
 
-<puml src="diagrams/DeleteSequenceDiagram.puml" alt=" Interactions Inside the Logic Component for the `delete 1` Command" />
+<puml src="diagrams/DeleteSequenceDiagram.puml" alt="Interactions Inside the Logic Component for the `delete 1` Command" />
 
 <box type="info" seamless>
 
@@ -250,7 +250,7 @@ These operations are exposed in the `Model` interface:
 
 Given below is an example usage scenario and how the find order feature behaves at each step.
 
-Step 1. The user launches the application and types find-o i/pizza. The `FindOrderCommandParser`  receives `i/pizza`, parses it, and builds a map of search criteria with the key `i' and value `pizza`.
+Step 1. The user launches the application and types find-o i/pizza. The `FindOrderCommandParser`  receives `i/pizza`, parses it, and builds a map of search criteria with the key `i` and value `pizza`.
 
 <puml src="diagrams/Find-oState0.puml" alt="Find-oState0" />
 

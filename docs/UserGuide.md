@@ -117,6 +117,7 @@ Format: `add n/NAME [p/PHONE] [ig/INSTAGRAM] [fb/FACEBOOK] [a/ADDRESS] [r/REMARK
   * To specify multiple tags, repeat the `t/` prefix.  
       For example: `t/friend t/vegan t/regular`.  
       All tags provided will be added to the new customer.
+  * `/` is not allowed in tags as tags are designed to be simple, atomic labels to allow for easier search and filtering. For more complex descriptions, use the Remark field or separate the idea into multiple tags.
 * **Stray prefixes:** In `n/`, `p/`, `fb/`, `ig/`, and `t/`, an invalid prefix like `x/` is rejected. **`r/` and `a/`** skip this check so `/` in remarks and addresses stays literal.
 
 <box type="important" seamless>

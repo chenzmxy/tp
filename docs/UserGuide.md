@@ -818,6 +818,7 @@ A prefix not recognised by the command was used.
   * `/` is **not allowed** in phone, Facebook, Instagram, or tags. 
   * For names, escape it as `\/` (e.g. `n/John \/ Doe` → “John / Doe”). 
   * For address and remark, `/` can be typed normally.
+  * Tags are simple, atomic labels designed for easy searching, so use the Remark field or split the idea into multiple tags if needed.
 
 </panel>
 
@@ -872,7 +873,7 @@ Refer to [Invalid field format for `add`](#invalid-field-format-troubleshooting)
 - Check the full error message shown in the app for the correct `edit` command format and an example.
 - Ensure you provide:
   1. A positive integer index within the range of the currently displayed customer list; and
-  2. At least one field to edit (e.g. `n/`, `a/`, `p/`, `fb/`, `ig/`, `r/`).
+  2. At least one field to edit (e.g. `n/`, `a/`, `p/`, `fb/`, `ig/`, `r/`, `t`).
 - Refer to [Editing a customer](#edit) for more details.
 
 </panel>
